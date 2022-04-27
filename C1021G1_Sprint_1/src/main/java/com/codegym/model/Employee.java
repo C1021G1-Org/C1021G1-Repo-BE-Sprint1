@@ -19,7 +19,7 @@ public class Employee {
     private Boolean genderEmployee;
 
     @Column(columnDefinition = "DATE")
-    private String birthday;
+    private String birthdayEmployee;
 
     private String phoneEmployee;
 
@@ -72,12 +72,12 @@ public class Employee {
         this.genderEmployee = genderEmployee;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public String getBirthdayEmployee() {
+        return birthdayEmployee;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setBirthdayEmployee(String birthdayEmployee) {
+        this.birthdayEmployee = birthdayEmployee;
     }
 
     public String getPhoneEmployee() {

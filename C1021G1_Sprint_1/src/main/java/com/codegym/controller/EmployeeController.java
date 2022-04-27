@@ -49,4 +49,12 @@ public class EmployeeController {
         iEmployeeService.deleteEmployee(id);
         return new ResponseEntity<>(employee.get(), HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("search")
+    public ResponseEntity<Employee> findEmployee(String name, String code, String email) {
+        Optional<Employee> employee = iEmployeeService.findEmployee(name,code,email);
+        if (employee.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(employee, HttpStatus.OK);
+    }
 }

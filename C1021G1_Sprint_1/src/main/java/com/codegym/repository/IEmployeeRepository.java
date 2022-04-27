@@ -23,4 +23,8 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
     @Query(value = "SELECT id, address_employee, code_employee, birthday_employee, del_flag_employee, email_employee, gender_employee, name_employee, phone_employee, id_employee_type \n" +
             "FROM `employee` WHERE id = ?",nativeQuery = true)
     Optional<Employee> findEmployeeById(Long id);
+
+    @Query(value = "SELECT id, address_employee, code_employee, birthday_employee, del_flag_employee, email_employee, gender_employee, name_employee, phone_employee, id_employee_type \n" +
+            "FROM `employee` WHERE del_flag_employee = '1' AND name_employee LIKE name AND code_employee LIKE code AND email_employee LIKE email", nativeQuery = true)
+    Optional<Employee> findEmployeeByElementContaining(String name, String code, String email);
 }

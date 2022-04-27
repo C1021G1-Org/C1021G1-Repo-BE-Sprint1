@@ -8,7 +8,8 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 public interface IEmployeeService {
-    Page<Employee> findAllEmployee(PageRequest of, Pageable pageable);
+
+    Page<Employee> findAllEmployee(Pageable pageable);
 
     Optional<Employee> findEmployeeById(Long id);
 

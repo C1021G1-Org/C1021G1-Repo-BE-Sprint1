@@ -26,8 +26,8 @@ public class EmployeeController {
     private IEmployeeTypeService iEmployeeTypeService;
 
     @GetMapping("")
-    public ResponseEntity<Page<Employee>> getAllEmployee(@RequestParam(defaultValue = "0") int page, Pageable pageable){
-        Page<Employee> employees = iEmployeeService.findAllEmployee(PageRequest.of(page,5), pageable);
+    public ResponseEntity<Page<Employee>> getAllEmployee(@RequestParam(defaultValue = "0") int page){
+        Page<Employee> employees = iEmployeeService.findAllEmployee(PageRequest.of(page,10));
         if (employees.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

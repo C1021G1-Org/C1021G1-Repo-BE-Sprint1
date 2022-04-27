@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
     @Query(value = "SELECT id, address_employee, code_employee, birthday_employee, del_flag_employee, email_employee, gender_employee, name_employee, phone_employee, id_employee_type \n" +
         "FROM `employee` WHERE del_flag_employee = '1'",nativeQuery = true)
-    Page<Employee> findAllEmployee(PageRequest of, Pageable pageable);
+    Page<Employee> findAllEmployee(Pageable pageable);
 
     @Modifying
     @Query(value = "UPDATE `employee` SET del_flag_employee = 0 WHERE id = ? ", nativeQuery = true)

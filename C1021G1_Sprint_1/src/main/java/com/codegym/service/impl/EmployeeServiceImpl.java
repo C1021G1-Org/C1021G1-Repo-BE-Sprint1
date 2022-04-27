@@ -5,7 +5,6 @@ import com.codegym.repository.IEmployeeRepository;
 import com.codegym.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +17,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
     IEmployeeRepository iEmployeeRepository;
 
     @Override
-    public Page<Employee> findAllEmployee(PageRequest of, Pageable pageable) {
-        return iEmployeeRepository.findAllEmployee(of, pageable);
+    public Page<Employee> findAllEmployee(Pageable pageable) {
+        return iEmployeeRepository.findAllEmployee(pageable);
     }
 
     @Override

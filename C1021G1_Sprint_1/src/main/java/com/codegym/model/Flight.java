@@ -1,6 +1,7 @@
 package com.codegym.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -17,8 +18,10 @@ public class Flight {
 
     private String toFlight;
 
+    @Column(columnDefinition = "DATETIME")
     private String dateStart;
 
+    @Column(columnDefinition = "DATETIME")
     private String dateEnd;
 
     private Boolean delFlagFlight;

@@ -43,12 +43,12 @@ public class CustomerTypeController {
 //    /* Lấy danh sách tài nguyên */
 //
 //
-//    @GetMapping("/customer-type/api/v1")
-//    public ResponseEntity<List<CustomerType>> getCustomerTypeList() {
-//        List<CustomerType> customerTypeList = iCustomerTypeService.findAll();
-//        if (customerTypeList.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        }
-//        return new ResponseEntity<>(customerTypeList, HttpStatus.OK);
-//    }
+    @GetMapping("/customerType-list")
+    public ResponseEntity<List<CustomerType>> findAllCustomerType() {
+        List<CustomerType> customerTypeList = iCustomerTypeService.findAll();
+        if (customerTypeList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(customerTypeList, HttpStatus.OK);
+    }
 }

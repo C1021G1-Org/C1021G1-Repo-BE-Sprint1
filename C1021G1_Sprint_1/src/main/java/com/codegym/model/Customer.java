@@ -2,6 +2,7 @@ package com.codegym.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -15,8 +16,8 @@ public class Customer {
 
     private Boolean genderCustomer;
 
-    @Column(columnDefinition = "DATE")
-    private String birthdayCustomer;
+
+    private Date birthdayCustomer;
 
     private String idCardCustomer;
 
@@ -72,11 +73,11 @@ public class Customer {
         this.genderCustomer = genderCustomer;
     }
 
-    public String getBirthdayCustomer() {
+    public Date getBirthdayCustomer() {
         return birthdayCustomer;
     }
 
-    public void setBirthdayCustomer(String birthdayCustomer) {
+    public void setBirthdayCustomer(Date birthdayCustomer) {
         this.birthdayCustomer = birthdayCustomer;
     }
 

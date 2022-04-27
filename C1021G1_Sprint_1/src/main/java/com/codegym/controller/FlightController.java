@@ -26,18 +26,18 @@ public class FlightController {
         return new ResponseEntity<>(flightPage, HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/employees/{id}", method = RequestMethod.DELETE)
-//    public ResponseEntity<Flight> deleteFlight(@PathVariable("id") long id) {
-//        System.out.println("Fetching & Deleting Customer with id " + id);
-//
-//        Flight flight = flightService.findById(id);
-//        if (flight == null) {
-//            System.out.println("Unable to delete. Employee with id " + id + " not found");
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//
-//        flightService.remove(id);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
+    @RequestMapping(value = "/flight/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Flight> deleteFlight(@PathVariable("id") long id) {
+        System.out.println("Fetching & Deleting Customer with id " + id);
+
+        Flight flight = flightService.findById(id);
+        if (flight == null) {
+            System.out.println("Unable to delete. Employee with id " + id + " not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        flightService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }

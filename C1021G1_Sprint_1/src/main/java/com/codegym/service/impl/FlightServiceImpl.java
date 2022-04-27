@@ -20,7 +20,7 @@ public class FlightServiceImpl implements IFlightService {
 
     @Override
     public Flight findById(Long id) {
-        return iFlightRepository.findById(id).orElse(null);
+        return iFlightRepository.findByIdFlight(id);
     }
 
     @Override

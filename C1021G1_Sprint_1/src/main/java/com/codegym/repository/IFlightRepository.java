@@ -11,6 +11,10 @@ public interface IFlightRepository extends JpaRepository<Flight,Long> {
             "FROM flight JOIN airline_type on flight.id_airline_type = airline_type.id", nativeQuery = true)
     Page<Flight> findAllFlight(Pageable pageable);
 
-    @Query(value = "DELETE FROM flight where id=?", nativeQuery = true)
+    @Query(value = "SELECT id,from_flight,to_flight,date_start,date_end,id_airline_type\n" +
+            "FROM flight WHERE id = ? ", nativeQuery = true)
+    Flight findByIdFlight(Long id);
+
+    @Query(value = "UPDATE flight SET del_flag_airline = FALSE WHERE id : ?", nativeQuery = true)
     void deleteById(Long id);
 }

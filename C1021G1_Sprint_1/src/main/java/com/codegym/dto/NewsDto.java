@@ -14,7 +14,7 @@ public class NewsDto  {
     @NotBlank(message = "Name may not be blank")
     private String nameNews;
 
-    @Pattern(regexp = "^([a-zAa-Z])$", message = "Vui lòng không nhập chữ")
+    @Pattern(regexp = "^TT-[0-9]{4}$",message = "vui lòng nhập đúng định danh TT-XXXX")
     @NotBlank(message = "Code may not be blank")
     private String codeNews;
 

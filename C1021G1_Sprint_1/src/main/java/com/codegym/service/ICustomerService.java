@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public interface ICustomerService {
-        Page<Customer> findAllCustomer(String name, Pageable pageable);
+        Page<Customer> findAllCustomer(Pageable pageable);
 
         void remove(Long id);
 

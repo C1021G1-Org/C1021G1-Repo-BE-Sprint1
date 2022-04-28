@@ -22,8 +22,8 @@ public class CustomerDto implements Validator {
     private String nameCustomer;
     @NotNull(message = "Vui lòng chọn giới tính")
     private Boolean genderCustomer;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date birthdayCustomer;
+    @NotBlank(message = "Vui lòng nhập ngày sinh!")
+    private String birthdayCustomer;
     @NotBlank(message = "Vui lòng nhập CCCD!")
     private String idCardCustomer;
 
@@ -86,12 +86,14 @@ public class CustomerDto implements Validator {
         this.genderCustomer = genderCustomer;
     }
 
-    public Date getBirthdayCustomer() {
-        return birthdayCustomer;
+
+
+    public void setBirthdayCustomer(String birthdayCustomer) {
+        this.birthdayCustomer = birthdayCustomer;
     }
 
-    public void setBirthdayCustomer(Date birthdayCustomer) {
-        this.birthdayCustomer = birthdayCustomer;
+    public String getBirthdayCustomer() {
+        return birthdayCustomer;
     }
 
     public String getIdCardCustomer() {

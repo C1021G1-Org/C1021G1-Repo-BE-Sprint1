@@ -16,8 +16,8 @@ public class Customer {
 
     private Boolean genderCustomer;
 
-
-    private Date birthdayCustomer;
+    @Column(columnDefinition = "DATE")
+    private String birthdayCustomer;
 
     private String idCardCustomer;
 
@@ -73,11 +73,11 @@ public class Customer {
         this.genderCustomer = genderCustomer;
     }
 
-    public Date getBirthdayCustomer() {
+    public String getBirthdayCustomer() {
         return birthdayCustomer;
     }
 
-    public void setBirthdayCustomer(Date birthdayCustomer) {
+    public void setBirthdayCustomer(String birthdayCustomer) {
         this.birthdayCustomer = birthdayCustomer;
     }
 

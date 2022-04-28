@@ -16,21 +16,22 @@ public class TicketServiceImpl implements ITicketService {
 
     @Override
     public Page<Ticket> findAllTicket(Pageable pageable) {
-        return repository.findAll(pageable);
+        return repository.findAllTicket(pageable);
     }
 
 //    @Override
-//    public Ticket findTicketById(Long id) {
-//        return repository.findById(id).orElse(null);
-//    }
-//
-//    @Override
-//    public void deleteTicketById(Long id) {
-//        repository.deleteById(id);
-//    }
+    public Ticket findTicketById(Long id) {
+        return repository.findTicketById(id).orElse(null);
+    }
 
-//    @Override
-//    public Page<Ticket> ticketSalesSearch(String name, Pageable pageable) {
-//        return repository.s;
-//    }
+    @Override
+    public void deleteTicketById(Long id) {
+        repository.deleteTicketById(id);
+    }
+
+    @Override
+    public Page<Ticket> ticketSalesSearch(String buyer, String code, String email, Pageable pageable) {
+        return repository.findTicketByElementContaining(buyer, code, email,pageable);
+    }
+
 }

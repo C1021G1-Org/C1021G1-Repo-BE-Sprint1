@@ -7,10 +7,10 @@ import org.springframework.data.domain.Pageable;
 public interface ITicketService {
 
     Page<Ticket> findAllTicket(Pageable pageable);
-//
-//    Ticket findTicketById(Long id);
-//
-//    void deleteTicketById(Long id);
 
-    // Page<Ticket> ticketSalesSearch(String name, Pageable pageable);
+    Ticket findTicketById(Long id);
+
+    void deleteTicketById(Long id);
+
+     Page<Ticket> ticketSalesSearch(String buyer, String code, String email, Pageable pageable);
 }

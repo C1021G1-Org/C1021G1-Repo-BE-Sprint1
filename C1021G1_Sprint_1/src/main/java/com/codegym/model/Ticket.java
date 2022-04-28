@@ -27,6 +27,7 @@ public class Ticket {
     private Boolean delFlagTicket;
 
     private Integer pointTicket;
+
               // Người mua vé
     private String buyerTicket;
 

@@ -9,42 +9,41 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("ticket/api")
 public class TicketController {
 
     @Autowired
-    private ITicketService ticketService;
+    private ITicketService iTicketService;
 
-    @GetMapping("/listTicket")
-    public ResponseEntity<Page<Ticket>> getAllListTicket(@RequestParam(defaultValue = "0") int page) {
-        Page<Ticket> ticketPage = ticketService.findAllTicket(PageRequest.of(page, 10));
+    @GetMapping("/list")
+    public ResponseEntity<Page<Ticket>> getAllListTicket(@PageableDefault(size = 2) Pageable pageable) {
+        Page<Ticket> ticketPage = this.iTicketService.findAllTicket(pageable);
         if (ticketPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(ticketPage, HttpStatus.OK);
     }
 
-//
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<Customer> deleteCustomer(@PathVariable Long id) {
-//        Customer customers = customerService.findById(id);
-//        if (customers == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        customerService.remove(id);
-//        return new ResponseEntity<>(customers, HttpStatus.NO_CONTENT);
-//    }
-//
-//    @GetMapping("/search")
-//    public ResponseEntity<Employee> findEmployee(String name, String code, String email) {
-//        Optional<Employee> employee = iEmployeeService.findEmployee(name,code,email);
-//        return employee.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Ticket> deleteTicketById(@PathVariable Long id) {
+        Ticket tickets = iTicketService.findTicketById(id);
+        if (tickets == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        iTicketService.deleteTicketById(id);
+        return new ResponseEntity<>(tickets, HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<Ticket>> findAllTicket(String name, String code, String email, @RequestParam(defaultValue = "0") int page) {
+        Page<Ticket> ticketPage = iTicketService.ticketSalesSearch(name,code,email,PageRequest.of(page,10));
+        if (ticketPage.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(ticketPage, HttpStatus.OK);
+    }
 
 }

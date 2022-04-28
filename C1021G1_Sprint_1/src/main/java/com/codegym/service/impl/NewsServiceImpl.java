@@ -26,7 +26,8 @@ public class NewsServiceImpl implements INewsService {
     }
 
     @Override
-    public Optional<News> findNewsById(Long id) {
+    public Optional<News> findNewsById(Long id)
+    {
         return iNewsRepository.findNewsById(id);
     }
 

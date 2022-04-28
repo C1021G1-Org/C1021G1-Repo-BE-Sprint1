@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-
+@CrossOrigin("*")
 public class NewsController {
     @Autowired
     private INewsService iNewsService;
@@ -25,7 +25,7 @@ public class NewsController {
     private ICategoryService iCategoryService;
 
     @GetMapping("/list-news")
-    public ResponseEntity<Page<News>> findAllNews(Pageable pageable) {
+    public ResponseEntity<Page<News>> findAllNews(@PageableDefault(value = 10) Pageable pageable) {
         Page<News> newsPage = iNewsService.findAllNews(pageable);
         if (newsPage.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

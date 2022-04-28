@@ -14,22 +14,22 @@ public class TicketServiceImpl implements ITicketService {
     @Autowired
     private ITicketRepository repository;
 
-    @Override
+    @Override // danh sách
     public Page<Ticket> findAllTicket(Pageable pageable) {
-        return repository.findAllTicket(pageable);
+        return repository.findAllListTicket(pageable);
     }
 
-//    @Override
+    @Override // tim id
     public Ticket findTicketById(Long id) {
         return repository.findTicketById(id).orElse(null);
     }
 
-    @Override
+    @Override // xóa theo id
     public void deleteTicketById(Long id) {
         repository.deleteTicketById(id);
     }
 
-    @Override
+    @Override  // tìm kiếm
     public Page<Ticket> ticketSalesSearch(String buyer, String code, String email, Pageable pageable) {
         return repository.findTicketByElementContaining(buyer, code, email,pageable);
     }

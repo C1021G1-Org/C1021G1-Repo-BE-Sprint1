@@ -34,13 +34,13 @@ public class TicketController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         iTicketService.deleteTicketById(id);
-        return new ResponseEntity<>(tickets, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<Ticket>> findAllTicket(String name, String code, String email, @RequestParam(defaultValue = "0") int page) {
-        Page<Ticket> ticketPage = iTicketService.ticketSalesSearch(name,code,email,PageRequest.of(page,10));
-        if (ticketPage.isEmpty()){
+    public ResponseEntity<Page<Ticket>> findAllTicketSearch(@RequestParam(defaultValue = "",required = false) String buyer, @RequestParam(defaultValue = "",required = false)  String code, @RequestParam(defaultValue = "",required = false)  String email, @RequestParam(defaultValue = "0") int page) {
+        Page<Ticket> ticketPage = iTicketService.ticketSalesSearch(buyer, code, email, PageRequest.of(page, 2));
+        if (ticketPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(ticketPage, HttpStatus.OK);

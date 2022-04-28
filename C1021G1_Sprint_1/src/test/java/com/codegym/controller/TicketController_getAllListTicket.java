@@ -1,4 +1,4 @@
-package com.codegym;
+package com.codegym.controller;
 
 import com.codegym.controller.TicketController;
 import com.codegym.model.Ticket;
@@ -19,11 +19,10 @@ public class TicketController_getAllListTicket {
     @Test
     public void getAllListTicket_5() {
         ResponseEntity<Page<Ticket>> responseEntity
-                = this.ticketController.getAllListTicket(PageRequest.of(0, 10));
+                = this.ticketController.getAllListTicket(PageRequest.of(0, 2));
 
-        Assertions.assertEquals(404, responseEntity.getStatusCodeValue());
+        Assertions.assertEquals(204, responseEntity.getStatusCodeValue());
     }
-
 
     @Test
     public void getListStudent_6() {
@@ -33,7 +32,7 @@ public class TicketController_getAllListTicket {
         Assertions.assertEquals(200, responseEntity.getStatusCodeValue());
         Assertions.assertEquals(3, responseEntity.getBody().getTotalPages());
         Assertions.assertEquals(5, responseEntity.getBody().getTotalElements());
-        Assertions.assertEquals("...",
+        Assertions.assertEquals("TK-002",
                 responseEntity.getBody().getContent().get(1).getCodeTicket());
     }
 

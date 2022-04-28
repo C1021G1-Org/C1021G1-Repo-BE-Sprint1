@@ -23,9 +23,6 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     @Query(value = "update `customer` SET del_flag_customer = 0 where id = ?", nativeQuery = true)
     void deleteCustomerByIdCustomer(Long id);
 
-//    @Query(value = "select id, name_customer, gender_customer, birthday_customer, email_customer, phone_customer, address_customer, point_customer, id_country ,id_customer_type, id_card_customer from `customer` where keyword like %?%", nativeQuery = true)
-//    List<Customer> findByAllField(@Param("keyword") String keyword);
-
     @Query(value = "select id, name_customer, gender_customer, birthday_customer, email_customer, phone_customer, " +
                       "address_customer, point_customer, id_country ,id_customer_type, id_card_customer, del_flag_customer, image_customer from `customer` where id = ?", nativeQuery = true)
     Customer findByIdCustomer(Long id);

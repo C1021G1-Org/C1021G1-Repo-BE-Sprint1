@@ -23,4 +23,9 @@ public class ReportServiceImpl implements IReportService {
     public List<Ticket> getAllTicket() {
         return iReportRepository.getAllTicket();
     }
+
+    @Override
+    public List<IReport> getAllReportEmployee() {
+        return iReportRepository.getAllReportEmployee();
+    }
 }

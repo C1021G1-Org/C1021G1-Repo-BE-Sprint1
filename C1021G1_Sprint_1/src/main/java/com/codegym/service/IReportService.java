@@ -8,4 +8,5 @@ import java.util.List;
 public interface IReportService {
     List<IReport> getAllReport(Integer month);
     List<Ticket> getAllTicket();
+    List<IReport> getAllReportEmployee();
 }

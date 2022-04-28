@@ -30,4 +30,11 @@ public interface IReportRepository extends JpaRepository<Ticket,Long> {
             " GROUP BY MONTH(date_start)\n" +
             " ORDER BY MONTH(date_start)",nativeQuery = true)
     List<IReport> getAllReport(Integer month);
+
+    @Query(value = "select employee.id, employee.name_employee,sum(ticket.point_ticket)sumPoint,month(date_start)monthEmployee from employee\n" +
+            "left join ticket on ticket.id_employee = employee.id\n" +
+            "left join flight  on ticket.id_flight = flight.id\n" +
+            "where status_ticket = true and ticket.email_ticket = employee.email_employee \n" +
+            "group by employee.id order by sum(ticket.point_ticket) desc;",nativeQuery = true)
+    List<IReport> getAllReportEmployee();
 }

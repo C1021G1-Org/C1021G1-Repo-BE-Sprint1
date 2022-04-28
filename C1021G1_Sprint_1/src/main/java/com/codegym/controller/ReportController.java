@@ -26,6 +26,7 @@ public class ReportController {
         return new ResponseEntity<>(ticketList,HttpStatus.OK);
     }
 
+
     @GetMapping("/report-price")
     public ResponseEntity<List<IReport>> getAllReport(@RequestParam Integer month){
         List<IReport> iReportList = iReportService.getAllReport(month);
@@ -34,4 +35,15 @@ public class ReportController {
         }
         return new ResponseEntity<>(iReportList,HttpStatus.OK);
     }
+
+    @GetMapping("/report-employee")
+    public ResponseEntity<List<IReport>> getAllEmployee(){
+        List<IReport> list = iReportService.getAllReportEmployee();
+        if(list.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(list,HttpStatus.OK);
+    }
+
+
 }

@@ -1,5 +1,15 @@
 package com.codegym.dto;
 
-public class FlightDto {
+public interface FlightDto {
+
+    String getCode_flight();
+
+    String getImage_airline();
+
+    String getPrice_airline();
+
+    String getDate_start();
+
+    String getDate_end();
 
 }

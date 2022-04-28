@@ -37,6 +37,10 @@ public class Employee {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<Ticket> ticketEmployee;
 
+    @JsonBackReference(value = "employee_ticket_history")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+    private Set<TicketHistory> ticketHistories;
+
     public Employee() {
     }
 
@@ -126,5 +130,13 @@ public class Employee {
 
     public void setTicketEmployee(Set<Ticket> ticketEmployee) {
         this.ticketEmployee = ticketEmployee;
+    }
+
+    public Set<TicketHistory> getTicketHistories() {
+        return ticketHistories;
+    }
+
+    public void setTicketHistories(Set<TicketHistory> ticketHistories) {
+        this.ticketHistories = ticketHistories;
     }
 }

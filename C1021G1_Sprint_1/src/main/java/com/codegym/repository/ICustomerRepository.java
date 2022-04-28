@@ -20,13 +20,13 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
             "id_card_customer,birthday_customer,address_customer,id_customer_type,id_country,del_flag_customer) " +
             "values (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10)", nativeQuery = true)
     void saveCustomer(String nameCustomer,
-                             String phoneCustomer,
-                             Boolean genderCustomer,
-                             String emailCustomer,
-                             String idCardCustomer,
-                             Date birthdayCustomer,
-                             String addressCustomer,
-                            Long customerType,
-                             Long countries,
-                             Boolean delFlagCustomer);
+                      String phoneCustomer,
+                      Boolean genderCustomer,
+                      String emailCustomer,
+                      String idCardCustomer,
+                      String birthdayCustomer,
+                      String addressCustomer,
+                      Long customerType,
+                      Long countries,
+                      Boolean delFlagCustomer);
 }

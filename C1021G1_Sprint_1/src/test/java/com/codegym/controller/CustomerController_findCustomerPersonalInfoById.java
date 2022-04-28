@@ -40,22 +40,23 @@ public class CustomerController_findCustomerPersonalInfoById {
     @Test
     public void findCustomerPersonalInfoById_4() throws Exception{
         this.mockMvc.perform(
-                MockMvcRequestBuilders.get("/customer/{id}","1"))
+                MockMvcRequestBuilders.get("/customer/{id}","9"))
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.address_customer").value("Đà Nẵng"))
-                .andExpect(jsonPath("$.birthday_customer").value("1990-12-04"))
-                .andExpect(jsonPath("$.del_flag_customer").value(1))
-                .andExpect(jsonPath("$.email_customer").value("Nguyen1@gmail.com"))
-                .andExpect(jsonPath("$.gender_customer").value(1))
-                .andExpect(jsonPath("$.id_card_customer").value("1311221333"))
-                .andExpect(jsonPath("$.image_customer").value("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa4FYDcExqiB-NZf6KGOsoYg2L8rUhQVVO0w&usqp=CAU"))
-                .andExpect(jsonPath("$.name_customer").value("Nguyễn Văn Nguyên"))
-                .andExpect(jsonPath("$.phone_customer").value("0903111222"))
-                .andExpect(jsonPath("$.point_customer").value(100))
-                .andExpect(jsonPath("$.id_country.id").value(241))
-                .andExpect(jsonPath("$.id_customer_type.id").value(4))
+                .andExpect(jsonPath("$.id").value(9))
+                .andExpect(jsonPath("$.addressCustomer").value("Đà Nẵng"))
+                .andExpect(jsonPath("$.birthdayCustomer").value("1990-12-04"))
+                .andExpect(jsonPath("$.delFlagCustomer").value(true))
+                .andExpect(jsonPath("$.emailCustomer").value("Nguyen9@gmail.com"))
+                .andExpect(jsonPath("$.genderCustomer").value(true))
+                .andExpect(jsonPath("$.idCardCustomer").value("1311221333"))
+                .andExpect(jsonPath("$.imageCustomer").value("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa4FYDcExqiB-NZf6KGOsoYg2L8rUhQVVO0w&usqp=CAU"))
+                .andExpect(jsonPath("$.nameCustomer").value("Hồ Thị Hi"))
+                .andExpect(jsonPath("$.phoneCustomer").value("0903111222"))
+                .andExpect(jsonPath("$.pointCustomer").value(100))
+                .andExpect(jsonPath("$.countries.id").value(241))
+                .andExpect(jsonPath("$.customerType.id").value(4))
+                
         ;
     }
 

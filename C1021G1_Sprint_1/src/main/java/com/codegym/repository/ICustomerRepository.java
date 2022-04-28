@@ -14,9 +14,14 @@ public interface ICustomerRepository extends JpaRepository<Customer,Long> {
     /*ThangDBX lấy dữ liệu của khách hàng  */
     @Query(value = "select *" +
             "from customer\n" +
-//            "join customer_type on customer.id_customer_type = customer_type.id\n" +
+            "join customer_type on customer.id_customer_type = customer_type.id\n" +
             "where customer.id = :id" , nativeQuery = true )
     Customer findCustomerByID(@Param("id") Long id );
+
+    @Query(value = "select id, name_customer, gender_customer, birthday_customer, email_customer, phone_customer, " +
+            "address_customer, point_customer, id_country ,id_customer_type, id_card_customer, del_flag_customer, image_customer from `customer` where id = ?", nativeQuery = true)
+    Customer findByIdPersonal(Long id);
+
 
     /*ThangDBX cập nhật dữ liệu của khách hàng  */
 

@@ -18,6 +18,11 @@ public class CustomerServiceImpl implements ICustomerService {
         return customerRepository.findCustomerByID(id);
     }
 
+    @Override
+    public Customer findByIdPersonal(Long id) {
+        return customerRepository.findByIdPersonal(id);
+    }
+
     /*ThangDBX cap nhat liệu của khách hàng  */
     @Override
     public void updatePersonalInfo(Customer customer) {

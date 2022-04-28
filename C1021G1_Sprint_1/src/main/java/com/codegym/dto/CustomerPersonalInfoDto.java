@@ -36,6 +36,7 @@ public class CustomerPersonalInfoDto implements Validator {
     private Boolean genderCustomer;
 
     @NotBlank
+    @Pattern(regexp = "\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])")
     private String birthdayCustomer;
 
     @NotBlank
@@ -52,9 +53,8 @@ public class CustomerPersonalInfoDto implements Validator {
     @NotBlank
     private String addressCustomer;
 
-    @NotBlank
+//    @Pattern(regexp = "([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)")
     private String imageCustomer;
-
 
     private Countries countries;
 

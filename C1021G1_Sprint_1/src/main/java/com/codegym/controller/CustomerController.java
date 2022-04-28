@@ -22,7 +22,7 @@ public class CustomerController {
     /*ThangDBX lấy thông tin cá nhân của khách hàng */
     @GetMapping("customer/{id}")
     public ResponseEntity<Customer> findCustomerPersonalInfoById(@PathVariable("id") Long id){
-        Customer customer = customerService.findCustomerById(id);
+        Customer customer = customerService.findByIdPersonal(id);
         if (customer != null){
             return new ResponseEntity<>(customer,HttpStatus.OK);
         } else {

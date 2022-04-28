@@ -9,7 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,5 +31,20 @@ public class FlightServiceImpl implements IFlightService {
         arrival = iFlightRepository.searchFlight(arrivalDestination, departureDestination, departureDate, arrivalDate, pageable);
         searchFlight.put("twoway", arrival);
         return searchFlight;
+    }
+
+    @Override
+    public Page<Flight> findAllFlight(Pageable pageable) {
+        return iFlightRepository.findAllFlight(pageable);
+    }
+
+    @Override
+    public Flight findById(Long id) {
+        return iFlightRepository.findByIdFlight(id);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        iFlightRepository.deleteById(id);
     }
 }

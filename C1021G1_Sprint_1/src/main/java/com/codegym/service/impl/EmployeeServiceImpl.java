@@ -30,4 +30,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public void deleteEmployee(Long id) {
         iEmployeeRepository.deleteEmployee(id);
     }
+
+    @Override
+    public Optional<Employee> findEmployee(String name, String code, String email) {
+        return iEmployeeRepository.findEmployeeByElementContaining(name, code, email);
+    }
 }

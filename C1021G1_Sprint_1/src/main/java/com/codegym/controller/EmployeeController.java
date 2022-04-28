@@ -7,7 +7,6 @@ import com.codegym.service.IEmployeeTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,9 +44,15 @@ public class EmployeeController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Employee> deleteEmployee(@PathVariable Long id) {
         Optional<Employee> employee = iEmployeeService.findEmployeeById(id);
-        if (employee.isEmpty())
+        if (!employee.isPresent())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         iEmployeeService.deleteEmployee(id);
         return new ResponseEntity<>(employee.get(), HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Employee> findEmployee(String name, String code, String email) {
+        Optional<Employee> employee = iEmployeeService.findEmployee(name,code,email);
+        return employee.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

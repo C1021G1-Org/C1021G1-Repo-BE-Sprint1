@@ -32,7 +32,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public Optional<Employee> findEmployee(String name, String code, String email) {
-        return iEmployeeRepository.findEmployeeByElementContaining(name, code, email);
+    public Page<Employee> findEmployee(String name, String code, String email, Pageable pageable) {
+        return iEmployeeRepository.findEmployeeByElementContaining(name, code, email, pageable) ;
     }
 }

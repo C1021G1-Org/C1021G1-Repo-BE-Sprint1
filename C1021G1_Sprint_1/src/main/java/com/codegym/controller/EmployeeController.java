@@ -7,6 +7,7 @@ import com.codegym.service.IEmployeeTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,8 +52,11 @@ public class EmployeeController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Employee> findEmployee(String name, String code, String email) {
-        Optional<Employee> employee = iEmployeeService.findEmployee(name,code,email);
-        return employee.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<Page<Employee>> findEmployee(String name, String code, String email, @RequestParam(defaultValue = "0") int page) {
+        Page<Employee> employees = iEmployeeService.findEmployee(name,code,email,PageRequest.of(page,10));
+        if (employees.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 }

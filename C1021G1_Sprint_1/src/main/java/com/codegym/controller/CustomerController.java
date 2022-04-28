@@ -3,19 +3,27 @@ import com.codegym.dto.CustomerDto;
 import com.codegym.model.Customer;
 import com.codegym.service.ICustomerService;
 
+
+
+import com.codegym.model.Customer;
+import com.codegym.model.CustomerType;
+import com.codegym.service.ICustomerService;
+import com.codegym.service.ICustomerTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 @RestController
 @CrossOrigin("*")
@@ -24,6 +32,10 @@ public class CustomerController {
 
     @Autowired
     private ICustomerService iCustomerService;
+
+    @Autowired
+    private ICustomerTypeService iCustomerTypeService;
+
     @PostMapping("/create")
     public ResponseEntity<?> saveCustomer(@Valid @RequestBody CustomerDto customerDto)  {
         iCustomerService.save(customerDto);
@@ -41,14 +53,14 @@ public class CustomerController {
         });
         return errors;
     }
-    @GetMapping("/list")
-    public ResponseEntity<List<Customer>> findAllCustomer() {
-        List<Customer> customerTypeList = iCustomerService.findAll();
-        if (customerTypeList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(customerTypeList, HttpStatus.OK);
-    }
+//    @GetMapping("/list")
+//    public ResponseEntity<List<Customer>> findAllCustomer() {
+//        List<Customer> customerTypeList = iCustomerService.findAll();
+//        if (customerTypeList.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<>(customerTypeList, HttpStatus.OK);
+//    }
 //    @GetMapping("/{id}")
 //    public ResponseEntity<Customer> findCustomerById(@PathVariable Integer id) {
 //        Optional<Customer> customerOptional = Optional.ofNullable(iCustomerService.findById(id));
@@ -68,5 +80,44 @@ public class CustomerController {
 //        return new ResponseEntity<>(iCustomerService.save(customer), HttpStatus.OK);
 //    }
 
+
+
+
+    @GetMapping("/list")
+    public ResponseEntity<Page<Customer>> getAllCustomer(@PageableDefault(size = 10) Pageable pageable) {
+        Page<Customer> customers = iCustomerService.findAllCustomer(pageable);
+        if (customers.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(customers, HttpStatus.OK);
+    }
+
+    @GetMapping("/customerType")
+    public ResponseEntity<List<CustomerType>> getAllCustomerType(){
+        List<CustomerType> customerTypes = iCustomerTypeService.findAll();
+        if (customerTypes.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+            return new ResponseEntity<>(customerTypes, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Customer> deleteCustomer(@PathVariable Long id) {
+        Customer customers = iCustomerService.findById(id);
+        if (customers == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        iCustomerService.remove(id);
+        return new ResponseEntity<>(customers, HttpStatus.NO_CONTENT);
+    }
+
+        @GetMapping("/search")
+    public ResponseEntity<List<Customer>> searchCustomer(@RequestParam(defaultValue = "") String keyword){
+        List<Customer> customerList = iCustomerService.searchCustomer(keyword);
+        if (customerList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+            return new ResponseEntity<>(customerList, HttpStatus.OK);
+    }
 
 }

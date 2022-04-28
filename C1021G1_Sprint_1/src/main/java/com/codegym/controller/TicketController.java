@@ -17,12 +17,12 @@ public class TicketController {
     @Autowired
     private TicketServiceImpl ticketService;
 
-    @GetMapping("/ticket")
+    @GetMapping("/listTicketType")
     public ResponseEntity<List<Ticket>> getListTicketByIdFlight(@RequestParam(defaultValue = "")Long id, @RequestParam(defaultValue = "") String typeSeat)
 
     {
 
-        List<Ticket> ticketList = ticketService.getListTypeSeatAndFlightId(id, typeSeat);
+        List<Ticket> ticketList = ticketService.getListNumberTicket(id, typeSeat);
 
         if (ticketList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -30,5 +30,7 @@ public class TicketController {
             return new ResponseEntity<>(ticketList, HttpStatus.OK);
         }
     }
+
+
 
 }

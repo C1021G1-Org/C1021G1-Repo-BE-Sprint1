@@ -13,9 +13,11 @@ public class TicketServiceImpl implements ITicketService {
 @Autowired
 private ITicketRepository ticketRepository;
 
-    @Override
-    public List<Ticket> getListTypeSeatAndFlightId(Long idFlight, String typeSeat) {
 
+    @Override
+    public List<Ticket> getListNumberTicket(Long idFlight, String typeSeat) {
         return ticketRepository.getListNumberTicket(idFlight,typeSeat);
     }
+
+
 }

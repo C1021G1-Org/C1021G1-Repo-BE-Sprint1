@@ -3,6 +3,7 @@ package com.codegym.model;
 import com.codegym.model.Customer;
 import com.codegym.model.Employee;
 import com.codegym.model.Flight;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,17 +22,18 @@ public class Ticket {
     private Boolean genderTicket;
 
     private Boolean statusTicket;
-                // Giá vé
+    // Giá vé
     private Double priceTicket;
 
     private Boolean delFlagTicket;
 
     private Integer pointTicket;
-              // Người mua vé
+    // Người mua vé
     private String buyer;
 
-          // Ngày sinh của người mua vé
-    private String dayOfBirth;
+    // Ngày sinh của người đi vé
+    @Column(columnDefinition = "DATE")
+    private String birthdayTicket;
 
     @ManyToOne
     @JoinColumn(name = "id_employee", referencedColumnName = "id")
@@ -152,11 +154,11 @@ public class Ticket {
         this.flightTicket = flightTicket;
     }
 
-    public String getDayOfBirth() {
-        return dayOfBirth;
+    public String getBirthdayTicket() {
+        return birthdayTicket;
     }
 
-    public void setDayOfBirth(String dayOfBirth) {
-        this.dayOfBirth = dayOfBirth;
+    public void setBirthdayTicket(String birthdayTicket) {
+        this.birthdayTicket = birthdayTicket;
     }
 }

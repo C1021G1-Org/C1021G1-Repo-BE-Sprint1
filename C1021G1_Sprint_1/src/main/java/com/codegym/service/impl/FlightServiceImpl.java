@@ -8,26 +8,24 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+
 import java.util.Map;
-import java.util.Set;
+
 
 
 @Service
 public class FlightServiceImpl implements IFlightService {
     @Autowired
     private IFlightRepository iFlightRepository;
-
+    private Map<String, Page<Flight>> searchFlight;
+    private Page<Flight> departure;
+    private Page<Flight> arrival;
     @Override
-    public Map<String,Page<Flight>> searchFlight(String fromFlight, String toFlight, String dateStart,
-                                     String dateEnd, Pageable pageable) {
-        Map<String, Page<Flight>> searchFlight = new HashMap<>();
-        Set<String> trip = searchFlight.keySet();
-        if (trip.equals("One way")) {
-          searchFlight.put("One way",iFlightRepository.searchFlight(fromFlight,toFlight,dateStart,dateEnd,pageable));
-        } else if (trip.equals("Two way")) {
-            searchFlight.put("Two way",iFlightRepository.searchFlight(toFlight,fromFlight,dateStart,dateEnd,pageable));
-        }
+    public Map<String, Page<Flight>> searchFlight(String departureDestination, String arrivalDestination, String departureDate, String arrivalDate, Pageable pageable) {
+        departure = iFlightRepository.searchFlight(departureDestination, arrivalDestination, departureDate, arrivalDate, pageable);
+        searchFlight.put("oneway", departure);
+        arrival = iFlightRepository.searchFlight(arrivalDestination, departureDestination, departureDate, arrivalDate, pageable);
+        searchFlight.put("twoway", arrival);
         return searchFlight;
     }
 }

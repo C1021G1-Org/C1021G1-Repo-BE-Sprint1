@@ -1,5 +1,6 @@
 package com.codegym.service.impl;
 
+
 import com.codegym.model.Customer;
 import com.codegym.repository.ICustomerRepository;
 import com.codegym.service.ICustomerService;
@@ -16,19 +17,29 @@ public class CustomerServiceImpl implements ICustomerService {
     @Autowired
     private ICustomerRepository customerRepository;
 
+
     @Override
-    public Page<Customer> findAllCustomer(Pageable pageable) {
-        return customerRepository.findAllByCustomer(pageable);
+    public Page<Customer> findAllCustomer(String name, Pageable pageable) {
+        return customerRepository.findAllByCustomer(name,pageable);
     }
 
     @Override
-    public void deleteCustomer(Long id) {
+    public void remove(Long id) {
         customerRepository.deleteCustomerByIdCustomer(id);
     }
 
 
     @Override
     public List<Customer> searchCustomer(String keyword) {
-        return customerRepository.findByAllField(keyword);
+        return customerRepository.searchAllByFields(keyword);
     }
+
+    @Override
+    public Customer findById(Long id) {
+        return customerRepository.findByIdCustomer(id);
+    }
+
+
+
+
 }

@@ -1,51 +1,33 @@
 package com.codegym.dto;
 
-import com.codegym.model.EmployeeType;
-import com.codegym.model.Ticket;
-
-import java.util.Set;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public class EmployeeDto {
     private Long id;
+    @NotNull
+    @Size(min = 6)
+    private String name_Employee;
+    @NotNull
+    @Pattern(regexp = "((NV-|nv-)\\d{3})", message = "Mã nhân viên phải là NV-XXX")
+    private String code_Employee;
 
-    private String nameEmployee;
-
-    private String codeEmployee;
-
-    private Boolean genderEmployee;
-
-    private String birthdayEmployee;
-
-    private String phoneEmployee;
-
-    private String emailEmployee;
-
-    private String addressEmployee;
-
-    private Boolean delFlagEmployee;
-
-    private EmployeeType employeeType;
+    private Boolean gender_Employee;
+    @NotNull
+    private String birthday_Employee;
+    private String phone_Employee;
+    @NotNull
+    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Email bạn nhập không hợp lệ. Vui lòng nhập đúng định dạng. VD:abc@gmail.com")
+    private String email_Employee;
+    @NotNull
+    @Size(min = 6)
+    private String address_Employee;
+    private Boolean del_Flag_Employee;
+    private Long id_employee_type ;
 
     public EmployeeDto() {
     }
-
-    public EmployeeDto(Long id, String nameEmployee, String codeEmployee, Boolean genderEmployee,
-                       String birthdayEmployee, String phoneEmployee, String emailEmployee, String addressEmployee,
-                       Boolean delFlagEmployee, EmployeeType employeeType, Set<Ticket> ticketEmployee) {
-        this.id = id;
-        this.nameEmployee = nameEmployee;
-        this.codeEmployee = codeEmployee;
-        this.genderEmployee = genderEmployee;
-        this.birthdayEmployee = birthdayEmployee;
-        this.phoneEmployee = phoneEmployee;
-        this.emailEmployee = emailEmployee;
-        this.addressEmployee = addressEmployee;
-        this.delFlagEmployee = delFlagEmployee;
-        this.employeeType = employeeType;
-        this.ticketEmployee = ticketEmployee;
-    }
-
-    private Set<Ticket> ticketEmployee;
 
     public Long getId() {
         return id;
@@ -55,83 +37,89 @@ public class EmployeeDto {
         this.id = id;
     }
 
-    public String getNameEmployee() {
-        return nameEmployee;
+    public String getName_Employee() {
+        return name_Employee;
     }
 
-    public void setNameEmployee(String nameEmployee) {
-        this.nameEmployee = nameEmployee;
+    public void setName_Employee(String name_Employee) {
+        this.name_Employee = name_Employee;
     }
 
-    public String getCodeEmployee() {
-        return codeEmployee;
+    public String getCode_Employee() {
+        return code_Employee;
     }
 
-    public void setCodeEmployee(String codeEmployee) {
-        this.codeEmployee = codeEmployee;
+    public void setCode_Employee(String code_Employee) {
+        this.code_Employee = code_Employee;
     }
 
-    public Boolean getGenderEmployee() {
-        return genderEmployee;
+    public Boolean getGender_Employee() {
+        return gender_Employee;
     }
 
-    public void setGenderEmployee(Boolean genderEmployee) {
-        this.genderEmployee = genderEmployee;
+    public void setGender_Employee(Boolean gender_Employee) {
+        this.gender_Employee = gender_Employee;
     }
 
-    public String getBirthdayEmployee() {
-        return birthdayEmployee;
+    public String getBirthday_Employee() {
+        return birthday_Employee;
     }
 
-    public void setBirthdayEmployee(String birthdayEmployee) {
-        this.birthdayEmployee = birthdayEmployee;
+    public void setBirthday_Employee(String birthday_Employee) {
+        this.birthday_Employee = birthday_Employee;
     }
 
-    public String getPhoneEmployee() {
-        return phoneEmployee;
+    public String getPhone_Employee() {
+        return phone_Employee;
     }
 
-    public void setPhoneEmployee(String phoneEmployee) {
-        this.phoneEmployee = phoneEmployee;
+    public void setPhone_Employee(String phone_Employee) {
+        this.phone_Employee = phone_Employee;
     }
 
-    public String getEmailEmployee() {
-        return emailEmployee;
+    public String getEmail_Employee() {
+        return email_Employee;
     }
 
-    public void setEmailEmployee(String emailEmployee) {
-        this.emailEmployee = emailEmployee;
+    public void setEmail_Employee(String email_Employee) {
+        this.email_Employee = email_Employee;
     }
 
-    public String getAddressEmployee() {
-        return addressEmployee;
+    public String getAddress_Employee() {
+        return address_Employee;
     }
 
-    public void setAddressEmployee(String addressEmployee) {
-        this.addressEmployee = addressEmployee;
+    public void setAddress_Employee(String address_Employee) {
+        this.address_Employee = address_Employee;
     }
 
-    public Boolean getDelFlagEmployee() {
-        return delFlagEmployee;
+    public Boolean getDel_Flag_Employee() {
+        return del_Flag_Employee;
     }
 
-    public void setDelFlagEmployee(Boolean delFlagEmployee) {
-        this.delFlagEmployee = delFlagEmployee;
+    public void setDel_Flag_Employee(Boolean del_Flag_Employee) {
+        this.del_Flag_Employee = del_Flag_Employee;
     }
 
-    public EmployeeType getEmployeeType() {
-        return employeeType;
+    public Long getEmployee_Type_Id() {
+        return id_employee_type;
     }
 
-    public void setEmployeeType(EmployeeType employeeType) {
-        this.employeeType = employeeType;
+    public void setId_Employee_Type(Long id_employee_type) {
+        this.id_employee_type = id_employee_type;
     }
 
-    public Set<Ticket> getTicketEmployee() {
-        return ticketEmployee;
-    }
-
-    public void setTicketEmployee(Set<Ticket> ticketEmployee) {
-        this.ticketEmployee = ticketEmployee;
+    public EmployeeDto(Long id, String name_Employee, String code_Employee, Boolean gender_Employee,
+                       String birthday_Employee, String phone_Employee, String email_Employee, String address_Employee, Boolean del_Flag_Employee, Long id_employee_type) {
+        this.id = id;
+        this.name_Employee = name_Employee;
+        this.code_Employee = code_Employee;
+        this.gender_Employee = gender_Employee;
+        this.birthday_Employee = birthday_Employee;
+        this.phone_Employee = phone_Employee;
+        this.email_Employee = email_Employee;
+        this.address_Employee = address_Employee;
+        this.del_Flag_Employee = del_Flag_Employee;
+        this.id_employee_type = id_employee_type;
     }
 }

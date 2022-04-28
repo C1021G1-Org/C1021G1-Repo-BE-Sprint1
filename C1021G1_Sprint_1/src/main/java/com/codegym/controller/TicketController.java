@@ -1,5 +1,6 @@
 package com.codegym.controller;
 
+import com.codegym.dto.TicketDto;
 import com.codegym.model.Ticket;
 import com.codegym.service.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,39 +18,38 @@ public class TicketController {
 
 //    SonNh lấy danh sách ticket by customer Id
     @GetMapping
-    public ResponseEntity<List<Ticket>> listAllTicketList() {
-        List<Ticket> ticketList = ticketService.findAll();
+    public ResponseEntity<List<Ticket>> listAllTicketListByCustomerId() {
+        List<Ticket> ticketList = ticketService.findAllTicketsByCustomerId(1L);
         if (ticketList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }
         return new ResponseEntity<>(ticketList, HttpStatus.OK);
     }
 
-    //    SonNh lấy ticket by ticket Id
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Ticket> getTicketByID(@PathVariable("id") long id) {
-        System.out.println("Fetching Customer with id " + id);
-        Ticket ticket = ticketService.findById(id);
+    //    SonNh lấy ticket by CodeTicket
+    @GetMapping(value = "/{code_ticket}")
+    public ResponseEntity<Ticket> getTicketByID(@PathVariable("code_ticket") String codeTicket) {
+        System.out.println("Fetching Ticket with id " + codeTicket);
+        Ticket ticket = ticketService.findTicketByCodeTicket(codeTicket);
         if (ticket == null) {
-            System.out.println("Customer with id " + id + " not found");
+            System.out.println("Ticket with id " + codeTicket + " not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(ticket, HttpStatus.OK);
     }
 
     //    SonNh update ticket by ticket Id
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<Ticket> updateTicket(@PathVariable("id") long id, @RequestBody Ticket ticket) {
-        System.out.println("Updating Customer " + id);
-
-        Ticket currentTicket = ticketService.findById(id);
-
+    @PatchMapping(value = "/{code}")
+    public ResponseEntity<Ticket> updateTicket(@PathVariable("code") String codeTicket,@RequestBody Ticket ticket) {
+        System.out.println("Updating Ticket " + ticket);
+        Ticket currentTicket = ticketService.findTicketByCodeTicket(codeTicket);
         if (currentTicket == null) {
-            System.out.println("Customer with id " + id + " not found");
+            System.out.println("Ticket with code " + codeTicket + " not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        ticket.setId(currentTicket.getId());
-        ticketService.save(ticket);
-        return new ResponseEntity<>(ticket, HttpStatus.OK);
+
+        ticket.setCodeTicket(codeTicket);
+        ticketService.payTicketByCodeTicket(codeTicket,ticket);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

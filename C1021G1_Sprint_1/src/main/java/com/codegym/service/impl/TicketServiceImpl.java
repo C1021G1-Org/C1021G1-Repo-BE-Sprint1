@@ -19,5 +19,10 @@ private ITicketRepository ticketRepository;
         return ticketRepository.getListNumberTicket(idFlight,typeSeat);
     }
 
+    @Override
+    public Ticket getTicketByFlightIdAndTypeSeatAndTicketId(Long idFlight, String typeSeat, Long idTicket) {
+        return ticketRepository.getTicketByFlightIdAndTypeSeatAndTicketId(idFlight,typeSeat,idTicket);
+    }
+
 
 }

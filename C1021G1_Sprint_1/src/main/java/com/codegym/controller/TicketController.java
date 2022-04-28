@@ -18,8 +18,7 @@ public class TicketController {
     private TicketServiceImpl ticketService;
 
     @GetMapping("/listTicketType")
-    public ResponseEntity<List<Ticket>> getListTicketByIdFlight(@RequestParam(defaultValue = "")Long id, @RequestParam(defaultValue = "") String typeSeat)
-    {
+    public ResponseEntity<List<Ticket>> getListTicketByIdFlight(@RequestParam(defaultValue = "") Long id, @RequestParam(defaultValue = "") String typeSeat) {
 
         List<Ticket> ticketList = ticketService.getListNumberTicket(id, typeSeat);
 
@@ -27,6 +26,20 @@ public class TicketController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(ticketList, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/findTicket")
+    public ResponseEntity<Ticket> getFirstTicketById(@RequestParam(defaultValue = "") Long idFlight,
+                                                     @RequestParam(defaultValue = "") String typeSeat,
+                                                     @RequestParam(defaultValue = "") Long idTicket) {
+
+        Ticket ticket = ticketService.getTicketByFlightIdAndTypeSeatAndTicketId(idFlight, typeSeat, idTicket);
+
+        if (ticket == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(ticket, HttpStatus.OK);
         }
     }
 

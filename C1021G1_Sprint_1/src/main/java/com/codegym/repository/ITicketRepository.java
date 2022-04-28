@@ -23,7 +23,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Long> {
             "and seat.status_seat = 0 " +
             "and seat_type.name_seat_type = :typeSeat ", nativeQuery = true)
     List<Ticket> getListNumberTicket(@Param("idFlight") Long idFlight, @Param("typeSeat") String typeSeat);
-//
+
 //    @Query(value = "select ticket.id,ticket.buyer,ticket.code_ticket,ticket.birthday_ticket,ticket.del_flag_ticket,ticket.email_ticket,ticket.gender_ticket,ticket.phone_ticket,ticket.point_ticket,ticket.price_ticket,ticket.status_ticket,ticket.id_customer,ticket.id_employee,ticket.id_flight " +
 //            "where ticket.id = :identity ",nativeQuery = true)
 //    Ticket getTicketByIdTicket(@Param("idTicket") Long idTicket);
@@ -34,6 +34,17 @@ public interface ITicketRepository extends JpaRepository<Ticket, Long> {
 
 //    void firstEditTicket(@Param())
 
+    @Query(value = "select ticket.id,ticket.buyer_ticket,ticket.birthday_ticket,ticket.code_ticket,ticket.del_flag_ticket,ticket.email_ticket,ticket.gender_ticket,ticket.phone_ticket,ticket.point_ticket,ticket.price_ticket,ticket.status_ticket,ticket.id_customer,ticket.id_employee,ticket.id_seat " +
+            "from ticket " +
+            "join seat on seat.id = ticket.id_seat " +
+            "join flight on flight.id = seat.id_flight " +
+            "join seat_type on seat_type.id = seat.id_seat_type " +
+            "where flight.id = :idFlight " +
+            "and seat.status_seat = 0 " +
+            "and seat_type.name_seat_type = :typeSeat " +
+            "and ticket.id = :idTicket " +
+            "and ticket.del_flag_ticket = 1",nativeQuery = true)
+        Ticket getTicketByFlightIdAndTypeSeatAndTicketId(@Param("idFlight")Long idFlight,@Param("typeSeat") String typeSeat,@Param("idTicket")Long idTicket);
 
 
 }

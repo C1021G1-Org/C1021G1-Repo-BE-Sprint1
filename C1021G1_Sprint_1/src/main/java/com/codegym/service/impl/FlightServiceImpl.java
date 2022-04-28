@@ -10,18 +10,23 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 
 @Service
 public class FlightServiceImpl implements IFlightService {
     @Autowired
     private IFlightRepository iFlightRepository;
+
     @Override
     public Page<Flight> searchFlight(String fromFlight, String toFlight, String dateStart,
-                                                 String dateEnd, Pageable pageable) {
-        Map<String,Page<Flight>> searchFlight = new HashMap<>();
-        searchFlight.put("Một chiều",iFlightRepository.searchFlight(fromFlight,toFlight,dateStart,dateEnd,pageable));
-        searchFlight.put("Hai chiều",iFlightRepository.searchFlight(fromFlight,toFlight,dateStart,dateEnd,pageable));
-
-    };
+                                     String dateEnd, Pageable pageable) {
+        Map<String, Page<Flight>> searchFlight = new HashMap<>();
+        Set<String> trip = searchFlight.keySet();
+        if (trip.equals("One way")) {
+            return iFlightRepository.searchFlight(fromFlight, toFlight, dateStart, dateEnd, pageable);
+        } else if (trip.equals("Two way")) {
+            return iFlightRepository.searchFlight(fromFlight, toFlight, dateStart, dateEnd, pageable);
+        }
+    }
 }

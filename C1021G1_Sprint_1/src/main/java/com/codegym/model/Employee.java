@@ -19,7 +19,7 @@ public class Employee {
     private Boolean genderEmployee;
 
     @Column(columnDefinition = "DATE")
-    private String birthday;
+    private String birthdayEmployee;
 
     private String phoneEmployee;
 
@@ -36,6 +36,10 @@ public class Employee {
     @JsonBackReference(value = "employee_ticket")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<Ticket> ticketEmployee;
+
+    @JsonBackReference(value = "employee_ticket_history")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+    private Set<TicketHistory> ticketHistories;
 
     public Employee() {
     }
@@ -72,12 +76,12 @@ public class Employee {
         this.genderEmployee = genderEmployee;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public String getBirthdayEmployee() {
+        return birthdayEmployee;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setBirthdayEmployee(String birthdayEmployee) {
+        this.birthdayEmployee = birthdayEmployee;
     }
 
     public String getPhoneEmployee() {
@@ -126,5 +130,13 @@ public class Employee {
 
     public void setTicketEmployee(Set<Ticket> ticketEmployee) {
         this.ticketEmployee = ticketEmployee;
+    }
+
+    public Set<TicketHistory> getTicketHistories() {
+        return ticketHistories;
+    }
+
+    public void setTicketHistories(Set<TicketHistory> ticketHistories) {
+        this.ticketHistories = ticketHistories;
     }
 }

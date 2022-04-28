@@ -16,7 +16,7 @@ public class Customer {
     private Boolean genderCustomer;
 
     @Column(columnDefinition = "DATE")
-    private String birthday;
+    private String birthdayCustomer;
 
     private String idCardCustomer;
 
@@ -41,9 +41,13 @@ public class Customer {
     @JoinColumn(name = "id_customer_type", referencedColumnName = "id")
     private CustomerType customerType;
 
-    @JsonBackReference
+    @JsonBackReference(value = "customer_ticket")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private Set<Ticket> ticketC;
+
+    @JsonBackReference(value = "customer_ticket_history")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Set<TicketHistory> ticketHistories;
 
     public Customer() {
     }
@@ -72,12 +76,12 @@ public class Customer {
         this.genderCustomer = genderCustomer;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public String getBirthdayCustomer() {
+        return birthdayCustomer;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setBirthdayCustomer(String birthdayCustomer) {
+        this.birthdayCustomer = birthdayCustomer;
     }
 
     public String getIdCardCustomer() {
@@ -158,5 +162,13 @@ public class Customer {
 
     public void setTicketC(Set<Ticket> ticketC) {
         this.ticketC = ticketC;
+    }
+
+    public Set<TicketHistory> getTicketHistories() {
+        return ticketHistories;
+    }
+
+    public void setTicketHistories(Set<TicketHistory> ticketHistories) {
+        this.ticketHistories = ticketHistories;
     }
 }

@@ -21,7 +21,7 @@ public class ReportController {
     public ResponseEntity<List<Ticket>> getAllTicket(){
         List<Ticket> ticketList = iReportService.getAllTicket();
         if(ticketList.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(ticketList,HttpStatus.OK);
     }
@@ -31,7 +31,7 @@ public class ReportController {
     public ResponseEntity<List<IReport>> getAllReport(@RequestParam Integer month){
         List<IReport> iReportList = iReportService.getAllReport(month);
         if(iReportList.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(iReportList,HttpStatus.OK);
     }
@@ -40,7 +40,7 @@ public class ReportController {
     public ResponseEntity<List<IReport>> getAllEmployee(){
         List<IReport> list = iReportService.getAllReportEmployee();
         if(list.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(list,HttpStatus.OK);
     }

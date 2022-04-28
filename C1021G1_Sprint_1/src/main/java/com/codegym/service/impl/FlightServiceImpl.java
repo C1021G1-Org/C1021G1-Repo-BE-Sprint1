@@ -19,14 +19,15 @@ public class FlightServiceImpl implements IFlightService {
     private IFlightRepository iFlightRepository;
 
     @Override
-    public Page<Flight> searchFlight(String fromFlight, String toFlight, String dateStart,
+    public Map<String,Page<Flight>> searchFlight(String fromFlight, String toFlight, String dateStart,
                                      String dateEnd, Pageable pageable) {
         Map<String, Page<Flight>> searchFlight = new HashMap<>();
         Set<String> trip = searchFlight.keySet();
         if (trip.equals("One way")) {
-            return iFlightRepository.searchFlight(fromFlight, toFlight, dateStart, dateEnd, pageable);
+          searchFlight.put("One way",iFlightRepository.searchFlight(fromFlight,toFlight,dateStart,dateEnd,pageable));
         } else if (trip.equals("Two way")) {
-            return iFlightRepository.searchFlight(fromFlight, toFlight, dateStart, dateEnd, pageable);
+            searchFlight.put("Two way",iFlightRepository.searchFlight(toFlight,fromFlight,dateStart,dateEnd,pageable));
         }
+        return searchFlight;
     }
 }

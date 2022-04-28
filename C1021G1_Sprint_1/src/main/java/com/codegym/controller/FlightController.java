@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.Map;
@@ -20,8 +17,12 @@ public class FlightController {
     @Autowired
     private IFlightService iFlightService;
     @GetMapping("search-flight")
-    public ResponseEntity<Map<String, Page<Flight>>> getFlight(@PathVariable String fromFlight, String toFlight, String dateStart,
-                                                               String dateEnd, Pageable pageable){
+    public ResponseEntity<Map<String, Page<Flight>>> getFlight(@RequestParam("fromFlight") String fromFlight,
+                                                               @RequestParam("toFlight")String toFlight,
+                                                               @RequestParam("dateStart") String dateStart,
+                                                               @RequestParam("dateEnd")String dateEnd,
+                                                               Pageable pageable){
+        Map<String,Page<Flight>> map = iFlightService.searchFlight(fromFlight,toFlight,dateStart,dateEnd,pageable);
 
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -47,14 +48,21 @@ public class ReportController_getAllReport {
     }
 
 
+
+
     @Test
     public void getAllReport_month_4() throws Exception {
         this.mockMvc.perform(
-                        MockMvcRequestBuilders.get("/report-price", "1"))
+                        MockMvcRequestBuilders
+                                .get("/report-price", "5"))
                 .andDo(print())
-                .andExpect(status().is2xxSuccessful());
-
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(jsonPath("$.getTotalPrice").value(1.16E8))
+                .andExpect(jsonPath("$.getPoinTicket").value(4))
+                .andExpect(jsonPath("$.getMonthStartDate").value(5));
     }
+
+
 
 
 }

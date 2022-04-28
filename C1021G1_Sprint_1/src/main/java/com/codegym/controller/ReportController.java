@@ -1,6 +1,7 @@
 package com.codegym.controller;
 
 import com.codegym.dto.IReport;
+import com.codegym.dto.IReportEmployee;
 import com.codegym.model.Ticket;
 import com.codegym.service.IReportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +18,6 @@ public class ReportController {
     @Autowired
     public IReportService iReportService;
 
-    @GetMapping("/report-ticket")
-    public ResponseEntity<List<Ticket>> getAllTicket(){
-        List<Ticket> ticketList = iReportService.getAllTicket();
-        if(ticketList.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(ticketList,HttpStatus.OK);
-    }
-
-
     @GetMapping("/report-price")
     public ResponseEntity<List<IReport>> getAllReport(@RequestParam Integer month){
         List<IReport> iReportList = iReportService.getAllReport(month);
@@ -37,8 +28,8 @@ public class ReportController {
     }
 
     @GetMapping("/report-employee")
-    public ResponseEntity<List<IReport>> getAllEmployee(){
-        List<IReport> list = iReportService.getAllReportEmployee();
+    public ResponseEntity<List<IReportEmployee>> getAllEmployee(){
+        List<IReportEmployee> list = iReportService.getAllReportEmployee();
         if(list.isEmpty()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

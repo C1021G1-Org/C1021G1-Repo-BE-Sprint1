@@ -1,6 +1,7 @@
 package com.codegym.service.impl;
 
 import com.codegym.dto.IReport;
+import com.codegym.dto.IReportEmployee;
 import com.codegym.model.Ticket;
 import com.codegym.repository.IReportRepository;
 import com.codegym.service.IReportService;
@@ -25,7 +26,7 @@ public class ReportServiceImpl implements IReportService {
     }
 
     @Override
-    public List<IReport> getAllReportEmployee() {
+    public List<IReportEmployee> getAllReportEmployee() {
         return iReportRepository.getAllReportEmployee();
     }
 }

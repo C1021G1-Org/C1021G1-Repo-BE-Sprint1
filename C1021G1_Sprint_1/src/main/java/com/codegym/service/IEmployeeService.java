@@ -14,5 +14,5 @@ public interface IEmployeeService {
 
     void deleteEmployee(Long id);
 
-    Optional<Employee> findEmployee(String name, String code, String email);
+    Page<Employee> findEmployee(String name, String code, String email, Pageable pageable);
 }

@@ -36,6 +36,10 @@ public class Countries {
     public Countries(String country) {
         this.country = country;
     }
+    public Countries(Long id, String country){
+        this.id = id;
+        this.country =country;
+    }
 
     public Long getId() {
         return id;

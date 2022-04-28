@@ -1,5 +1,6 @@
 package com.codegym.controller;
 
+import com.codegym.dto.FlightDto;
 import com.codegym.model.Flight;
 import com.codegym.service.IFlightService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +11,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
+@RequestMapping("api/flight")
 public class FlightController {
     @Autowired
     private IFlightService flightService;
 
-    @GetMapping("/list-flight")
-    public ResponseEntity<Page<Flight>> listAllFlight(Pageable pageable) {
+    @GetMapping("/list")
+    public ResponseEntity<Page<Flight>> getListFlight(Pageable pageable) {
         Page<Flight> flightPage = flightService.findAllFlight(pageable);
         if (flightPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -26,13 +29,14 @@ public class FlightController {
         return new ResponseEntity<>(flightPage, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/flight/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Flight> deleteFlight(@PathVariable("id") long id) {
-        System.out.println("Fetching & Deleting Customer with id " + id);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Flight> getDeleteFlight(@PathVariable Long id) {
+        System.out.println("Fetching & Deleting Flight with id " + id);
 
-        Flight flight = flightService.findById(id);
+        FlightDto flight = flightService.findById(id);
+
         if (flight == null) {
-            System.out.println("Unable to delete. Employee with id " + id + " not found");
+            System.out.println("Unable to delete. Flight with id " + id + " not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 

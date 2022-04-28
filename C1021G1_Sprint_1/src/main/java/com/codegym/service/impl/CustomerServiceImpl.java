@@ -62,8 +62,20 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public List<Customer> findAll() {
-        return iCustomerRepository.findAll();
+    public void update(CustomerDto customerDto) {
+        iCustomerRepository.updateCustomer(
+                customerDto.getNameCustomer(),
+                customerDto.getPhoneCustomer(),
+                customerDto.getGenderCustomer(),
+                customerDto.getEmailCustomer(),
+                customerDto.getIdCardCustomer(),
+                customerDto.getBirthdayCustomer(),
+                customerDto.getAddressCustomer(),
+                customerDto.getCustomerType(),
+                customerDto.getCountries(),
+                false,
+                customerDto.getId());
     }
+
 
 }

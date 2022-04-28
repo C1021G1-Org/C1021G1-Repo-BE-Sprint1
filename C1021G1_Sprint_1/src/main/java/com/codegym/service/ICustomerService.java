@@ -25,6 +25,6 @@ public interface ICustomerService {
 
         void save(CustomerDto customerDto);
 
-        List<Customer> findAll();
 
+        void update(CustomerDto customerDto);
 }

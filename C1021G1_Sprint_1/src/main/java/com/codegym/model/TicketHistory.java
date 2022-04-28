@@ -39,9 +39,9 @@ public class TicketHistory {
     @JoinColumn(name = "id_customer", referencedColumnName = "id")
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "id_flight", referencedColumnName = "id")
-    private Flight flightTicket;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_seat", referencedColumnName = "id")
+    private Seat seat;
 
     public TicketHistory() {
     }
@@ -150,11 +150,11 @@ public class TicketHistory {
         this.customer = customer;
     }
 
-    public Flight getFlightTicket() {
-        return flightTicket;
+    public Seat getSeat() {
+        return seat;
     }
 
-    public void setFlightTicket(Flight flightTicket) {
-        this.flightTicket = flightTicket;
+    public void setSeat(Seat seat) {
+        this.seat = seat;
     }
 }

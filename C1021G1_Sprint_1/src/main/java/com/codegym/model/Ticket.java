@@ -42,9 +42,9 @@ public class Ticket {
     @JoinColumn(name = "id_customer", referencedColumnName = "id")
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "id_flight", referencedColumnName = "id")
-    private Flight flightTicket;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_seat", referencedColumnName = "id")
+    private Seat seat;
 
     public Ticket() {
     }
@@ -145,19 +145,19 @@ public class Ticket {
         this.customer = customer;
     }
 
-    public Flight getFlightTicket() {
-        return flightTicket;
-    }
-
-    public void setFlightTicket(Flight flightTicket) {
-        this.flightTicket = flightTicket;
-    }
-
     public String getBirthdayTicket() {
         return birthdayTicket;
     }
 
     public void setBirthdayTicket(String birthdayTicket) {
         this.birthdayTicket = birthdayTicket;
+    }
+
+    public Seat getSeat() {
+        return seat;
+    }
+
+    public void setSeat(Seat seat) {
+        this.seat = seat;
     }
 }

@@ -1,6 +1,10 @@
 package com.codegym.service.impl;
 
 
+
+
+import com.codegym.dto.CustomerDto;
+
 import com.codegym.model.Customer;
 import com.codegym.repository.ICustomerRepository;
 import com.codegym.service.ICustomerService;
@@ -15,31 +19,51 @@ import java.util.List;
 public class CustomerServiceImpl implements ICustomerService {
 
     @Autowired
-    private ICustomerRepository customerRepository;
+
+    private ICustomerRepository iCustomerRepository;
 
 
     @Override
     public Page<Customer> findAllCustomer(Pageable pageable) {
-        return customerRepository.findAllByCustomer(pageable);
+        return iCustomerRepository.findAllByCustomer(pageable);
     }
 
     @Override
     public void remove(Long id) {
-        customerRepository.deleteCustomerByIdCustomer(id);
+        iCustomerRepository.deleteCustomerByIdCustomer(id);
     }
 
 
     @Override
     public List<Customer> searchCustomer(String keyword) {
-        return customerRepository.searchAllByFields(keyword);
+        return iCustomerRepository.searchAllByFields(keyword);
     }
 
     @Override
     public Customer findById(Long id) {
-        return customerRepository.findByIdCustomer(id);
+        return iCustomerRepository.findByIdCustomer(id);
     }
 
 
+    @Override
+    public void save(CustomerDto customerDto) {
 
+        iCustomerRepository.saveCustomer(
+                customerDto.getNameCustomer(),
+                customerDto.getPhoneCustomer(),
+                customerDto.getGenderCustomer(),
+                customerDto.getEmailCustomer(),
+                customerDto.getIdCardCustomer(),
+                customerDto.getBirthdayCustomer(),
+                customerDto.getAddressCustomer(),
+                customerDto.getCustomerType(),
+                customerDto.getCountries(),
+                false);
+    }
+
+    @Override
+    public List<Customer> findAll() {
+        return iCustomerRepository.findAll();
+    }
 
 }

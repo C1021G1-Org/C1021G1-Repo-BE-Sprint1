@@ -19,7 +19,6 @@ public class TicketController {
 
     @GetMapping("/listTicketType")
     public ResponseEntity<List<Ticket>> getListTicketByIdFlight(@RequestParam(defaultValue = "")Long id, @RequestParam(defaultValue = "") String typeSeat)
-
     {
 
         List<Ticket> ticketList = ticketService.getListNumberTicket(id, typeSeat);

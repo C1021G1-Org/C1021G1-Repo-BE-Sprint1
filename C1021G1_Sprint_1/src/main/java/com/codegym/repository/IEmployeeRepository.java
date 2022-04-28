@@ -1,6 +1,6 @@
 package com.codegym.repository;
 
-<<<<<<< HEAD
+
 import com.codegym.model.Employee;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +26,5 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
 //    @Query(value = "SELECT id, address_employee, code_employee, birthday_employee, del_flag_employee, email_employee, gender_employee, name_employee, phone_employee, id_employee_type \n" +
 //            "FROM `employee` WHERE id = ?",nativeQuery = true)
 //    Optional<Employee> findEmployeeById(Long id);
-=======
-public interface IEmployeeRepository {
->>>>>>> origin
+
 }

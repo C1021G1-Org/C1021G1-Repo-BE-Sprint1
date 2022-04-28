@@ -1,6 +1,6 @@
 package com.codegym.service.impl;
 
-<<<<<<< HEAD
+
 import com.codegym.model.Employee;
 import com.codegym.repository.IEmployeeRepository;
 import com.codegym.service.IEmployeeService;
@@ -31,7 +31,5 @@ public class EmployeeServiceImpl implements IEmployeeService {
 //    public void deleteEmployee(Long id) {
 //        iEmployeeRepository.deleteEmployee(id);
 //    }
-=======
-public class EmployeeServiceImpl {
->>>>>>> origin
+
 }

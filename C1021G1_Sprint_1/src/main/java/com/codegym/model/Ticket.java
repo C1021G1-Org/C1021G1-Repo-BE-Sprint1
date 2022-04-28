@@ -3,6 +3,7 @@ package com.codegym.model;
 import com.codegym.model.Customer;
 import com.codegym.model.Employee;
 import com.codegym.model.Flight;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -28,19 +29,17 @@ public class Ticket {
     private Boolean delFlagTicket;
 
     private Integer pointTicket;
-<<<<<<< HEAD
-    // Người mua vé
-    private String buyer;
+
+
 
     // Ngày sinh của người đi vé
-    @Column(columnDefinition = "DATE")
-=======
+
+
               // Người mua vé
     private String buyerTicket;
 
     @Column(columnDefinition = "DATE")
           // Ngày sinh của người mua vé
->>>>>>> origin
     private String birthdayTicket;
 
     @ManyToOne
@@ -51,7 +50,9 @@ public class Ticket {
     @JoinColumn(name = "id_customer", referencedColumnName = "id")
     private Customer customer;
 
-    @OneToOne(cascade = CascadeType.ALL)
+
+
+    @OneToOne
     @JoinColumn(name = "id_seat", referencedColumnName = "id")
     private Seat seat;
 
@@ -138,6 +139,14 @@ public class Ticket {
         this.buyerTicket = buyerTicket;
     }
 
+    public String getBirthdayTicket() {
+        return birthdayTicket;
+    }
+
+    public void setBirthdayTicket(String birthdayTicket) {
+        this.birthdayTicket = birthdayTicket;
+    }
+
     public Employee getEmployee() {
         return employee;
     }
@@ -152,14 +161,6 @@ public class Ticket {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-    public String getBirthdayTicket() {
-        return birthdayTicket;
-    }
-
-    public void setBirthdayTicket(String birthdayTicket) {
-        this.birthdayTicket = birthdayTicket;
     }
 
     public Seat getSeat() {

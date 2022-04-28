@@ -6,11 +6,9 @@ plugins {
 
 group = 'com.codegym'
 version = '0.0.1-SNAPSHOT'
-<<<<<<< HEAD
-sourceCompatibility = "1.8"
-=======
+
 sourceCompatibility = '1.8'
->>>>>>> origin
+
 
 repositories {
     mavenCentral()
@@ -30,7 +28,4 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
-<<<<<<< HEAD
-//targetCompatibility = JavaVersion.VERSION_11
-=======
->>>>>>> origin
+

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EmployeeController {
 
-<<<<<<< HEAD
+
 //    @Autowired
 //    private IEmployeeService iEmployeeService;
 //
@@ -37,6 +37,5 @@ public class EmployeeController {
 //        iEmployeeService.deleteEmployee(id);
 //        return new ResponseEntity<>(employee.get(), HttpStatus.NO_CONTENT);
 //    }
-=======
->>>>>>> origin
+
 }

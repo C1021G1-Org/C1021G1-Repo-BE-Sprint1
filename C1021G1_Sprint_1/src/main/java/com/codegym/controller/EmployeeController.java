@@ -1,24 +1,11 @@
 package com.codegym.controller;
 
-import com.codegym.model.Employee;
-import com.codegym.model.EmployeeType;
-import com.codegym.service.IEmployeeService;
-import com.codegym.service.IEmployeeTypeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/employee")
 public class EmployeeController {
 
+<<<<<<< HEAD
 //    @Autowired
 //    private IEmployeeService iEmployeeService;
 //
@@ -50,4 +37,6 @@ public class EmployeeController {
 //        iEmployeeService.deleteEmployee(id);
 //        return new ResponseEntity<>(employee.get(), HttpStatus.NO_CONTENT);
 //    }
+=======
+>>>>>>> origin
 }

@@ -1,13 +1,9 @@
 package com.codegym.model;
 
-import com.codegym.model.Customer;
-import com.codegym.model.Employee;
-import com.codegym.model.Flight;
-
 import javax.persistence.*;
 
 @Entity
-public class Ticket {
+public class TicketHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,19 +24,11 @@ public class Ticket {
     private Boolean delFlagTicket;
 
     private Integer pointTicket;
-<<<<<<< HEAD
     // Người mua vé
-    private String buyer;
-
-    // Ngày sinh của người đi vé
-    @Column(columnDefinition = "DATE")
-=======
-              // Người mua vé
     private String buyerTicket;
 
     @Column(columnDefinition = "DATE")
-          // Ngày sinh của người mua vé
->>>>>>> origin
+    // Ngày sinh của người mua vé
     private String birthdayTicket;
 
     @ManyToOne
@@ -55,7 +43,7 @@ public class Ticket {
     @JoinColumn(name = "id_flight", referencedColumnName = "id")
     private Flight flightTicket;
 
-    public Ticket() {
+    public TicketHistory() {
     }
 
     public Long getId() {
@@ -138,6 +126,14 @@ public class Ticket {
         this.buyerTicket = buyerTicket;
     }
 
+    public String getBirthdayTicket() {
+        return birthdayTicket;
+    }
+
+    public void setBirthdayTicket(String birthdayTicket) {
+        this.birthdayTicket = birthdayTicket;
+    }
+
     public Employee getEmployee() {
         return employee;
     }
@@ -160,13 +156,5 @@ public class Ticket {
 
     public void setFlightTicket(Flight flightTicket) {
         this.flightTicket = flightTicket;
-    }
-
-    public String getBirthdayTicket() {
-        return birthdayTicket;
-    }
-
-    public void setBirthdayTicket(String birthdayTicket) {
-        this.birthdayTicket = birthdayTicket;
     }
 }

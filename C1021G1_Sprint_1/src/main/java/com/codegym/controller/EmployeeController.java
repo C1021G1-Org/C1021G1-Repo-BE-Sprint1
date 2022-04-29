@@ -34,7 +34,7 @@ public class EmployeeController {
     public ResponseEntity<?> createEmployee(@Valid @RequestBody EmployeeDto employeeDto , BindingResult bindingResult) {
         employeeCreateByRequestDtoValidator.validate(employeeDto,bindingResult);
         if(bindingResult.hasErrors()){
-            return new ResponseEntity<>(bindingResult.getAllErrors(),HttpStatus.OK);
+            return new ResponseEntity<>(bindingResult.getAllErrors(),HttpStatus.BAD_REQUEST);
         }
         iEmployeeService.createNewEmployee(employeeDto);
         return new ResponseEntity<>(HttpStatus.CREATED);

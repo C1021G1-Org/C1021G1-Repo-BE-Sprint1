@@ -1,12 +1,15 @@
 package com.codegym.dto;
 
+import com.codegym.model.EmployeeType;
+
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class EmployeeDto {
     private Long id;
-    @NotNull
+    @NotBlank(message = "Tên không được để trống")
     @Size(min = 6)
     private String name_Employee;
     @NotNull

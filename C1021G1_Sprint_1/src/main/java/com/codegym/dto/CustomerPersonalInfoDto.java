@@ -53,7 +53,7 @@ public class CustomerPersonalInfoDto implements Validator {
     @NotBlank
     private String addressCustomer;
 
-//    @Pattern(regexp = "([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)")
+//    @Pattern(regexp = "([^\\s]+(\\.(?i)(jpg|png))$)")
     private String imageCustomer;
 
     private Countries countries;
@@ -189,7 +189,6 @@ public class CustomerPersonalInfoDto implements Validator {
                 isRetry = true;
             }
         }
-
         return isRetry;
 
     }

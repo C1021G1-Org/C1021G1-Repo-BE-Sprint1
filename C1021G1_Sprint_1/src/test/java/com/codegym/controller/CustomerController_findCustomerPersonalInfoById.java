@@ -30,6 +30,14 @@ public class CustomerController_findCustomerPersonalInfoById {
     }
 
     @Test
+    public void findCustomerPersonalInfoById_2() throws Exception{
+        this.mockMvc.perform(
+                MockMvcRequestBuilders.get("/customer/{id}",""))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
     public void findCustomerPersonalInfoById_3() throws Exception{
         this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/customer/{id}","15"))
@@ -56,7 +64,7 @@ public class CustomerController_findCustomerPersonalInfoById {
                 .andExpect(jsonPath("$.pointCustomer").value(100))
                 .andExpect(jsonPath("$.countries.id").value(241))
                 .andExpect(jsonPath("$.customerType.id").value(4))
-                
+
         ;
     }
 

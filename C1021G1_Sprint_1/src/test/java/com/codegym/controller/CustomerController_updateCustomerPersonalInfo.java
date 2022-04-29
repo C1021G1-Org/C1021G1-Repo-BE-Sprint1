@@ -24,9 +24,36 @@ public class CustomerController_updateCustomerPersonalInfo {
     @Autowired
     private ObjectMapper objectMapper;
 
-
+    /*ThangDBX kiểm tra trường name  */
     @Test
     public void updateCustomerPersonalInfo_Name_19() throws Exception{
+        CustomerPersonalInfoDto customerDtop = new CustomerPersonalInfoDto();
+
+        customerDtop.setId(1l);
+        customerDtop.setNameCustomer(null);
+        customerDtop.setGenderCustomer(true);
+        customerDtop.setEmailCustomer("Nguyen1@gmail.com");
+        customerDtop.setPhoneCustomer("0903111222");
+        customerDtop.setBirthdayCustomer("1990-12-04");
+        customerDtop.setIdCardCustomer("1311221333");
+        customerDtop.setAddressCustomer("Đà Nẵng");
+        customerDtop.setImageCustomer("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa4FYDcExqiB-NZf6KGOsoYg2L8rUhQVVO0w&usqp=CAU");
+
+        Countries countries = new Countries();
+        countries.setId(241l);
+        customerDtop.setCountries(countries);
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders
+                        .patch("/customer/update")
+                        .content(this.objectMapper.writeValueAsString(customerDtop))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                ).andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void updateCustomerPersonalInfo_Name_20() throws Exception{
         CustomerPersonalInfoDto customerDtop = new CustomerPersonalInfoDto();
 
         customerDtop.setId(1l);
@@ -136,7 +163,7 @@ public class CustomerController_updateCustomerPersonalInfo {
                 .andExpect(status().is4xxClientError());
     }
 
-
+    /*ThangDBX kiểm tra trường gender  */
     @Test
     public void updateCustomerPersonalInfo_Gender_19() throws Exception{
         CustomerPersonalInfoDto customerDtop = new CustomerPersonalInfoDto();
@@ -164,33 +191,7 @@ public class CustomerController_updateCustomerPersonalInfo {
                 .andExpect(status().is4xxClientError());
     }
 
-    @Test
-    public void updateCustomerPersonalInfo_IdCard_21() throws Exception{
-        CustomerPersonalInfoDto customerDtop = new CustomerPersonalInfoDto();
-
-        customerDtop.setId(1l);
-        customerDtop.setNameCustomer("Le Dai Phong");
-        customerDtop.setGenderCustomer(false);
-        customerDtop.setEmailCustomer("Nguyen1@gmail.com");
-        customerDtop.setPhoneCustomer("0903111222");
-        customerDtop.setBirthdayCustomer("1990-12-04");
-        customerDtop.setIdCardCustomer("12345678912");
-        customerDtop.setAddressCustomer("Đà Nẵng");
-        customerDtop.setImageCustomer("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa4FYDcExqiB-NZf6KGOsoYg2L8rUhQVVO0w&usqp=CAU");
-
-        Countries countries = new Countries();
-        countries.setId(241l);
-        customerDtop.setCountries(countries);
-
-        this.mockMvc
-                .perform(MockMvcRequestBuilders
-                        .patch("/customer/update")
-                        .content(this.objectMapper.writeValueAsString(customerDtop))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                ).andDo(print())
-                .andExpect(status().is4xxClientError());
-    }
-
+    /*ThangDBX kiểm tra trường idCard  */
     @Test
     public void updateCustomerPersonalInfo_IdCard_19() throws Exception{
         CustomerPersonalInfoDto customerDtop = new CustomerPersonalInfoDto();
@@ -219,6 +220,62 @@ public class CustomerController_updateCustomerPersonalInfo {
     }
 
     @Test
+    public void updateCustomerPersonalInfo_IdCard_20() throws Exception{
+        CustomerPersonalInfoDto customerDtop = new CustomerPersonalInfoDto();
+
+        customerDtop.setId(1l);
+        customerDtop.setNameCustomer("Le Dai Phong");
+        customerDtop.setGenderCustomer(false);
+        customerDtop.setEmailCustomer("Nguyen1@gmail.com");
+        customerDtop.setPhoneCustomer("0903111222");
+        customerDtop.setBirthdayCustomer("1990-12-04");
+        customerDtop.setIdCardCustomer("");
+        customerDtop.setAddressCustomer("Đà Nẵng");
+        customerDtop.setImageCustomer("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa4FYDcExqiB-NZf6KGOsoYg2L8rUhQVVO0w&usqp=CAU");
+
+        Countries countries = new Countries();
+        countries.setId(241l);
+        customerDtop.setCountries(countries);
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders
+                        .patch("/customer/update")
+                        .content(this.objectMapper.writeValueAsString(customerDtop))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                ).andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+
+    @Test
+    public void updateCustomerPersonalInfo_IdCard_21() throws Exception{
+        CustomerPersonalInfoDto customerDtop = new CustomerPersonalInfoDto();
+
+        customerDtop.setId(1l);
+        customerDtop.setNameCustomer("Le Dai Phong");
+        customerDtop.setGenderCustomer(false);
+        customerDtop.setEmailCustomer("Nguyen1@gmail.com");
+        customerDtop.setPhoneCustomer("0903111222");
+        customerDtop.setBirthdayCustomer("1990-12-04");
+        customerDtop.setIdCardCustomer("12345678912");
+        customerDtop.setAddressCustomer("Đà Nẵng");
+        customerDtop.setImageCustomer("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa4FYDcExqiB-NZf6KGOsoYg2L8rUhQVVO0w&usqp=CAU");
+
+        Countries countries = new Countries();
+        countries.setId(241l);
+        customerDtop.setCountries(countries);
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders
+                        .patch("/customer/update")
+                        .content(this.objectMapper.writeValueAsString(customerDtop))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                ).andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    /*ThangDBX kiểm tra trường Birthday  */
+    @Test
     public void updateCustomerPersonalInfo_Birthday_19() throws Exception{
         CustomerPersonalInfoDto customerDtop = new CustomerPersonalInfoDto();
 
@@ -228,7 +285,33 @@ public class CustomerController_updateCustomerPersonalInfo {
         customerDtop.setEmailCustomer("Nguyen1@gmail.com");
         customerDtop.setPhoneCustomer("0903111222");
         customerDtop.setBirthdayCustomer(null);
-        customerDtop.setIdCardCustomer("12345678912");
+        customerDtop.setIdCardCustomer("123456789123");
+        customerDtop.setAddressCustomer("Đà Nẵng");
+        customerDtop.setImageCustomer("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa4FYDcExqiB-NZf6KGOsoYg2L8rUhQVVO0w&usqp=CAU");
+
+        Countries countries = new Countries();
+        countries.setId(241l);
+        customerDtop.setCountries(countries);
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders
+                        .patch("/customer/update")
+                        .content(this.objectMapper.writeValueAsString(customerDtop))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                ).andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    public void updateCustomerPersonalInfo_Birthday_20() throws Exception{
+        CustomerPersonalInfoDto customerDtop = new CustomerPersonalInfoDto();
+
+        customerDtop.setId(1l);
+        customerDtop.setNameCustomer("Le Dai Phong");
+        customerDtop.setGenderCustomer(false);
+        customerDtop.setEmailCustomer("Nguyen1@gmail.com");
+        customerDtop.setPhoneCustomer("0903111222");
+        customerDtop.setBirthdayCustomer("");
+        customerDtop.setIdCardCustomer("123456789123");
         customerDtop.setAddressCustomer("Đà Nẵng");
         customerDtop.setImageCustomer("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa4FYDcExqiB-NZf6KGOsoYg2L8rUhQVVO0w&usqp=CAU");
 
@@ -271,33 +354,5 @@ public class CustomerController_updateCustomerPersonalInfo {
                 ).andDo(print())
                 .andExpect(status().is4xxClientError());
     }
-
-    @Test
-    public void updateCustomerPersonalInfo_Image_19() throws Exception{
-        CustomerPersonalInfoDto customerDtop = new CustomerPersonalInfoDto();
-
-        customerDtop.setId(1l);
-        customerDtop.setNameCustomer("Le Dai Phong");
-        customerDtop.setGenderCustomer(false);
-        customerDtop.setEmailCustomer("Nguyen1@gmail.com");
-        customerDtop.setPhoneCustomer("0903111222");
-        customerDtop.setBirthdayCustomer("1990-12-04");
-        customerDtop.setIdCardCustomer("123456789223");
-        customerDtop.setAddressCustomer("Đà Nẵng");
-        customerDtop.setImageCustomer("inng.jpg");
-
-        Countries countries = new Countries();
-        countries.setId(241l);
-        customerDtop.setCountries(countries);
-
-        this.mockMvc
-                .perform(MockMvcRequestBuilders
-                        .patch("/customer/update")
-                        .content(this.objectMapper.writeValueAsString(customerDtop))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                ).andDo(print())
-                .andExpect(status().is2xxSuccessful());
-    }
-
 
 }

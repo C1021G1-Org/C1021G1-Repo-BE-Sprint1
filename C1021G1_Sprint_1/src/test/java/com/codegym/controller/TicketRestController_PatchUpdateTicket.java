@@ -51,7 +51,7 @@ public class TicketRestController_PatchUpdateTicket {
     }
 
     @Test
-    public void update_codeTicket_22() throws Exception {
+    public void update_codeTicket_24() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders
                                 .patch("/ticket/pay/{code}", "NVM-111"))

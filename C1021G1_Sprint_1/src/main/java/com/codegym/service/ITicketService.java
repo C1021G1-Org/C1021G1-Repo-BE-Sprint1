@@ -14,4 +14,5 @@ public interface ITicketService {
 
 
     void payTicketByCodeTicket(String codeTicket);
+    void abortTicketByCodeTicket(String codeTicket);
 }

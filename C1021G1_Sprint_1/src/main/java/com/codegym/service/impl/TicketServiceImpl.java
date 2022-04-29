@@ -31,6 +31,10 @@ public class TicketServiceImpl implements ITicketService {
     public void payTicketByCodeTicket(String codeTicket) {
         ticketRepository.payTicketByCodeTicket(codeTicket);
     }
+    @Override
+    public void abortTicketByCodeTicket(String codeTicket) {
+        ticketRepository.abortTicketByCodeTicket(codeTicket);
+    }
 
 
 }

@@ -41,13 +41,24 @@ public class TicketController {
     //    SonNh update ticket by ticket Id
     @PatchMapping(value = "/pay/{code}")
     public ResponseEntity<Ticket> updateTicket(@PathVariable("code") String codeTicket) {
-//        System.out.println("Fetching Ticket with id " + codeTicket);
-//        Ticket ticket = ticketService.findTicketByCodeTicket(codeTicket);
-//        if (ticket == null) {
-//            System.out.println("Ticket with id " + codeTicket + " not found");
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
+        System.out.println("Fetching Ticket with id " + codeTicket);
+        Ticket ticket = ticketService.findTicketByCodeTicket(codeTicket);
+        if (ticket == null) {
+            System.out.println("Ticket with id " + codeTicket + " not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         ticketService.payTicketByCodeTicket(codeTicket);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PatchMapping(value = "/abort/{code}")
+    public ResponseEntity<Ticket> abortTicket(@PathVariable("code") String codeTicket) {
+        System.out.println("Fetching Ticket with id " + codeTicket);
+        Ticket ticket = ticketService.findTicketByCodeTicket(codeTicket);
+        if (ticket == null) {
+            System.out.println("Ticket with id " + codeTicket + " not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        ticketService.abortTicketByCodeTicket(codeTicket);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

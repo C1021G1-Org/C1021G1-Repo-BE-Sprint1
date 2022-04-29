@@ -1,16 +1,16 @@
 package com.codegym.service;
 
-import com.codegym.model.Ticket;
+import com.codegym.dto.ListTicketDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ITicketService {
 
-    Page<Ticket> findAllTicket(Pageable pageable);
+    Page<com.codegym.model.Ticket> findAllTicket(Pageable pageable);
 
-    Ticket findTicketById(Long id);
+    com.codegym.model.Ticket findTicketById(Long id);
 
     void deleteTicketById(Long id);
 
-     Page<Ticket> ticketSalesSearch(String buyer, String code, String email, Pageable pageable);
+     Page<ListTicketDto> ticketSalesSearch(String buyer, String code, String flight, Pageable pageable);
 }

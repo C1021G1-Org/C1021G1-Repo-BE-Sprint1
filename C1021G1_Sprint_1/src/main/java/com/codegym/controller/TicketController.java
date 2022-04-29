@@ -1,6 +1,6 @@
 package com.codegym.controller;
 
-import com.codegym.model.Ticket;
+import com.codegym.dto.ListTicketDto;
 import com.codegym.service.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,8 +19,8 @@ public class TicketController {
     private ITicketService iTicketService;
 
     @GetMapping("/list")
-    public ResponseEntity<Page<Ticket>> getAllListTicket(@PageableDefault(size = 2) Pageable pageable) {
-        Page<Ticket> ticketPage = this.iTicketService.findAllTicket(pageable);
+    public ResponseEntity<Page<com.codegym.model.Ticket>> getAllListTicket(@PageableDefault(size = 2) Pageable pageable) {
+        Page<com.codegym.model.Ticket> ticketPage = this.iTicketService.findAllTicket(pageable);
         if (ticketPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -28,8 +28,8 @@ public class TicketController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Ticket> deleteTicketById(@PathVariable Long id) {
-        Ticket tickets = iTicketService.findTicketById(id);
+    public ResponseEntity<com.codegym.model.Ticket> deleteTicketById(@PathVariable Long id) {
+        com.codegym.model.Ticket tickets = iTicketService.findTicketById(id);
         if (tickets == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -38,10 +38,10 @@ public class TicketController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<Ticket>> findAllTicketSearch(@RequestParam(defaultValue = "",required = false) String buyer, @RequestParam(defaultValue = "",required = false)  String code, @RequestParam(defaultValue = "",required = false)  String email, @RequestParam(defaultValue = "0") int page) {
-        Page<Ticket> ticketPage = iTicketService.ticketSalesSearch(buyer, code, email, PageRequest.of(page, 2));
+    public ResponseEntity<Page<ListTicketDto>> findAllTicketSearch(@RequestParam(defaultValue = "", required = false)String buyer, @RequestParam(defaultValue = "", required = false) String code, @RequestParam(defaultValue = "", required = false) String flight, @RequestParam(defaultValue = "0") int page) {
+        Page<ListTicketDto> ticketPage = iTicketService.ticketSalesSearch(buyer, code, flight, PageRequest.of(page, 2));
         if (ticketPage.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(ticketPage, HttpStatus.OK);
     }

@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
 @SpringBootTest
-public class TicketController_findAllTicketSearch {
+public class TicketController_findAllListTicketSearchDto {
 
     @Autowired
     private TicketController ticketController;

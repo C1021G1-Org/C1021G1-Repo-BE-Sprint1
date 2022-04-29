@@ -1,6 +1,6 @@
 package com.codegym.service.impl;
 
-import com.codegym.model.Ticket;
+import com.codegym.dto.ListTicketDto;
 import com.codegym.repository.ITicketRepository;
 import com.codegym.service.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +15,12 @@ public class TicketServiceImpl implements ITicketService {
     private ITicketRepository repository;
 
     @Override // danh sách
-    public Page<Ticket> findAllTicket(Pageable pageable) {
+    public Page<com.codegym.model.Ticket> findAllTicket(Pageable pageable) {
         return repository.findAllListTicket(pageable);
     }
 
     @Override // tim id
-    public Ticket findTicketById(Long id) {
+    public com.codegym.model.Ticket findTicketById(Long id) {
         return repository.findTicketById(id).orElse(null);
     }
 
@@ -30,8 +30,8 @@ public class TicketServiceImpl implements ITicketService {
     }
 
     @Override  // tìm kiếm
-    public Page<Ticket> ticketSalesSearch(String buyer, String code, String email, Pageable pageable) {
-        return repository.findTicketByElementContaining(buyer, code, email,pageable);
+    public Page<ListTicketDto> ticketSalesSearch(String buyer, String code, String flight, Pageable pageable) {
+        return repository.findTicketByElementContaining(buyer, code, flight, pageable);
     }
 
 }

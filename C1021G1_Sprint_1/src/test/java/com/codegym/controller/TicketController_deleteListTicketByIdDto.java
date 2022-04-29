@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class TicketController_deleteTicketById {
+public class TicketController_deleteListTicketByIdDto {
 
     @Autowired
     private MockMvc mockMvc;

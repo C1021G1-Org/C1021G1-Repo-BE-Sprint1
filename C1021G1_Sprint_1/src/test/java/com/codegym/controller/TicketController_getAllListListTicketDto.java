@@ -11,7 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 
 @SpringBootTest
-public class TicketController_getAllListTicket {
+public class TicketController_getAllListListTicketDto {
 
     @Autowired
     private TicketController ticketController;

@@ -1,5 +1,4 @@
 package com.codegym.controller;
-
 import com.codegym.model.Countries;
 import com.codegym.service.ICountriesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -270,24 +270,24 @@ public class CountriesController {
             "Zimbabwe",
             "Åland Islands"
     };
-
-    // Chạy tool postman dòng này trước kiểm tra database và comment lại.
-    @RequestMapping("/countries/api")
-    public ResponseEntity<?> getCreate() {
-        for (int i = 0; i < countryList.length; i++) {
-            Countries countries = new Countries(countryList[i]);
-            service.save(countries);
-        }
-        return new ResponseEntity<>("OK", HttpStatus.OK);
-    }
-
-    /* Lấy danh sách tài nguyên */
-    @GetMapping("/country/api/v1")
-    public ResponseEntity<List<Countries>> getCustomerList() {
-        List<Countries> countriesList = service.fillAll();
-        if (countriesList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(countriesList, HttpStatus.OK);
-    }
+//
+////     Chạy tool postman dòng này trước kiểm tra database và comment lại.
+//    @RequestMapping("/countries/api")
+//    public ResponseEntity<?> getCreate() {
+//        for (int i = 0; i < countryList.length; i++) {
+//            Countries countries = new Countries(countryList[i]);
+//            service.save(countries);
+//        }
+//        return new ResponseEntity<>("OK", HttpStatus.OK);
+//    }
+//
+////    /* Lấy danh sách tài nguyên */
+//    @GetMapping("/country/api/v1")
+//    public ResponseEntity<List<Countries>> getCustomerList() {
+//        List<Countries> countriesList = service.fillAll();
+//        if (countriesList.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<>(countriesList, HttpStatus.OK);
+//    }
 }

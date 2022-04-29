@@ -1,18 +1,40 @@
 package com.codegym.service;
 
+
 import com.codegym.model.Countries;
 import com.codegym.model.Customer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import com.codegym.dto.CustomerDto;
+
+
+
+import java.util.List;
+
 
 public interface ICustomerService {
 
-    /*ThangDBX lấy dữ liệu của khách hàng  */
-    Customer findCustomerById(Long id);
+        Page<Customer> findAllCustomer(Pageable pageable);
 
-    /* lấy dữ liệu của khách hàng  */
-    Customer findByIdPersonal(Long id);
+        void remove(Long id);
 
-    /*ThangDBX: cập nhật dữ liệu của khách hàng  */
-    void updatePersonalInfo(Customer customer);
+        List<Customer> searchCustomer(String keyword);
+
+        Customer findById(Long id);
+
+        void save(CustomerDto customerDto);
+
+
+        void update(CustomerDto customerDto);
+
+        /*ThangDBX lấy dữ liệu của khách hàng  */
+        Customer findCustomerById(Long id);
+
+        /* lấy dữ liệu của khách hàng  */
+        Customer findByIdPersonal(Long id);
+
+        /*ThangDBX: cập nhật dữ liệu của khách hàng  */
+        void updatePersonalInfo(Customer customer);
 
 
 }

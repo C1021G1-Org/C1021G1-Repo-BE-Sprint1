@@ -2,6 +2,8 @@ package com.codegym.repository;
 
 import com.codegym.model.Customer;
 import com.codegym.model.Ticket;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -35,8 +37,8 @@ public interface ITicketRepository extends JpaRepository<Ticket, Long> {
             " ticket.id_employee,\n" +
             " ticket.id_seat\n" +
             "FROM ticket\n" +
-            "WHERE ticket.id_customer = :id;", nativeQuery = true)
-    List<Ticket> getAllTicketsByCustomerID(@Param("id") Long id);
+            "WHERE ticket.id_customer = ?", nativeQuery = true)
+    List<Ticket> getAllTicketsByCustomerID(Long id);
 
     @Query(value = "SELECT\n" +
             " ticket.id,\n" +
@@ -54,26 +56,12 @@ public interface ITicketRepository extends JpaRepository<Ticket, Long> {
             " ticket.id_employee,\n" +
             " ticket.id_seat\n" +
             "FROM ticket\n" +
-            "WHERE ticket.code_ticket like %:codeTicket%", nativeQuery = true)
-    Ticket findTicketByCodeTicket(@Param("codeTicket") String codeTicket);
+            "WHERE ticket.code_ticket=?", nativeQuery = true)
+    Ticket findTicketByCodeTicket(String codeTicket);
 
     @Modifying
-    @Query(value = "UPDATE `c1021g1_sprint_1`.`ticket` SET `birthday_ticket` =?, `buyer_ticket` =?, `code_ticket` = ?, `del_flag_ticket` = ?, `email_ticket` = ?, `gender_ticket` = ?, `phone_ticket` = ?, `point_ticket` =?, `price_ticket` = ?, `status_ticket` = ?, `id_customer` = ?, `id_employee` = ? WHERE (`code_ticket` = ?);", nativeQuery = true)
-    void payTicketByCodeTicket(
-            String date,
-            String buyer,
-            String codeTicket,
-            Boolean flag,
-            String email6,
-            Boolean gender7,
-            String phone8,
-            int point9,
-            double price10,
-            Boolean status11,
-            Long customerId12,
-            Long employeeId13,
-            String codeticket14
-    );
+    @Query(value = "UPDATE `c1021g1_sprint_1`.`ticket` SET ticket.status_ticket =true WHERE ticket.code_ticket=?",nativeQuery = true)
+    void payTicketByCodeTicket(String codeTicket);
 
 
 }

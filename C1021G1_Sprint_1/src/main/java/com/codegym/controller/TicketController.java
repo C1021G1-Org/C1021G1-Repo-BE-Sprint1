@@ -16,12 +16,12 @@ public class TicketController {
     @Autowired
     ITicketService ticketService;
 
-//    SonNh lấy danh sách ticket by customer Id
-    @GetMapping
-    public ResponseEntity<List<Ticket>> listAllTicketListByCustomerId() {
-        List<Ticket> ticketList = ticketService.findAllTicketsByCustomerId(1L);
+    //    SonNh lấy danh sách ticket by customer Id
+    @GetMapping("/list/{id}")
+    public ResponseEntity<List<Ticket>> listAllTicketListByCustomerId(@PathVariable Long id) {
+        List<Ticket> ticketList = ticketService.findAllTicketsByCustomerId(id);
         if (ticketList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);//You many decide to return HttpStatus.NOT_FOUND
         }
         return new ResponseEntity<>(ticketList, HttpStatus.OK);
     }
@@ -39,17 +39,15 @@ public class TicketController {
     }
 
     //    SonNh update ticket by ticket Id
-    @PatchMapping(value = "/{code}")
-    public ResponseEntity<Ticket> updateTicket(@PathVariable("code") String codeTicket,@RequestBody Ticket ticket) {
-        System.out.println("Updating Ticket " + ticket);
-        Ticket currentTicket = ticketService.findTicketByCodeTicket(codeTicket);
-        if (currentTicket == null) {
-            System.out.println("Ticket with code " + codeTicket + " not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        ticket.setCodeTicket(codeTicket);
-        ticketService.payTicketByCodeTicket(codeTicket,ticket);
+    @PatchMapping(value = "/pay/{code}")
+    public ResponseEntity<Ticket> updateTicket(@PathVariable("code") String codeTicket) {
+//        System.out.println("Fetching Ticket with id " + codeTicket);
+//        Ticket ticket = ticketService.findTicketByCodeTicket(codeTicket);
+//        if (ticket == null) {
+//            System.out.println("Ticket with id " + codeTicket + " not found");
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+        ticketService.payTicketByCodeTicket(codeTicket);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

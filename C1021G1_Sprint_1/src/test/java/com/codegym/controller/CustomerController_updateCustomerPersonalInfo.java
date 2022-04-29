@@ -24,6 +24,8 @@ public class CustomerController_updateCustomerPersonalInfo {
     @Autowired
     private ObjectMapper objectMapper;
 
+    private final String PATCH_UPDATE_URL = "/customer/edit/update";
+
     /*ThangDBX kiểm tra trường name  */
     @Test
     public void updateCustomerPersonalInfo_Name_19() throws Exception{
@@ -45,7 +47,7 @@ public class CustomerController_updateCustomerPersonalInfo {
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders
-                        .patch("/customer/update")
+                        .patch(PATCH_UPDATE_URL)
                         .content(this.objectMapper.writeValueAsString(customerDtop))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                 ).andDo(print())
@@ -72,7 +74,7 @@ public class CustomerController_updateCustomerPersonalInfo {
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders
-                        .patch("/customer/update")
+                        .patch(PATCH_UPDATE_URL)
                         .content(this.objectMapper.writeValueAsString(customerDtop))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                 ).andDo(print())
@@ -100,7 +102,7 @@ public class CustomerController_updateCustomerPersonalInfo {
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders
-                        .patch("/customer/update")
+                        .patch(PATCH_UPDATE_URL)
                         .content(this.objectMapper.writeValueAsString(customerDtop))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                 ).andDo(print())
@@ -128,7 +130,7 @@ public class CustomerController_updateCustomerPersonalInfo {
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders
-                        .patch("/customer/update")
+                        .patch(PATCH_UPDATE_URL)
                         .content(this.objectMapper.writeValueAsString(customerDtop))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                 ).andDo(print())
@@ -156,7 +158,7 @@ public class CustomerController_updateCustomerPersonalInfo {
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders
-                        .patch("/customer/update")
+                        .patch(PATCH_UPDATE_URL)
                         .content(this.objectMapper.writeValueAsString(customerDtop))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                 ).andDo(print())
@@ -184,7 +186,7 @@ public class CustomerController_updateCustomerPersonalInfo {
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders
-                        .patch("/customer/update")
+                        .patch(PATCH_UPDATE_URL)
                         .content(this.objectMapper.writeValueAsString(customerDtop))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                 ).andDo(print())
@@ -212,7 +214,7 @@ public class CustomerController_updateCustomerPersonalInfo {
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders
-                        .patch("/customer/update")
+                        .patch(PATCH_UPDATE_URL)
                         .content(this.objectMapper.writeValueAsString(customerDtop))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                 ).andDo(print())
@@ -239,7 +241,7 @@ public class CustomerController_updateCustomerPersonalInfo {
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders
-                        .patch("/customer/update")
+                        .patch(PATCH_UPDATE_URL)
                         .content(this.objectMapper.writeValueAsString(customerDtop))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                 ).andDo(print())
@@ -267,7 +269,7 @@ public class CustomerController_updateCustomerPersonalInfo {
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders
-                        .patch("/customer/update")
+                        .patch(PATCH_UPDATE_URL)
                         .content(this.objectMapper.writeValueAsString(customerDtop))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                 ).andDo(print())
@@ -295,7 +297,7 @@ public class CustomerController_updateCustomerPersonalInfo {
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders
-                        .patch("/customer/update")
+                        .patch(PATCH_UPDATE_URL)
                         .content(this.objectMapper.writeValueAsString(customerDtop))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                 ).andDo(print())
@@ -321,7 +323,7 @@ public class CustomerController_updateCustomerPersonalInfo {
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders
-                        .patch("/customer/update")
+                        .patch(PATCH_UPDATE_URL)
                         .content(this.objectMapper.writeValueAsString(customerDtop))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                 ).andDo(print())
@@ -348,7 +350,7 @@ public class CustomerController_updateCustomerPersonalInfo {
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders
-                        .patch("/customer/update")
+                        .patch(PATCH_UPDATE_URL)
                         .content(this.objectMapper.writeValueAsString(customerDtop))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                 ).andDo(print())

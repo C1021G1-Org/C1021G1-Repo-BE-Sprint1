@@ -37,6 +37,7 @@ public class CustomerController {
     @Autowired
     private ICustomerTypeService iCustomerTypeService;
 
+    /*TinhHD tao thông tinh khách hàng bời nhân viên */
     @PostMapping("/create")
     public ResponseEntity<?> saveCustomer(@Valid @RequestBody CustomerDto customerDto) {
 //        if (bindingResult.hasErrors()) {
@@ -45,6 +46,7 @@ public class CustomerController {
         iCustomerService.save(customerDto);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
+
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -58,6 +60,8 @@ public class CustomerController {
         });
         return errors;
     }
+
+    /*TinhHD tìm id customer */
     @GetMapping("/{id}")
     public ResponseEntity<?> findCustomerById(@PathVariable Long id) {
         Customer customer =iCustomerService.findById(id);
@@ -66,6 +70,8 @@ public class CustomerController {
         }
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
+
+    /*TinhHD cập nhật thông tinh khách hàng bời nhân viên */
     @PatchMapping("/{id}")
     public ResponseEntity<Customer> updateCustomer( @PathVariable Long id,@Valid @RequestBody CustomerDto customerDto) {
 
@@ -86,7 +92,7 @@ public class CustomerController {
 //        return new ResponseEntity<>(iCustomerService.save(customer), HttpStatus.OK);
 //    }
 
-
+    /*LongLT hiển thị list khách hàng*/
     @GetMapping("/list")
     public ResponseEntity<Page<Customer>> getAllCustomer(@PageableDefault(size = 10) Pageable pageable) {
         Page<Customer> customers = iCustomerService.findAllCustomer(pageable);
@@ -96,6 +102,7 @@ public class CustomerController {
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
+    /*LongLT hiển thị list phân loại khách hàng */
     @GetMapping("/customerType")
     public ResponseEntity<List<CustomerType>> getAllCustomerType() {
         List<CustomerType> customerTypes = iCustomerTypeService.findAll();
@@ -105,6 +112,7 @@ public class CustomerController {
         return new ResponseEntity<>(customerTypes, HttpStatus.OK);
     }
 
+    /*LongLT xoa customer */
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable Long id) {
         Customer customers = iCustomerService.findById(id);
@@ -115,6 +123,7 @@ public class CustomerController {
         return new ResponseEntity<>(customers, HttpStatus.NO_CONTENT);
     }
 
+    /*LongLT search customer */
     @GetMapping("/search")
     public ResponseEntity<List<Customer>> searchCustomer(@RequestParam(defaultValue = "") String keyword) {
         List<Customer> customerList = iCustomerService.searchCustomer(keyword);

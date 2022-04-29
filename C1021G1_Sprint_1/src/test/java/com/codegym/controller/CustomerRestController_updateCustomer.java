@@ -26,14 +26,15 @@ public class CustomerRestController_updateCustomer {
     public void updateCustomer_19() throws Exception {
         CustomerDto customerDto =new CustomerDto();
         customerDto.setNameCustomer(null);
-        customerDto.setPhoneCustomer(null);
-        customerDto.setGenderCustomer(null);
-        customerDto.setEmailCustomer(null);
-        customerDto.setIdCardCustomer(null );
-        customerDto.setBirthdayCustomer(null);
-        customerDto.setAddressCustomer(null);
-        customerDto.setCustomerType(null);
-        customerDto.setCountries(null);
+        customerDto.setPhoneCustomer("0963582456");
+        customerDto.setGenderCustomer(true);
+        customerDto.setEmailCustomer("codegym@gmail.com");
+        customerDto.setIdCardCustomer("798876542" );
+        customerDto.setBirthdayCustomer("1995-12-12");
+        customerDto.setAddressCustomer("Đà Nẵng");
+        customerDto.setCustomerType(5L);
+        customerDto.setCountries(10L);
+
         this.mockMvc
                 .perform(MockMvcRequestBuilders
                         .patch("/customer/1")
@@ -47,14 +48,15 @@ public class CustomerRestController_updateCustomer {
 
         CustomerDto customerDto =new CustomerDto();
         customerDto.setNameCustomer("");
-        customerDto.setPhoneCustomer("");
-        customerDto.setGenderCustomer(null);
-        customerDto.setEmailCustomer("");
-        customerDto.setIdCardCustomer("" );
-        customerDto.setBirthdayCustomer("");
-        customerDto.setAddressCustomer("");
-        customerDto.setCustomerType(null);
-        customerDto.setCountries(null);
+        customerDto.setPhoneCustomer("0963582456");
+        customerDto.setGenderCustomer(true);
+        customerDto.setEmailCustomer("codegym@gmail.com");
+        customerDto.setIdCardCustomer("798876542" );
+        customerDto.setBirthdayCustomer("1995-12-12");
+        customerDto.setAddressCustomer("Đà Nẵng");
+        customerDto.setCustomerType(5L);
+        customerDto.setCountries(10L);
+
 
 
         this.mockMvc

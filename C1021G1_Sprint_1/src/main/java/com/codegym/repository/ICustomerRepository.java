@@ -24,12 +24,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 
 
-
 import java.util.List;
+
 @Transactional
 @Repository
 public interface ICustomerRepository extends JpaRepository<Customer, Long> {
-
 
 
     @Query(value = "select id, name_customer, gender_customer, birthday_customer, email_customer, phone_customer, del_flag_customer, " +
@@ -41,7 +40,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     void deleteCustomerByIdCustomer(Long id);
 
     @Query(value = "select id, name_customer, gender_customer, birthday_customer, email_customer, phone_customer, " +
-                      "address_customer, point_customer, id_country ,id_customer_type, id_card_customer, del_flag_customer, image_customer from `customer` where id = ?", nativeQuery = true)
+            "address_customer, point_customer, id_country ,id_customer_type, id_card_customer, del_flag_customer, image_customer from `customer` where id = ?", nativeQuery = true)
     Customer findByIdCustomer(Long id);
 
     @Query(value = "select id, name_customer, gender_customer, birthday_customer, email_customer, phone_customer, address_customer, " +
@@ -67,4 +66,19 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
                       Long countries,
                       Boolean delFlagCustomer);
 
+
+    @Modifying
+    @Query(value = "update `customer` SET name_customer = ?1,phone_customer = ?2,gender_customer = ?3,email_customer = ?4,id_card_customer = ?5,birthday_customer= ?6,address_customer = ?7,id_customer_type = ?8,id_country = ?9,del_flag_customer = ?10 where id = ?11", nativeQuery = true)
+    void updateCustomer(
+            String nameCustomer,
+            String phoneCustomer,
+            Boolean genderCustomer,
+            String emailCustomer,
+            String idCardCustomer,
+            String birthdayCustomer,
+            String addressCustomer,
+            Long customerType,
+            Long countries,
+            Boolean delFlagCustomer,
+            Long id);
 }

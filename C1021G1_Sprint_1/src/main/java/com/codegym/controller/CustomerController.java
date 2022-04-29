@@ -69,6 +69,7 @@ public class CustomerController {
     }
     @PatchMapping("/{id}")
     public ResponseEntity<Customer> updateCustomer( @PathVariable Long id,@Valid @RequestBody CustomerDto customerDto) {
+
         customerDto.setId(id);
         iCustomerService.update(customerDto);
         return new ResponseEntity<>(HttpStatus.OK);

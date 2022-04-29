@@ -34,8 +34,6 @@ public class CustomerRestController_updateCustomer {
         customerDto.setAddressCustomer(null);
         customerDto.setCustomerType(null);
         customerDto.setCountries(null);
-
-
         this.mockMvc
                 .perform(MockMvcRequestBuilders
                         .patch("/customer/1")

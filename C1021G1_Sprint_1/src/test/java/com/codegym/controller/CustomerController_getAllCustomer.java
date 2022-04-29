@@ -14,7 +14,7 @@ public class CustomerController_getAllCustomer {
 
     @Autowired
     private CustomerController customerController;
-
+//*Long LT* Test
     @Test
     public void getAllCustomer_5() {
         ResponseEntity<Page<Customer>> responseEntity

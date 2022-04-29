@@ -34,7 +34,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     @Query(value = "select id, name_customer, gender_customer, birthday_customer, email_customer, phone_customer, del_flag_customer, " +
             "address_customer, point_customer, id_country ,id_customer_type, id_card_customer, image_customer from `customer` where del_flag_customer = '1'", nativeQuery = true)
     Page<Customer> findAllByCustomer(Pageable pageable);
-
+    
     @Modifying
     @Query(value = "update `customer` SET del_flag_customer = 0 where id = ?", nativeQuery = true)
     void deleteCustomerByIdCustomer(Long id);

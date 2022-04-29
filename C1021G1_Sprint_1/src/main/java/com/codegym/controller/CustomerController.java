@@ -87,7 +87,7 @@ public class CustomerController {
 //        return new ResponseEntity<>(iCustomerService.save(customer), HttpStatus.OK);
 //    }
 
-
+//*LongLT* triển khai lấy list customer
     @GetMapping("/list")
     public ResponseEntity<Page<Customer>> getAllCustomer(@PageableDefault(size = 10) Pageable pageable) {
         Page<Customer> customers = iCustomerService.findAllCustomer(pageable);
@@ -105,7 +105,7 @@ public class CustomerController {
         }
         return new ResponseEntity<>(customerTypes, HttpStatus.OK);
     }
-
+//*LongLT* Triển khai phương thức xóa
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable Long id) {
         Customer customers = iCustomerService.findById(id);
@@ -115,7 +115,7 @@ public class CustomerController {
         iCustomerService.remove(id);
         return new ResponseEntity<>(customers, HttpStatus.NO_CONTENT);
     }
-
+//*LongLT* Triển khai phương thức tìm kiếm
     @GetMapping("/search")
     public ResponseEntity<List<Customer>> searchCustomer(@RequestParam(defaultValue = "") String keyword) {
         List<Customer> customerList = iCustomerService.searchCustomer(keyword);

@@ -1,5 +1,7 @@
 package com.codegym.service.impl;
 
+import com.codegym.dto.EmployeeTicketDto;
+import com.codegym.model.Employee;
 import com.codegym.model.Ticket;
 import com.codegym.repository.ITicketRepository;
 import com.codegym.service.ITicketService;
@@ -23,6 +25,16 @@ private ITicketRepository ticketRepository;
     public Ticket getTicketByFlightIdAndTypeSeatAndTicketId(Long idFlight, String typeSeat, Long idTicket) {
         return ticketRepository.getTicketByFlightIdAndTypeSeatAndTicketId(idFlight,typeSeat,idTicket);
     }
+
+    @Override
+    public void updateFirstTicketByIdEmployee(String buyer, String birthDay, String email, Boolean gender, String phone, EmployeeTicketDto employee, Long idTicket) {
+        ticketRepository.updateTicketByIdTicketAndIdEmployee(buyer,birthDay,email,gender,phone,employee.getId(),idTicket);
+    }
+
+//    @Override
+//    public Ticket findById(Long id) {
+//        return ticketRepository.findById(id).orElse(null);
+//    }
 
 
 }

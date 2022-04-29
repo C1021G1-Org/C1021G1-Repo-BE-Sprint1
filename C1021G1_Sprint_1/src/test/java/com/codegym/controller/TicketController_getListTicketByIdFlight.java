@@ -98,9 +98,20 @@ public class TicketController_getListTicketByIdFlight {
     public void getListTicketByIdFlight_6() {
         ResponseEntity<List<Ticket>> responseEntity = this.ticketController.getListTicketByIdFlight(1L, "vip");
         Assertions.assertEquals(200, responseEntity.getStatusCodeValue());
-        Assertions.assertEquals(8, responseEntity.getBody().get(1).getId());
-        Assertions.assertEquals(8, responseEntity.getBody().get(1).getSeat().getId());
 
+        Assertions.assertEquals(8, responseEntity.getBody().get(1).getId());
+        Assertions.assertEquals(null, responseEntity.getBody().get(1).getBuyerTicket());
+        Assertions.assertEquals("TK-008", responseEntity.getBody().get(1).getCodeTicket());
+        Assertions.assertEquals(true, responseEntity.getBody().get(1).getDelFlagTicket());
+        Assertions.assertEquals(null, responseEntity.getBody().get(1).getEmailTicket());
+        Assertions.assertEquals(null, responseEntity.getBody().get(1).getGenderTicket());
+        Assertions.assertEquals(null, responseEntity.getBody().get(1).getPhoneTicket());
+        Assertions.assertEquals(2, responseEntity.getBody().get(1).getPointTicket());
+        Assertions.assertEquals(500000, responseEntity.getBody().get(1).getPriceTicket());
+        Assertions.assertEquals(null, responseEntity.getBody().get(1).getStatusTicket());
+        Assertions.assertEquals(null, responseEntity.getBody().get(1).getCustomer());
+        Assertions.assertEquals(null, responseEntity.getBody().get(1).getEmployee());
+        Assertions.assertEquals(8, responseEntity.getBody().get(1).getSeat().getId());
     }
 
 }

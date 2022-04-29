@@ -1,5 +1,8 @@
 package com.codegym.service;
 
+import com.codegym.dto.EmployeeTicketDto;
+import com.codegym.model.Employee;
+import com.codegym.model.EmployeeType;
 import com.codegym.model.Ticket;
 import org.springframework.data.repository.query.Param;
 
@@ -12,10 +15,17 @@ public interface ITicketService {
 
     Ticket getTicketByFlightIdAndTypeSeatAndTicketId(@Param("idFlight")Long idFlight,@Param("typeSeat") String typeSeat,@Param("idTicket")Long idTicket);
 
+    void updateFirstTicketByIdEmployee(
+            @Param("buyer") String buyer,
+            @Param("birthDay") String birthDay,
+            @Param("email")String email,
+            @Param("gender") Boolean gender,
+            @Param("phone") String phone,
+            @Param("employee") EmployeeTicketDto employee,
+            @Param("idTicket") Long idTicket
 
-//    @Query (value = "UPDATE ticket set ticket.buyer := buyer , ticket.email_ticket:= email_ticket where id := ?", nativeQuery = true)
-//    void editTicket(Long id, @Param("buyer") String buyer  , @Param("email_ticket") String email_ticket);
+    );
 
+//    Ticket findById(Long id);
 
-//    void fistCreatTicket()
 }

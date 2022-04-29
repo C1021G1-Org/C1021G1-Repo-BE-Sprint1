@@ -1,41 +1,45 @@
 package com.codegym.dto;
 
-import com.codegym.model.Customer;
-import com.codegym.model.Employee;
-import com.codegym.model.Seat;
 
+import com.codegym.model.Employee;
+
+
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.Set;
+import javax.validation.constraints.Pattern;
 
 
 public class TicketFirstDto {
 
     private Long id;
 
+    @Email(message = "phải đúng định dạng email")
     @NotBlank(message = "email không được để trống")
     private String emailTicket;
 
     @NotBlank(message = "số điện thoại không được để trống")
+    @Pattern(regexp = "^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$", message = "số điện thoại không đúng định dạng")
     private String phoneTicket;
 
-    @NotNull(message = "bắt buộc phải chọn giới tính")
+
     private Boolean genderTicket;
 
     @NotNull(message = "phai thay đổi giá trị không được null")
     private Boolean statusTicket;
 
     @NotBlank(message = "tên không được để trống")
+    @Pattern(regexp = "^[A-Z|a-z]$",message = "tên không đưuọc để ký tự số")
     private String buyerTicket;
 
     @NotBlank(message = "ngày tháng không để trống")
+    @Pattern(regexp = "^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$",message = "ngày tháng không đúng định dạng")
     private String birthdayTicket;
 
 
-    private Employee employee;
+    private EmployeeTicketDto employeeTicketDto;
 
-    private Customer customer;
+
 
 
 
@@ -99,21 +103,11 @@ public class TicketFirstDto {
         this.birthdayTicket = birthdayTicket;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public EmployeeTicketDto getEmployeeTicketDto() {
+        return employeeTicketDto;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployeeTicketDto(EmployeeTicketDto employeeTicketDto) {
+        this.employeeTicketDto = employeeTicketDto;
     }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-
 }

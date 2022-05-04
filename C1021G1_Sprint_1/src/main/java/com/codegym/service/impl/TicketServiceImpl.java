@@ -11,36 +11,90 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class TicketServiceImpl implements ITicketService {
     @Autowired
-    ITicketRepository ticketRepository;
+    ITicketRepository repository;
+
 
 
     @Override
     public List<Ticket> findAllTicketsByCustomerId(Long customerId) {
-        return ticketRepository.getAllTicketsByCustomerID(customerId);
+        return repository.getAllTicketsByCustomerID(customerId);
     }
 
     @Override
     public List<Ticket> findHistoryTicketsByCustomerId(Long customerId) {
-        return ticketRepository.getHistoryTicketsByCustomerID(customerId);
+        return repository.getHistoryTicketsByCustomerID(customerId);
     }
 
     @Override
     public Ticket findTicketByCodeTicket(String codeTicket) {
-        return ticketRepository.findTicketByCodeTicket(codeTicket);
+        return repository.findTicketByCodeTicket(codeTicket);
     }
 
     @Override
     public void payTicketByCodeTicket(String codeTicket) {
-        ticketRepository.payTicketByCodeTicket(codeTicket);
-        ticketRepository.payHistoryTicketByCodeTicket(codeTicket);
+        repository.payTicketByCodeTicket(codeTicket);
+        repository.payHistoryTicketByCodeTicket(codeTicket);
     }
     @Override
     public void abortTicketByCodeTicket(String codeTicket) {
-        ticketRepository.abortTicketByCodeTicket(codeTicket);
-        ticketRepository.abortHistoryTicketByCodeTicketTicketByCodeTicket(codeTicket);
+        repository.abortTicketByCodeTicket(codeTicket);
+        repository.abortHistoryTicketByCodeTicketTicketByCodeTicket(codeTicket);
+    }
+
+
+
+    @Override // danh sách
+    public Page<TicketDto> findAllTicket(Pageable pageable) {
+        return repository.findAllListTicket(pageable);
+    }
+
+//    @Override // danh sách
+//    public Page<TicketDto> findAllTicketDTO(Pageable pageable) {
+//        return repository.findAllListTicketDTO(pageable);
+//    }
+//
+//    @Override
+//    public List<Ticket> findAllTicketDto(int index) {
+//        return repository.findAllListTicketDTO(index);
+//    }
+
+    @Override // tim id
+    public TicketDto findTicketById(Long id) {
+        return repository.findTicketById(id).orElse(null);
+    }
+
+    @Override // xóa theo id
+    public void deleteTicketById(Long id) {
+        repository.deleteTicketById(id);
+    }
+
+    @Override  // tìm kiếm
+    public Page<TicketDto> ticketByBuyer(String keyword, Pageable pageable) {
+        return repository.ticketByBuyer(keyword, pageable);
+    }
+
+    @Override  // tìm kiếm
+    public Page<TicketDto> ticketFromFlight(String keyword, Pageable pageable) {
+        return repository.ticketFromFlight(keyword, pageable);
+    }
+
+    @Override  // tìm kiếm
+    public Page<TicketDto> ticketToFlight(String keyword, Pageable pageable) {
+        return repository.ticketToFlight(keyword, pageable);
+    }
+
+    @Override  // tìm kiếm
+    public Page<TicketDto> ticketCodeTicket(String keyword, Pageable pageable) {
+        return repository.ticketCodeTicket(keyword, pageable);
+    }
+
+    @Override
+    public List<TicketDto> getAllTicketDTONotPagination() {
+        return repository.getAllTicketDTONotPagination();
     }
 
 

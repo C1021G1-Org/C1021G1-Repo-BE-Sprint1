@@ -131,7 +131,6 @@ public class CustomerController {
             if (customers.isEmpty()) {
                 System.out.println(456);
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
             }
             System.out.println(789);
             return new ResponseEntity<>(customers, HttpStatus.OK);

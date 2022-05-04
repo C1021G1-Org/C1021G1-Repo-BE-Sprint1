@@ -26,7 +26,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
     void deleteEmployee(Long id);
 
     @Query(value = "SELECT id, address_employee, code_employee, birthday_employee, del_flag_employee, email_employee, gender_employee, name_employee, phone_employee, id_employee_type \n" +
-            "FROM `employee` WHERE id = ?",nativeQuery = true)
+            "FROM `employee` WHERE id = ? AND del_flag_employee = '1'",nativeQuery = true)
     Optional<Employee> findEmployeeById(Long id);
 
     @Query(value = "SELECT id, address_employee, code_employee, birthday_employee, del_flag_employee, email_employee, gender_employee, name_employee, phone_employee, id_employee_type \n" +

@@ -24,6 +24,7 @@ import java.util.Optional;
 
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/employee")
 public class EmployeeController {
     @Autowired
@@ -65,7 +66,7 @@ public class EmployeeController {
       return new ResponseEntity<>(employeeDto, HttpStatus.OK);
     }
   
-      @GetMapping("")
+    @GetMapping("")
     public ResponseEntity<Page<Employee>> getAllEmployee(@RequestParam(defaultValue = "0") int page){
         Page<Employee> employees = iEmployeeService.findAllEmployee(PageRequest.of(page,10));
         if (employees.isEmpty()){
@@ -73,8 +74,23 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
-  
-      @GetMapping("/employeeType")
+
+    @GetMapping("/not-pagination")
+    public ResponseEntity<Page<Employee>> getAllEmployeeNotPagination(){
+        Page<Employee> employees = iEmployeeService.findAllEmployee(Pageable.unpaged());
+        if (employees.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Employee> findById(@PathVariable Long id) {
+        Optional<Employee> employee = iEmployeeService.findEmployeeById(id);
+        return employee.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/employeeType")
     public ResponseEntity<List<EmployeeType>> getAllEmployeeType() {
         List<EmployeeType> employeeTypes = iEmployeeTypeService.findAllEmployeeType();
         if (employeeTypes.isEmpty())

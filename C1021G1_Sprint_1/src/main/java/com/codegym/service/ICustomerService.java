@@ -1,13 +1,12 @@
 package com.codegym.service;
 
 
-
+import com.codegym.model.Countries;
 import com.codegym.model.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import com.codegym.dto.CustomerDto;
-import com.codegym.model.Customer;
+
 
 
 import java.util.List;
@@ -27,4 +26,15 @@ public interface ICustomerService {
 
 
         void update(CustomerDto customerDto);
+
+        /*ThangDBX lấy dữ liệu của khách hàng  */
+        Customer findCustomerById(Long id);
+
+        /* lấy dữ liệu của khách hàng  */
+        Customer findByIdPersonal(Long id);
+
+        /*ThangDBX: cập nhật dữ liệu của khách hàng  */
+        void updatePersonalInfo(Customer customer);
+
+
 }

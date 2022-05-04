@@ -9,15 +9,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@RequestMapping("api/flight")
+@RestController
+@CrossOrigin("*")
 public class AirlineTypeController {
     @Autowired
     private IAirlineTypeService airlineTypeService;
 
-    @GetMapping("/list-flight")
+    @GetMapping("/listAirlineType")
     public ResponseEntity<List<AirlineType>> listAll() {
         List<AirlineType> airlineTypeList = airlineTypeService.findAll();
         if (airlineTypeList.isEmpty()) {

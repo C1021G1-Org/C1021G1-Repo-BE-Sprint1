@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,6 +23,11 @@ public class FlightServiceImpl implements IFlightService {
     }
 
     @Override
+    public Page<Flight> findAllFlightNotPage(Pageable pageable) {
+        return iFlightRepository.findAllFlightNotPage(pageable);
+    }
+
+    @Override
     public FlightDto findById(Long id) {
         return iFlightRepository.findByIdFlight(id);
     }
@@ -29,5 +35,10 @@ public class FlightServiceImpl implements IFlightService {
     @Override
     public void deleteById(Long id) {
         iFlightRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Flight> searchFlight(String fromFlight,String toFlight,String dateStart,String dateEnd,Pageable pageable) {
+        return iFlightRepository.searchAllByFields(fromFlight, toFlight, dateStart, dateEnd, pageable);
     }
 }

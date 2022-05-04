@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class AirlineFlightService implements IAirlineTypeService {
     @Autowired
@@ -17,5 +19,10 @@ public class AirlineFlightService implements IAirlineTypeService {
     @Override
     public List<AirlineType> findAll() {
         return iAirlineTypeRepository.findAllAirlineType();
+    }
+
+    @Override
+    public AirlineType findById(Long id) {
+        return iAirlineTypeRepository.findById(id).orElse(null);
     }
 }

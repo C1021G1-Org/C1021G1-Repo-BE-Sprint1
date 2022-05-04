@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
+import javax.print.attribute.Attribute;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,9 +30,9 @@ public class NewsServiceImpl implements INewsService {
 
     @Override
     public void createNews(NewsDto newsDto) {
+
         repository.createNews(newsDto.getCodeNews(), newsDto.getDateNews(), newsDto.getDescriptionNews(),
-                newsDto.getImageNews(), newsDto.getNameNews(), newsDto.getTitleNews(),
-                newsDto.getCategory(), true);
+                newsDto.getImageNews(), newsDto.getNameNews(), newsDto.getTitleNews(),newsDto.getCategory(), true);
     }
 
     @Override

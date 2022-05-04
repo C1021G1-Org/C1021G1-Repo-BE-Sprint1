@@ -5,6 +5,8 @@ import com.codegym.model.Flight;
 import com.codegym.repository.IFlightRepository;
 import com.codegym.service.IFlightService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,24 @@ import java.util.Map;
 public class FlightServiceImpl implements IFlightService {
 
     @Autowired
+    private IFlightRepository repository;
+
+    @Override
+    public Flight findById(Long id) {
+        return repository.findByIdFlight(id);
+    }
+
+    @Override
+    public void createFlight(FlightDto flightDto) {
+        repository.createFlight(flightDto.getCodeFlight(), flightDto.getFromFlight(),
+                flightDto.getToFlight(), flightDto.getDateStart(), flightDto.getDateEnd(),
+                flightDto.getAirlineType(), true);
+    }
+
+    @Override
+    public void updateFlight(FlightDto flightDto) {
+        repository.updateFlight(flightDto.getCodeFlight(), flightDto.getFromFlight(), flightDto.getToFlight(), flightDto.getDateStart(),
+                flightDto.getDateEnd(), flightDto.getAirlineType(), true, flightDto.getId());
     private IFlightRepository iFlightRepository;
 
     Map<String, Page<FlightDto>> searchFlight = new HashMap<>();

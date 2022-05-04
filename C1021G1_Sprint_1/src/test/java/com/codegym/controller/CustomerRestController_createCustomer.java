@@ -27,14 +27,14 @@ public class CustomerRestController_createCustomer {
 
         CustomerDto customerDto = new CustomerDto();
         customerDto.setNameCustomer(null);
-        customerDto.setPhoneCustomer(null);
-        customerDto.setGenderCustomer(null);
-        customerDto.setEmailCustomer(null);
-        customerDto.setIdCardCustomer(null );
-        customerDto.setBirthdayCustomer(null);
-        customerDto.setAddressCustomer(null);
-        customerDto.setCustomerType(null);
-        customerDto.setCountries(null);
+        customerDto.setPhoneCustomer("0369852147");
+        customerDto.setGenderCustomer(true);
+        customerDto.setEmailCustomer("tinh@gmail.com");
+        customerDto.setIdCardCustomer("789456123");
+        customerDto.setBirthdayCustomer("1999-12-12");
+        customerDto.setAddressCustomer("Đà Nẵng");
+        customerDto.setCustomerType(5L);
+        customerDto.setCountries(10L);
 
 
         this.mockMvc
@@ -49,15 +49,15 @@ public class CustomerRestController_createCustomer {
     public void createCustomer_14() throws Exception {
 
         CustomerDto customerDto = new CustomerDto();
-        customerDto.setNameCustomer("");
+        customerDto.setNameCustomer("Hoàng Đức Tịnh");
         customerDto.setPhoneCustomer("");
-        customerDto.setGenderCustomer(null);
-        customerDto.setEmailCustomer("");
-        customerDto.setIdCardCustomer("" );
-        customerDto.setBirthdayCustomer("");
-        customerDto.setAddressCustomer("");
-        customerDto.setCustomerType(null);
-        customerDto.setCountries(null);
+        customerDto.setGenderCustomer(true);
+        customerDto.setEmailCustomer("tinh@gmail.com");
+        customerDto.setIdCardCustomer("789456123");
+        customerDto.setBirthdayCustomer("1999-12-12");
+        customerDto.setAddressCustomer("Đà Nẵng");
+        customerDto.setCustomerType(5L);
+        customerDto.setCountries(10L);
 
 
         this.mockMvc

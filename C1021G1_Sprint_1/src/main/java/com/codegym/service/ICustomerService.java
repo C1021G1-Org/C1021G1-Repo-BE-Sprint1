@@ -30,7 +30,7 @@ public interface ICustomerService {
         /*ThangDBX lấy dữ liệu của khách hàng  */
         Customer findCustomerById(Long id);
 
-        /* lấy dữ liệu của khách hàng  */
+        /*ThangDBX lấy dữ liệu của khách hàng  */
         Customer findByIdPersonal(Long id);
 
         /*ThangDBX: cập nhật dữ liệu của khách hàng  */

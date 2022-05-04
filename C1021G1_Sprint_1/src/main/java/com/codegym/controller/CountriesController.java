@@ -19,6 +19,8 @@ public class CountriesController {
     @Autowired
     private ICountriesService service;
 
+
+
     String[] countryList = {
             "Afghanistan",
             "Albania",
@@ -280,14 +282,14 @@ public class CountriesController {
 //        }
 //        return new ResponseEntity<>("OK", HttpStatus.OK);
 //    }
-//
-////    /* Lấy danh sách tài nguyên */
-//    @GetMapping("/country/api/v1")
-//    public ResponseEntity<List<Countries>> getCustomerList() {
-//        List<Countries> countriesList = service.fillAll();
-//        if (countriesList.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        }
-//        return new ResponseEntity<>(countriesList, HttpStatus.OK);
-//    }
+
+//    /* Lấy danh sách tài nguyên */
+    @GetMapping("/country/api/v1")
+    public ResponseEntity<List<Countries>> getCustomerList() {
+        List<Countries> countriesList = service.fillAll();
+        if (countriesList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(countriesList, HttpStatus.OK);
+    }
 }

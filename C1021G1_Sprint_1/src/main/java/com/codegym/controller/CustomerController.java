@@ -136,7 +136,7 @@ public class CustomerController {
     /*ThangDBX lấy thông tin cá nhân của khách hàng */
     @GetMapping("view/{id}")
     public ResponseEntity<Customer> findCustomerPersonalInfoById(@PathVariable("id") Long id){
-        Customer customer = iCustomerService.findByIdPersonal(id);
+        Customer customer = iCustomerService.findCustomerById(id);
         if (customer != null){
             return new ResponseEntity<>(customer,HttpStatus.OK);
         } else {
@@ -160,8 +160,9 @@ public class CustomerController {
 //    }
 
     /* ThangDBX cập nhật thông tin bản thân khách hàng  */
-    @PatchMapping("edit/update")
-    public ResponseEntity<?> updateCustomerPersonalInfo(@Validated
+    @PatchMapping("edit/{id}")
+    public ResponseEntity<?> updateCustomerPersonalInfo(@PathVariable Long id,
+                                                        @Validated
                                                         @RequestBody CustomerPersonalInfoDto customerDto,
                                                         BindingResult bindingResult){
 //        new CustomerPersonalInfoDto().validate(customerDto,bindingResult);

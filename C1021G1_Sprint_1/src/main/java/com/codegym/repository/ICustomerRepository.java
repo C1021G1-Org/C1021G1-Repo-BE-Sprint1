@@ -153,8 +153,13 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
             "where customer.id = :id" , nativeQuery = true )
     Customer findCustomerByID(@Param("id") Long id );
 
-    @Query(value = "select id, name_customer, gender_customer, birthday_customer, email_customer, phone_customer, " +
-            "address_customer, point_customer, id_country ,id_customer_type, id_card_customer, del_flag_customer, image_customer from `customer` where id = ?", nativeQuery = true)
+
+
+    @Query(value = "select customer.id, customer.name_customer, customer.gender_customer, customer.birthday_customer, customer.email_customer, customer.phone_customer, " +
+            "customer.address_customer, customer.id_country ,customer.id_customer_type, customer.id_card_customer, customer.del_flag_customer, customer.image_customer, customer.point_customer " +
+            "from customer\n" +
+            "join customer_type on customer.id_customer_type = customer_type.id\n" +
+            "where customer.id = :id" , nativeQuery = true )
     Customer findByIdPersonal(Long id);
 
 

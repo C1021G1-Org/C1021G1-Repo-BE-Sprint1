@@ -36,10 +36,7 @@ import java.util.Optional;
 
 
 @RestController
-
-
 @CrossOrigin("http://localhost:4200")
-
 @RequestMapping(value = "/customer")
 public class CustomerController {
 
@@ -59,7 +56,7 @@ public class CustomerController {
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
-
+// TinhHD validator
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(
@@ -75,8 +72,6 @@ public class CustomerController {
 
 
     /*TinhHD tìm id customer */
-
-
     @GetMapping("/{id}")
     public ResponseEntity<?> findCustomerById(@PathVariable Long id) {
         Customer customer = iCustomerService.findById(id);
@@ -88,11 +83,7 @@ public class CustomerController {
 
 
 
-
-
     /*TinhHD cập nhật thông tinh khách hàng bời nhân viên */
-
-
     @PatchMapping({"/{id}"})
     public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @Valid @RequestBody CustomerDtoCheck
             customerDtoCheck) {
@@ -131,7 +122,6 @@ public class CustomerController {
         if (customers.isEmpty()) {
             System.out.println(456);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
         }
         System.out.println(789);
         return new ResponseEntity<>(customers, HttpStatus.OK);
@@ -174,12 +164,10 @@ public class CustomerController {
     }
 
 
-
     //*LongLT* Triển khai phương thức tìm kiếm
-    /*LongLT search customer */
     @GetMapping("/search")
-    public ResponseEntity<Page<Customer>> searchCustomer(@RequestParam(defaultValue = "", required = false) String
-                                                                 keyword, @RequestParam(defaultValue = "", required = false) String option,
+    public ResponseEntity<Page<Customer>> searchCustomer(@RequestParam(defaultValue = "", required = false) String keyword,
+                                                         @RequestParam(defaultValue = "", required = false) String option,
                                                          @RequestParam(defaultValue = "0") int page) {
 
         Page<Customer> customerList = null;
@@ -226,20 +214,6 @@ public class CustomerController {
 
     }
 
-//    /* ThangDBX cập nhật thông tin bản thân khách hàng  */
-//    @GetMapping("customer/edit/{id}")
-//    public ResponseEntity<Customer> getCustomerPersonal(@PathVariable("id") Long id){
-//        Customer customer = customerService.findCustomerById(id);
-//
-//        if (customer != null){
-//            CustomerPersonalInfoDto customerDto = new CustomerPersonalInfoDto();
-//            BeanUtils.copyProperties(customer,customerDto);
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>( customer ,HttpStatus.NOT_FOUND);
-//        }
-//
-//    }
 
 
     /* ThangDBX cập nhật thông tin bản thân khách hàng  */
@@ -249,20 +223,16 @@ public class CustomerController {
                                                         @RequestBody CustomerPersonalInfoDto customerDto,
                                                         BindingResult bindingResult) {
 
-        /* ThangDBX cập nhật thông tin bản thân khách hàng  */
-
-//        new CustomerPersonalInfoDto().validate(customerDto,bindingResult);
-
-            if (bindingResult.hasErrors()) {
-                return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.NOT_FOUND);
-            } else {
-                Customer customer = new Customer();
-                BeanUtils.copyProperties(customerDto, customer);
-                iCustomerService.updatePersonalInfo(customer);
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
-
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.NOT_FOUND);
+        } else {
+            Customer customer = new Customer();
+            BeanUtils.copyProperties(customerDto, customer);
+            iCustomerService.updatePersonalInfo(customer);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
 
-
     }
+
+
+}

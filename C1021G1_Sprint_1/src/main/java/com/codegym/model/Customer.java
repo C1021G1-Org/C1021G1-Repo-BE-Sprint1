@@ -2,6 +2,7 @@ package com.codegym.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -41,9 +42,13 @@ public class Customer {
     @JoinColumn(name = "id_customer_type", referencedColumnName = "id")
     private CustomerType customerType;
 
-    @JsonBackReference
+    @JsonBackReference(value = "customer_ticket")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private Set<Ticket> ticketC;
+
+    @JsonBackReference(value = "customer_ticket_history")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Set<TicketHistory> ticketHistories;
 
     public Customer() {
     }
@@ -158,5 +163,13 @@ public class Customer {
 
     public void setTicketC(Set<Ticket> ticketC) {
         this.ticketC = ticketC;
+    }
+
+    public Set<TicketHistory> getTicketHistories() {
+        return ticketHistories;
+    }
+
+    public void setTicketHistories(Set<TicketHistory> ticketHistories) {
+        this.ticketHistories = ticketHistories;
     }
 }

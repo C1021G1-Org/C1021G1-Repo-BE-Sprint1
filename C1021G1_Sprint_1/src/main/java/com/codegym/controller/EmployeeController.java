@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/employee")
 public class EmployeeController {
 
@@ -33,6 +34,21 @@ public class EmployeeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<Page<Employee>> getAllEmployeeNotPagination(){
+        Page<Employee> employees = iEmployeeService.findAllEmployee(Pageable.unpaged());
+        if (employees.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Employee> findById(@PathVariable Long id) {
+        Optional<Employee> employee = iEmployeeService.findEmployeeById(id);
+        return employee.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/employeeType")

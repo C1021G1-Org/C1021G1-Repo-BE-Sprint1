@@ -19,7 +19,7 @@ public class TicketController_getAllListListTicketDto {
     @Test
     public void getAllListTicket_5() {
         ResponseEntity<Page<Ticket>> responseEntity
-                = this.ticketController.getAllListTicket(PageRequest.of(0, 2));
+                = this.ticketController.getAllListTicket(PageRequest.of(0, 10));
 
         Assertions.assertEquals(204, responseEntity.getStatusCodeValue());
     }
@@ -27,7 +27,7 @@ public class TicketController_getAllListListTicketDto {
     @Test
     public void getListStudent_6() {
         ResponseEntity<Page<Ticket>> responseEntity
-                = this.ticketController.getAllListTicket(PageRequest.of(0, 2));
+                = this.ticketController.getAllListTicket(PageRequest.of(0, 10));
 
         Assertions.assertEquals(200, responseEntity.getStatusCodeValue());
         Assertions.assertEquals(3, responseEntity.getBody().getTotalPages());

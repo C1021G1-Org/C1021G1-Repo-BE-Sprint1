@@ -1,8 +1,5 @@
 package com.codegym.controller;
 
-import com.codegym.dto.EmployeeDto;
-import com.codegym.dto.EmployeeFindIdDto;
-import com.codegym.validation.EmployeeCreateByRequestDtoValidator;
 import com.codegym.model.Employee;
 import com.codegym.model.EmployeeType;
 import com.codegym.service.IEmployeeService;
@@ -15,6 +12,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
@@ -26,45 +24,13 @@ import java.util.Optional;
 @CrossOrigin("*")
 @RequestMapping("/employee")
 public class EmployeeController {
+
     @Autowired
     private IEmployeeService iEmployeeService;
-  
-    @Autowired
-    private EmployeeCreateByRequestDtoValidator employeeCreateByRequestDtoValidator;
-  
+
     @Autowired
     private IEmployeeTypeService iEmployeeTypeService;
-  
-    @GetMapping("/find-id/{id}")
-    public ResponseEntity<EmployeeFindIdDto> findById(@PathVariable Long id) {
-        EmployeeFindIdDto employee = iEmployeeService.findByID(id);
-        if (employee == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        System.out.println(employee);
-        return new ResponseEntity<>(employee, HttpStatus.OK);
-    }
-  
-    @PostMapping("/createEmployee")
-    public ResponseEntity<?> createEmployee(@Valid @RequestBody EmployeeDto employeeDto , BindingResult bindingResult) {
-        employeeCreateByRequestDtoValidator.validate(employeeDto,bindingResult);
-        if(bindingResult.hasErrors()){
-            return new ResponseEntity<>(bindingResult.getAllErrors(),HttpStatus.BAD_REQUEST);
-        }
-        iEmployeeService.createNewEmployee(employeeDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-  
-    @PutMapping("/editEmployee")
-    public ResponseEntity<?> editEmployee(@Valid @RequestBody EmployeeDto employeeDto, BindingResult bindingResult) {
-        employeeDto.setId_Employee_Type(1L);
-        if(bindingResult.hasErrors()){
-            return new ResponseEntity<>(bindingResult.getAllErrors(),HttpStatus.NOT_ACCEPTABLE);
-        }
-        iEmployeeService.editEmployee(employeeDto);
-      return new ResponseEntity<>(employeeDto, HttpStatus.OK);
-    }
-  
+
     @GetMapping("")
     public ResponseEntity<Page<Employee>> getAllEmployee(@RequestParam(defaultValue = "0") int page){
         Page<Employee> employees = iEmployeeService.findAllEmployee(PageRequest.of(page,10));

@@ -36,10 +36,7 @@ import java.util.Optional;
 
 
 @RestController
-
-
 @CrossOrigin("http://localhost:4200")
-
 @RequestMapping(value = "/customer")
 public class CustomerController {
 
@@ -117,23 +114,17 @@ public class CustomerController {
         }
 
 
-        //*LongLT* triển khai lấy list customer
+
 
 
         /*LongLT hiển thị list khách hàng*/
-
-
         @GetMapping("/list")
-        public ResponseEntity<Iterable<Customer>> getAllCustomer ( @RequestParam(defaultValue = "0") int page){
+        public ResponseEntity<Iterable<Customer>> getAllCustomer (@RequestParam(defaultValue = "0") int page){
             Pageable pageable = PageRequest.of(page, 10);
             Page<Customer> customers = iCustomerService.findAllCustomer(pageable);
-            System.out.println(123);
             if (customers.isEmpty()) {
-                System.out.println(456);
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
             }
-            System.out.println(789);
             return new ResponseEntity<>(customers, HttpStatus.OK);
         }
         @GetMapping("/customer-not-pagination")
@@ -176,8 +167,6 @@ public class CustomerController {
 
 
         //*LongLT* Triển khai phương thức tìm kiếm
-
-        /*LongLT search customer */
 
         @GetMapping("/search")
         public ResponseEntity<Page<Customer>> searchCustomer (@RequestParam(defaultValue = "", required = false) String

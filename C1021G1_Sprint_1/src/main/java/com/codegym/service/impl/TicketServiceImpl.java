@@ -23,6 +23,11 @@ public class TicketServiceImpl implements ITicketService {
     }
 
     @Override
+    public List<Ticket> findHistoryTicketsByCustomerId(Long customerId) {
+        return ticketRepository.getHistoryTicketsByCustomerID(customerId);
+    }
+
+    @Override
     public Ticket findTicketByCodeTicket(String codeTicket) {
         return ticketRepository.findTicketByCodeTicket(codeTicket);
     }
@@ -30,10 +35,12 @@ public class TicketServiceImpl implements ITicketService {
     @Override
     public void payTicketByCodeTicket(String codeTicket) {
         ticketRepository.payTicketByCodeTicket(codeTicket);
+        ticketRepository.payHistoryTicketByCodeTicket(codeTicket);
     }
     @Override
     public void abortTicketByCodeTicket(String codeTicket) {
         ticketRepository.abortTicketByCodeTicket(codeTicket);
+        ticketRepository.abortHistoryTicketByCodeTicketTicketByCodeTicket(codeTicket);
     }
 
 

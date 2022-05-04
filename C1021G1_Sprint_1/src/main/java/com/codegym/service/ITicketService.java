@@ -10,6 +10,8 @@ import java.util.List;
 public interface ITicketService {
     List<Ticket> findAllTicketsByCustomerId(Long customerId);
 
+    List<Ticket> findHistoryTicketsByCustomerId(Long customerId);
+
     Ticket findTicketByCodeTicket(String codeTicket);
 
 

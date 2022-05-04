@@ -1,28 +1,26 @@
 package com.codegym.service.impl;
 
 import com.codegym.model.AirlineType;
-import com.codegym.model.Flight;
 import com.codegym.repository.IAirlineTypeRepository;
 import com.codegym.service.IAirlineTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class AirlineFlightService implements IAirlineTypeService {
+public class AirlineTypeServiceImpl implements IAirlineTypeService {
+
     @Autowired
-    private IAirlineTypeRepository iAirlineTypeRepository;
+    private IAirlineTypeRepository repository;
 
     @Override
     public List<AirlineType> findAll() {
-        return iAirlineTypeRepository.findAllAirlineType();
+        return repository.findAllAirlineType();
     }
 
     @Override
     public AirlineType findById(Long id) {
-        return iAirlineTypeRepository.findById(id).orElse(null);
+        return repository.findById(id).orElse(null);
     }
 }

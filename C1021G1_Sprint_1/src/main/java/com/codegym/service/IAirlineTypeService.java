@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IAirlineTypeService {
+
     List<AirlineType> findAll();
     AirlineType findById(Long id);
 }

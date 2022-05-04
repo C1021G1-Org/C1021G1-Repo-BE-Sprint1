@@ -1,17 +1,12 @@
 package com.codegym.dto;
 
-
-
+import com.codegym.model.AirlineType;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-public class FlightDto {
-
-
-
-
+public class FlightDtoCheck {
 
     private Long id;
 
@@ -37,9 +32,9 @@ public class FlightDto {
     private String dateEnd;
 
     @NotNull(message = "Hãng bay phải bắt buộc nhập!")
-    private Long airlineType;
+    private AirlineType airlineType;
 
-    public FlightDto() {
+    public FlightDtoCheck() {
     }
 
     public Long getId() {
@@ -90,12 +85,11 @@ public class FlightDto {
         this.dateEnd = dateEnd;
     }
 
-    public Long getAirlineType() {
+    public AirlineType getAirlineType() {
         return airlineType;
     }
 
-    public void setAirlineType(Long airlineType) {
+    public void setAirlineType(AirlineType airlineType) {
         this.airlineType = airlineType;
     }
 }
-

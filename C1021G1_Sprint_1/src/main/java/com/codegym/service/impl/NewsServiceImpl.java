@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,5 +31,16 @@ public class NewsServiceImpl implements INewsService {
     {
         return iNewsRepository.findNewsById(id);
     }
+
+    @Override
+    public News findById(Long id) {
+        return iNewsRepository.findByIdNews(id);
+    }
+
+    @Override
+    public List<News> getAllNewsNotPagination() {
+        return iNewsRepository.getAllNewsNotPagination();
+    }
+
 
 }

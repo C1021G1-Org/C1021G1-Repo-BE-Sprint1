@@ -1,13 +1,13 @@
 package com.codegym.repository;
 
 import com.codegym.model.Employee;
-  import com.codegym.dto.EmployeeFindIdDto;
+import com.codegym.dto.EmployeeFindIdDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-  import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Repository;
   
 import javax.transaction.Transactional;
 
@@ -43,5 +43,4 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
     @Modifying
     @Query(value = " UPDATE employee as e SET e.address_employee = ?, e.code_employee = ?,e.del_flag_employee = ?, e.birthday_employee = ?, e.email_employee=?, e.gender_employee = ?, e.phone_employee = ?,e.name_employee= ?, e.id_employee_type =? WHERE e.id = ? ", nativeQuery = true)
     void editEmployee(String addressEmployee, String codeEmployee, Boolean delFlagEmployee, String birthdayEmployee, String emailEmployee, Boolean genderEmployee , String phoneEmployee, String nameEmployee,  Long idEmployeeType, Long id);
-
 }

@@ -3,6 +3,8 @@ package com.codegym.model;
 import com.codegym.model.Customer;
 import com.codegym.model.Employee;
 import com.codegym.model.Flight;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -27,11 +29,13 @@ public class Ticket {
     private Boolean delFlagTicket;
 
     private Integer pointTicket;
-              // Người mua vé
-    private String buyer;
 
+              // Người mua vé
+    private String buyerTicket;
+
+    @Column(columnDefinition = "DATE")
           // Ngày sinh của người mua vé
-    private String dayOfBirth;
+    private String birthdayTicket;
 
     @ManyToOne
     @JoinColumn(name = "id_employee", referencedColumnName = "id")
@@ -41,9 +45,9 @@ public class Ticket {
     @JoinColumn(name = "id_customer", referencedColumnName = "id")
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "id_flight", referencedColumnName = "id")
-    private Flight flightTicket;
+    @OneToOne
+    @JoinColumn(name = "id_seat", referencedColumnName = "id")
+    private Seat seat;
 
     public Ticket() {
     }
@@ -120,12 +124,12 @@ public class Ticket {
         this.pointTicket = pointTicket;
     }
 
-    public String getBuyer() {
-        return buyer;
+    public String getBuyerTicket() {
+        return buyerTicket;
     }
 
-    public void setBuyer(String buyer) {
-        this.buyer = buyer;
+    public void setBuyerTicket(String buyerTicket) {
+        this.buyerTicket = buyerTicket;
     }
 
     public Employee getEmployee() {
@@ -144,19 +148,19 @@ public class Ticket {
         this.customer = customer;
     }
 
-    public Flight getFlightTicket() {
-        return flightTicket;
+    public String getBirthdayTicket() {
+        return birthdayTicket;
     }
 
-    public void setFlightTicket(Flight flightTicket) {
-        this.flightTicket = flightTicket;
+    public void setBirthdayTicket(String birthdayTicket) {
+        this.birthdayTicket = birthdayTicket;
     }
 
-    public String getDayOfBirth() {
-        return dayOfBirth;
+    public Seat getSeat() {
+        return seat;
     }
 
-    public void setDayOfBirth(String dayOfBirth) {
-        this.dayOfBirth = dayOfBirth;
+    public void setSeat(Seat seat) {
+        this.seat = seat;
     }
 }

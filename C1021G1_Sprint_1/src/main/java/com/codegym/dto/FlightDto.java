@@ -1,7 +1,5 @@
 package com.codegym.dto;
 
-import com.codegym.model.AirlineType;
-
 public interface
 FlightDto {
     Long getId();
@@ -12,6 +10,7 @@ FlightDto {
     Boolean getDel_flag_flight();
     String getDate_end();
     Long getId_airline_type();
+
 
 }
 

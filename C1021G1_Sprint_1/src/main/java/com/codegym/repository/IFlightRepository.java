@@ -11,8 +11,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
-
 @Transactional
 @Repository
 public interface IFlightRepository extends JpaRepository<Flight, Long> {
@@ -86,5 +84,6 @@ public interface IFlightRepository extends JpaRepository<Flight, Long> {
                     "where from_flight like %?1% and to_flight like %?2%  and date_start like %?3%  and date_end like %?4% ) as Tdmtcl ")
 
     Page<Flight> searchAllByFields(String from_flight, String to_flight, String date_start, String date_end, Pageable pageable);
+
 
 }

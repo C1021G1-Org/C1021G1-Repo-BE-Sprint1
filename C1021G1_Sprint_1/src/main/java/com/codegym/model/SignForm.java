@@ -3,10 +3,7 @@ package com.codegym.model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class SignForm implements Validator {
     @Email
@@ -14,18 +11,24 @@ public class SignForm implements Validator {
     private String email;
     @Size(min = 8,max = 20)
     @NotBlank
-    @Pattern(regexp = "[0-9]{9}")
     private String password;
     private String confirmPassword;
-    @Pattern(regexp = "(\\+849|09)(1|2|5|7|)[0-9]{7}")
+    @NotBlank
+    @Pattern(regexp = "(\\+849|09)[0-9]{8}")
     private String phone;
     @Size(min = 10, max = 50)
+    @NotBlank
     private String fullName;
+    @NotBlank
     private String birthday;
+    @NotBlank
     private String address;
+    @NotNull
     private Boolean gender;
+    @NotBlank
     @Pattern(regexp = "[0-9]{12}")
     private String idCard;
+    @NotNull
     private Countries country;
 
     public SignForm() {
@@ -36,7 +39,6 @@ public class SignForm implements Validator {
                     String address, Boolean gender, String idCard, Countries country) {
 
         this.email = email;
-
         this.password = password;
         this.confirmPassword = confirmPassword;
         this.phone = phone;

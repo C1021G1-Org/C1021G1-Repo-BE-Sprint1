@@ -39,32 +39,57 @@ public class SignInController {
     @Autowired
     JwtTokenUtil jwtTokenUtil;
 
-    @PostMapping(value = "signUp")
+    @PostMapping(value = "api/signUp")
     public ResponseEntity<?> register(@Valid @RequestBody SignForm signForm) {
 //        new SignForm().validate(signForm, bindingResult);
 //        System.out.println(bindingResult.getAllErrors());
 
         if (accountService.existAccountByEmail(signForm.getEmail())) {
-            return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("duplicate email", HttpStatus.BAD_REQUEST);
         }
         Account acc = new Account();
         BeanUtils.copyProperties(signForm, acc);
         acc.setPassword(passwordEncoder.encode(signForm.getPassword()));
         Set<Role> roleSet = new HashSet<>();
         roleSet.add(new Role(3L, RoleName.CUSTOMER));
+        if(acc.getEmail().contains("admin")){
+            roleSet.add(new Role(2L, RoleName.EMPLOYEE));
+            roleSet.add(new Role(1L, RoleName.ADMIN));
+        }
+        if(acc.getEmail().contains("employee")){
+            roleSet.add(new Role(2L, RoleName.EMPLOYEE));
+        }
         acc.setRoles(roleSet);
         accountService.save(acc);
-        return new ResponseEntity<>("ok", HttpStatus.CREATED);
+        return new ResponseEntity<>(acc, HttpStatus.CREATED);
     }
 
-    @PostMapping("/signIn")
+    @PostMapping("api/signIn")
     public ResponseEntity<?> signIn(@RequestBody User user) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+        Authentication authentication;
+        if (!accountService.existAccountByEmail(user.getEmail())) {
+            return new ResponseEntity<>("emailError", HttpStatus.BAD_REQUEST);
+        }
+        try{
+             authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+        }catch (Exception e){
+            return new ResponseEntity<>("passwordError",HttpStatus.BAD_REQUEST);
+        }
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtTokenUtil.createToken(authentication);
         AccountPrinciple accountPrinciple = (AccountPrinciple) authentication.getPrincipal();
         return new ResponseEntity<>(new JwtReponse(token, accountPrinciple.getEmail(), accountPrinciple.getAuthorities()), HttpStatus.OK);
+    }
+
+    @PostMapping("api/forgetPassword")
+    public ResponseEntity<?> forgetPassword(@RequestBody PasswordForgettedForm passwordForgettedForm){
+        if(accountService.existAccountByEmail(passwordForgettedForm.getEmail())){
+            Account account = accountService.findAccountByEmail(passwordForgettedForm.getEmail());
+            account.setPassword(passwordEncoder.encode(passwordForgettedForm.getPassword()));
+            accountService.save(account);
+        }
+        return new ResponseEntity<>("ok",HttpStatus.OK);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

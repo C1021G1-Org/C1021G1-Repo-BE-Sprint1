@@ -27,9 +27,9 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public void save(Account acc) {
         //address,birthday,confirm_password,email,full_name,gender,id_card,password,phone,country_id
-        accountRepository.saveAccount(acc.getAddress(), acc.getBirthday(), acc.getConfirmPassword(),acc.getEmail(),
-                acc.getFullName(),acc.getGender(),acc.getIdCard(), acc.getPhone(), acc.getPassword(), acc.getCountry());
-    }
-//        accountRepository.save(acc);
+//        accountRepository.saveAccount(acc.getAddress(), acc.getBirthday(), acc.getConfirmPassword(),acc.getEmail(),
+//                acc.getFullName(),acc.getGender(),acc.getIdCard(), acc.getPhone(), acc.getPassword(), acc.getCountry());
 //    }
+        accountRepository.save(acc);
+    }
 }

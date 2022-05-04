@@ -40,22 +40,13 @@ public class CustomerController_deleteCustomer {
                 .andExpect(status().is4xxClientError());
     }
     @Test
-    public void getInfoStudent_id_1() throws Exception {
+    public void deleteCustomer_id_4() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders
                                 .delete("/customer/delete/{id}", "1"))
                 .andDo(print())
-                .andExpect(status().is2xxSuccessful())
-                        .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.nameCustomer").value("Nguyễn Văn Nguyên"))
-                .andExpect(jsonPath("$.birthdayCustomer").value("1990-12-04"))
-                .andExpect(jsonPath("$.customerType.id").value(4))
-                .andExpect(jsonPath("$.addressCustomer").value("Đà Nẵng"))
-                .andExpect(jsonPath("$.phoneCustomer").value("0903111222"))
-                .andExpect(jsonPath("$.emailCustomer").value("Nguyen1@gmail.com"))
-                .andExpect(jsonPath("$.idCardCustomer").value("1311221333"))
-                .andExpect(jsonPath("$.pointCustomer").value(100))
-                .andExpect(jsonPath("$.countries.id").value("241"));
+                .andExpect(status().is2xxSuccessful());
+
     }
 
 

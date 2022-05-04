@@ -31,18 +31,18 @@ public class CustomerTypeController {
     //     Chạy tool postman dòng này trước kiểm tra database và comment lại.
 
 
-//    @RequestMapping("/customerType/api")
-//    public ResponseEntity<?> getCreate() {
-//        for (int i = 0; i < customerTypeList.length; i++) {
-//            CustomerType customerType = new CustomerType(customerTypeList[i]);
-//            iCustomerTypeService.save(customerType);
-//        }
-//        return new ResponseEntity<>("OK", HttpStatus.OK);
-//    }
-//
-//    /* Lấy danh sách tài nguyên */
-//
-//
+    @RequestMapping("/customerType/api")
+    public ResponseEntity<?> getCreate() {
+        for (int i = 0; i < customerTypeList.length; i++) {
+            CustomerType customerType = new CustomerType(customerTypeList[i]);
+            iCustomerTypeService.save(customerType);
+        }
+        return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
+
+    /* Lấy danh sách tài nguyên */
+
+
     @GetMapping("/customerType-list")
     public ResponseEntity<List<CustomerType>> findAllCustomerType() {
         List<CustomerType> customerTypeList = iCustomerTypeService.findAll();

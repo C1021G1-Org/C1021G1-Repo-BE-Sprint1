@@ -34,10 +34,14 @@ public class CustomerServiceImpl implements ICustomerService {
         iCustomerRepository.deleteCustomerByIdCustomer(id);
     }
 
-    @Override
-    public List<Customer> searchCustomer(String keyword) {
-        return iCustomerRepository.searchAllByFields(keyword);
-    }
+//    @Override
+//    public List<Customer> searchCustomer(String keyword) {
+//        return null;
+//    }
+
+
+
+
 
     @Override
     public Customer findById(Long id) {
@@ -76,6 +80,47 @@ public class CustomerServiceImpl implements ICustomerService {
                 customerDto.getId());
     }
 
+    @Override
+    public Page<Customer> searchCustomerByEmail(String keyword, Pageable pageable) {
+        return iCustomerRepository.searchByEmail(keyword, pageable);
+    }
+
+    @Override
+    public Page<Customer> searchCustomerByName(String keyword, Pageable pageable) {
+
+        return iCustomerRepository.searchByName(keyword, pageable);
+    }
+
+    @Override
+    public Page<Customer> searchCustomerByAddress(String keyword, Pageable pageable) {
+        return iCustomerRepository.searchByAddress(keyword, pageable);
+    }
+
+    @Override
+    public Page<Customer> searchCustomerByCountry(String keyword, Pageable pageable) {
+        return iCustomerRepository.searchByCountry(keyword, pageable);
+    }
+
+    @Override
+    public Page<Customer> searchCustomerByCustomerType(String keyword, Pageable pageable) {
+        return iCustomerRepository.searchByCustomerType(keyword, pageable);
+    }
+
+    @Override
+    public Page<Customer> searchCustomerByPhone(String keyword, Pageable pageable) {
+        return iCustomerRepository.searchByPhone(keyword, pageable);
+    }
+
+    @Override
+    public Page<Customer> searchCustomerByIdCrad(String keyword, Pageable pageable) {
+        return iCustomerRepository.searchByIdCard(keyword, pageable);
+    }
+
+    @Override
+    public List<Customer> getAllCustomerNotPagination() {
+        return iCustomerRepository.getAllCustomerNotPagination();
+    }
+
             /*ThangDBX lấy dữ liệu của khách hàng  */
             @Override
             public Customer findCustomerById(Long id) {
@@ -103,6 +148,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
                 iCustomerRepository.updatePersonalInfo(name,gender,email,phone,birth,idCard,idCountry,address,image,id);
         }
+
 
 
 }

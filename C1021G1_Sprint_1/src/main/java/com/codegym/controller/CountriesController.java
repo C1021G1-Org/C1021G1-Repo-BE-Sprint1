@@ -274,6 +274,7 @@ public class CountriesController {
     };
 //
 ////     Chạy tool postman dòng này trước kiểm tra database và comment lại.
+
 //    @RequestMapping("/countries/api")
 //    public ResponseEntity<?> getCreate() {
 //        for (int i = 0; i < countryList.length; i++) {
@@ -284,6 +285,18 @@ public class CountriesController {
 //    }
 
 //    /* Lấy danh sách tài nguyên */
+
+    @RequestMapping("/countries/api")
+    public ResponseEntity<?> getCreate() {
+        for (int i = 0; i < countryList.length; i++) {
+            Countries countries = new Countries(countryList[i]);
+            service.save(countries);
+        }
+        return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
+//
+////    /* Lấy danh sách tài nguyên */
+
     @GetMapping("/country/api/v1")
     public ResponseEntity<List<Countries>> getCustomerList() {
         List<Countries> countriesList = service.fillAll();

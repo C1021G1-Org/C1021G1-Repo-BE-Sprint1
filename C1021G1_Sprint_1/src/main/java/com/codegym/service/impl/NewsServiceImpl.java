@@ -13,34 +13,5 @@ import java.util.Optional;
 
 @Service
 public class NewsServiceImpl implements INewsService {
-    @Autowired
-    private INewsRepository iNewsRepository;
-
-    @Override
-    public Page<News> findAllNews(Pageable pageable) {
-        return iNewsRepository.findAllNews(pageable);
-    }
-
-    @Override
-    public void deleteNewsById(Long id) {
-        iNewsRepository.removeNewsById(id);
-    }
-
-    @Override
-    public Optional<News> findNewsById(Long id)
-    {
-        return iNewsRepository.findNewsById(id);
-    }
-
-    @Override
-    public News findById(Long id) {
-        return iNewsRepository.findByIdNews(id);
-    }
-
-    @Override
-    public List<News> getAllNewsNotPagination() {
-        return iNewsRepository.getAllNewsNotPagination();
-    }
-
 
 }

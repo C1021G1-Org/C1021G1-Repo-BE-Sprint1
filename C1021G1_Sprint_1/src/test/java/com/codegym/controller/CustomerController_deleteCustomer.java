@@ -1,6 +1,5 @@
 package com.codegym.controller;
 
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -9,47 +8,48 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class NewsController_DeleteNews {
+public class CustomerController_deleteCustomer {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-public void delete_news_1() throws Exception {
+    public void  deleteCustomer_id_1() throws Exception {
         this.mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .delete("/delete-news/{id}", "null"))
+                MockMvcRequestBuilders.delete("/customer/delete/{id}", "null"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
     @Test
-    public void delete_news_2() throws Exception {
+    public void  deleteCustomer_id_2() throws Exception {
         this.mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .delete("/delete-news/{id}", " "))
+                        MockMvcRequestBuilders.delete("/customer/delete/{id}", ""))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
     @Test
-    public void delete_news_3() throws Exception {
+    public void  deleteCustomer_id_3() throws Exception {
         this.mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .delete("/delete-news/{id}", "99"))
+                        MockMvcRequestBuilders.delete("/customer/delete/{id}", "17"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
     @Test
-    public void delete_news_4() throws Exception {
+    public void deleteCustomer_id_4() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders
-                                .delete("/delete-news/{id}", "5"))
+                                .delete("/customer/delete/{id}", "1"))
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful());
+
     }
 
 
-}
+    }
+
+

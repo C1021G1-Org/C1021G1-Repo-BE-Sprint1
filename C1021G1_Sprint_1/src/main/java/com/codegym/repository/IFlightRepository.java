@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 @Transactional
 public interface IFlightRepository extends JpaRepository<Flight, Long> {
 
+//tronghd tạoc câu lệnh query thêm mới
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO Flight(code_flight,from_flight,to_flight,date_start,date_end,id_airline_type,del_flag_flight)" +
@@ -30,6 +31,7 @@ public interface IFlightRepository extends JpaRepository<Flight, Long> {
             "FROM flight WHERE id=?", nativeQuery = true)
     Flight findByIdFlight(Long id);
 
+    //tronghd tạoc câu lệnh query chỉnh sửa chuyến bay
     @Transactional
     @Modifying
     @Query(value = "UPDATE Flight AS f SET f.code_flight = ?1 , f.from_flight = ?2, f.to_flight = ?3, f.date_start = ?4," +

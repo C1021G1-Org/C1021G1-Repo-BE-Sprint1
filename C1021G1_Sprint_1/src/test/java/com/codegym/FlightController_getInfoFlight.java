@@ -17,27 +17,35 @@ public class FlightController_getInfoFlight {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    public void getInFoFlight_id_1() throws Exception {
-        this.mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/flight/{id}", "null"))
-                        .andDo(print())
-                        .andExpect(status().is4xxClientError());
-    }
-
-    @Test
-    public void getInFoFlight_id_3() throws Exception {
-        this.mockMvc.perform(
-                        MockMvcRequestBuilders.get("/api/flight/{id}", "92"))
-                .andDo(print())
-                .andExpect(status().is4xxClientError());
-    }
-
-    @Test
-    public void getInFoFlight_id_4() throws Exception {
-        this.mockMvc.perform(
-                        MockMvcRequestBuilders.get("/api/flight/{id}", "1"))
-                .andDo(print())
-                .andExpect(status().is2xxSuccessful());
-    }
+//    @Test
+//    public void getInFoFlight_id_1() throws Exception {
+//        this.mockMvc.perform(
+//                MockMvcRequestBuilders.get("/api/flight/{id}", "null"))
+//                        .andDo(print())
+//                        .andExpect(status().is4xxClientError());
+//    }
+//
+//    @Test
+//    public void getInFoFlight_id_2() throws Exception {
+//        this.mockMvc.perform(
+//                        MockMvcRequestBuilders.get("/api/flight/{id}", ""))
+//                .andDo(print())
+//                .andExpect(status().is4xxClientError());
+//    }
+//
+//    @Test
+//    public void getInFoFlight_id_3() throws Exception {
+//        this.mockMvc.perform(
+//                        MockMvcRequestBuilders.get("/api/flight/{id}", "92"))
+//                .andDo(print())
+//                .andExpect(status().is4xxClientError());
+//    }
+//
+//    @Test
+//    public void getInFoFlight_id_4() throws Exception {
+//        this.mockMvc.perform(
+//                        MockMvcRequestBuilders.get("/api/flight/{id}", "1"))
+//                .andDo(print())
+//                .andExpect(status().is2xxSuccessful());
+//    }
 }

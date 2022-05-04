@@ -7,7 +7,7 @@ import com.codegym.model.Ticket;
 import java.util.List;
 
 public interface IReportService {
-    List<IReport> getAllReport(Integer month);
+    List<IReport> getAllReport();
     List<Ticket> getAllTicket();
     List<IReportEmployee> getAllReportEmployee();
 }

@@ -19,8 +19,8 @@ public class ReportController {
     public IReportService iReportService;
 
     @GetMapping("/report-price")
-    public ResponseEntity<List<IReport>> getAllReport(@RequestParam Integer month){
-        List<IReport> iReportList = iReportService.getAllReport(month);
+    public ResponseEntity<List<IReport>> getAllReport(){
+        List<IReport> iReportList = iReportService.getAllReport();
         if(iReportList.isEmpty()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

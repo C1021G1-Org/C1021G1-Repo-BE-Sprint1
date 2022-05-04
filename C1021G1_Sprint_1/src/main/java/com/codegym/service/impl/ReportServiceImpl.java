@@ -16,8 +16,8 @@ public class ReportServiceImpl implements IReportService {
     public IReportRepository iReportRepository;
 
     @Override
-    public List<IReport> getAllReport(Integer month) {
-        return iReportRepository.getAllReport(month);
+    public List<IReport> getAllReport() {
+        return iReportRepository.getAllReport();
     }
 
     @Override

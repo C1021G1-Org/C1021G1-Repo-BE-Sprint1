@@ -27,9 +27,7 @@ public class ReportController_getAllReport {
                         MockMvcRequestBuilders.get("/report-price", "null"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
-
     }
-
     @Test
     public void getAllReport_month_2() throws Exception {
         this.mockMvc.perform(
@@ -38,7 +36,6 @@ public class ReportController_getAllReport {
                         .andExpect(status().is4xxClientError());
 
     }
-
     @Test
     public void getAllReport_month_3() throws Exception {
         this.mockMvc.perform(
@@ -46,9 +43,6 @@ public class ReportController_getAllReport {
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
-
-
-
 
     @Test
     public void getAllReport_month_4() throws Exception {

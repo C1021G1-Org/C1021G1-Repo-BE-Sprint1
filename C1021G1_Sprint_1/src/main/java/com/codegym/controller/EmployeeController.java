@@ -36,7 +36,7 @@ public class EmployeeController {
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
-    @GetMapping("")
+    @GetMapping("/not-pagination")
     public ResponseEntity<Page<Employee>> getAllEmployeeNotPagination(){
         Page<Employee> employees = iEmployeeService.findAllEmployee(Pageable.unpaged());
         if (employees.isEmpty()){

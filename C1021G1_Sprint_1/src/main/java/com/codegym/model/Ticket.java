@@ -31,7 +31,7 @@ public class Ticket {
     private String buyer;
 
           // Ngày sinh của người mua vé
-    private String dayOfBirth;
+    private String birthdayTicket;
 
     @ManyToOne
     @JoinColumn(name = "id_employee", referencedColumnName = "id")
@@ -152,11 +152,11 @@ public class Ticket {
         this.flightTicket = flightTicket;
     }
 
-    public String getDayOfBirth() {
-        return dayOfBirth;
+    public String getBirthdayTicket() {
+        return birthdayTicket;
     }
 
-    public void setDayOfBirth(String dayOfBirth) {
-        this.dayOfBirth = dayOfBirth;
+    public void setBirthdayTicket(String birthdayTicket) {
+        this.birthdayTicket = birthdayTicket;
     }
 }

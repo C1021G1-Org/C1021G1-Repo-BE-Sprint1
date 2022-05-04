@@ -5,6 +5,17 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class FlightDto {
+public interface FlightDto {
+
+    String getCode_flight();
+
+    String getImage_airline();
+
+    String getPrice_airline();
+
+    String getDate_start();
+
+    String getDate_end();
 
     private Long id;
 

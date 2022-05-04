@@ -1,7 +1,6 @@
 package com.codegym.service.impl;
 
 import com.codegym.dto.EditTicketDto;
-import com.codegym.dto.TicketDto;
 import com.codegym.model.Ticket;
 import com.codegym.repository.ITicketRepository;
 import com.codegym.service.ITicketService;
@@ -22,11 +21,8 @@ public class TicketServiceImpl implements ITicketService {
         ticketRepository.editTicket( editTicketDto.getBuyer(), editTicketDto.getEmailTicket(), editTicketDto.getId());
     }
 
-
     @Override
     public Ticket findTicketById(Long id) {
         return ticketRepository.findTicketById(id);
     }
-
-
 }

@@ -1,5 +1,7 @@
 package com.codegym.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -23,8 +25,16 @@ public class Seat {
     private SeatType seatType;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_flight", referencedColumnName = "id")
     private Flight flightSeat;
+
+    @OneToOne(mappedBy = "seat")
+    @JsonBackReference
+    private Ticket ticket;
+
+    @OneToOne(mappedBy = "seat")
+    private TicketHistory ticketHistory;
 
     public Seat() {
     }
@@ -83,5 +93,21 @@ public class Seat {
 
     public void setFlightSeat(Flight flightSeat) {
         this.flightSeat = flightSeat;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public TicketHistory getTicketHistory() {
+        return ticketHistory;
+    }
+
+    public void setTicketHistory(TicketHistory ticketHistory) {
+        this.ticketHistory = ticketHistory;
     }
 }

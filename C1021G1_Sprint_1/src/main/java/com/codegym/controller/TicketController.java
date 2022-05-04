@@ -4,8 +4,6 @@ import com.codegym.dto.EditTicketDto;
 import com.codegym.model.Ticket;
 import com.codegym.service.impl.TicketServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -20,7 +18,7 @@ public class TicketController {
     @Autowired
     private TicketServiceImpl ticketService;
 
-    @RequestMapping(value = "/ticket/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/ticket/{id}")
     public ResponseEntity<?> findTicket(@PathVariable Long id) {
         Ticket ticket = ticketService.findTicketById(id);
         if(ticket == null){

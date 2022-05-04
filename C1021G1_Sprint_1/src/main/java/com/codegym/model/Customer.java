@@ -41,9 +41,13 @@ public class Customer {
     @JoinColumn(name = "id_customer_type", referencedColumnName = "id")
     private CustomerType customerType;
 
-    @JsonBackReference
+    @JsonBackReference(value = "customer_ticket")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-    private Set<Ticket> ticketC;
+    private Set<Ticket> ticket;
+
+    @JsonBackReference(value = "customer_ticket_history")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Set<TicketHistory> ticketHistories;
 
     public Customer() {
     }
@@ -152,11 +156,19 @@ public class Customer {
         this.customerType = customerType;
     }
 
-    public Set<Ticket> getTicketC() {
-        return ticketC;
+    public Set<Ticket> getTicket() {
+        return ticket;
     }
 
-    public void setTicketC(Set<Ticket> ticketC) {
-        this.ticketC = ticketC;
+    public void setTicket(Set<Ticket> ticketC) {
+        this.ticket = ticketC;
+    }
+
+    public Set<TicketHistory> getTicketHistories() {
+        return ticketHistories;
+    }
+
+    public void setTicketHistories(Set<TicketHistory> ticketHistories) {
+        this.ticketHistories = ticketHistories;
     }
 }

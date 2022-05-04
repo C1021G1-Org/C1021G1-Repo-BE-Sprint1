@@ -29,7 +29,7 @@ public class CustomerController_searchCustomer {
 //    test tìm kiếm trường hợp null. Cái này e test cho cả tất cả các trường.
 //    đường dẫn này tìm kiếm cho tất cả các trường.
     @Test
-    public void searchCustomer_1() throws Exception {
+    public void searchCustomerName_1() throws Exception {
         this.mockMvc.perform(
                 MockMvcRequestBuilders.get("http://localhost:8080/customer/search?keyword=null "))
                 .andDo(print())
@@ -38,7 +38,7 @@ public class CustomerController_searchCustomer {
 
 //    test tìm kiếm trường hợp rỗng''.
     @Test
-    public void searchCustomer_2() throws Exception {
+    public void searchCustomerName_2() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders.get("http://localhost:8080/customer/search?keyword=''"))
                 .andDo(print())
@@ -46,14 +46,15 @@ public class CustomerController_searchCustomer {
     }
 //    test tìm kiếm trường hợp không tồn tại trong database
     @Test
-    public void searchCustomer_3() throws Exception {
+    public void searchCustomerName_3() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders.get("http://localhost:8080/customer/search?keyword=longlt"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
+    //*LongLT* test trường hợp tìm kiếm thành công
     @Test
-    public void searchCustomer_4() throws Exception {
+    public void searchCustomerName_4() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders.get("http://localhost:8080/customer/search?keyword=Nguyên"))
                 .andDo(print())

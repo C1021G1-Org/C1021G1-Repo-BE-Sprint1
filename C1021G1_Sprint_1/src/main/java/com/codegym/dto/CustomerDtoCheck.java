@@ -2,19 +2,15 @@ package com.codegym.dto;
 
 import com.codegym.model.Countries;
 import com.codegym.model.CustomerType;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 
-import javax.validation.Valid;
+import javax.persistence.Column;
 import javax.validation.constraints.*;
-import java.util.Date;
-
-public class CustomerDto  {
+@Data
+@AllArgsConstructor
+public class CustomerDtoCheck {
     private static final String REGEX_NAME = "^[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ]+(\\s[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ]+)*$";
     private static final String REGEX_PHONE = "^([0-9])*$";
     private Long id;
@@ -22,14 +18,16 @@ public class CustomerDto  {
     @Pattern(regexp = REGEX_NAME, message = "Vui lòng nhập đúng tên của bạn!")
     @NotEmpty(message = "Vui lòng nhập tên !")
     private String nameCustomer;
-    @NotEmpty(message = "Vui lòng chọn giới tính")
+
     private Boolean genderCustomer;
     @NotBlank(message = "Vui lòng nhập ngày sinh!")
     private String birthdayCustomer;
+
     @Size( max = 10,message = "Tối đa 10 số!")
     @NotBlank(message = "Vui lòng nhập CCCD!")
     private String idCardCustomer;
-     @Size( max = 13,message = "Tối đa 13 số!")
+
+    @Size( max = 13,message = "Tối đa 13 số!")
     @Pattern(regexp = REGEX_PHONE, message = "Vui lòng nhập đúng số điện thoại!")
     @NotBlank(message = "Vui lòng nhập số điện thoại!")
     private String phoneCustomer;
@@ -41,14 +39,16 @@ public class CustomerDto  {
     private String addressCustomer;
     private Boolean delFlagCustomer;
 
-//    @JsonProperty("data")
-    @NotNull(message = "Vui lòng chọn quốc gia.")
-    private Long countries;
-//    @JsonProperty("data")
-    @NotNull(message = "Vui lòng chọn loại khách hàng.")
-    private Long customerType;
+    private Integer pointCustomer;
+    private String imageCustomer;
 
-    public CustomerDto() {
+    @NotNull(message = "Vui lòng chọn quốc gia.")
+    private Countries countries;
+
+    @NotNull(message = "Vui lòng chọn loại khách hàng.")
+    private CustomerType customerType;
+
+    public CustomerDtoCheck() {
     }
 
     public Long getId() {
@@ -57,22 +57,6 @@ public class CustomerDto  {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getCountries() {
-        return countries;
-    }
-
-    public void setCountries(Long countries) {
-        this.countries = countries;
-    }
-
-    public Long getCustomerType() {
-        return customerType;
-    }
-
-    public void setCustomerType(Long customerType) {
-        this.customerType = customerType;
     }
 
     public String getNameCustomer() {
@@ -91,14 +75,12 @@ public class CustomerDto  {
         this.genderCustomer = genderCustomer;
     }
 
-
+    public String getBirthdayCustomer() {
+        return birthdayCustomer;
+    }
 
     public void setBirthdayCustomer(String birthdayCustomer) {
         this.birthdayCustomer = birthdayCustomer;
-    }
-
-    public String getBirthdayCustomer() {
-        return birthdayCustomer;
     }
 
     public String getIdCardCustomer() {
@@ -141,5 +123,52 @@ public class CustomerDto  {
         this.delFlagCustomer = delFlagCustomer;
     }
 
+    public Integer getPointCustomer() {
+        return pointCustomer;
+    }
 
+    public void setPointCustomer(Integer pointCustomer) {
+        this.pointCustomer = pointCustomer;
+    }
+
+    public String getImageCustomer() {
+        return imageCustomer;
+    }
+
+    public void setImageCustomer(String imageCustomer) {
+        this.imageCustomer = imageCustomer;
+    }
+
+    public Countries getCountries() {
+        return countries;
+    }
+
+    public void setCountries(Countries countries) {
+        this.countries = countries;
+    }
+
+    public CustomerType getCustomerType() {
+        return customerType;
+    }
+
+    public void setCustomerType(CustomerType customerType) {
+        this.customerType = customerType;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerDtoCheck{" +
+                "id=" + id +
+                ", nameCustomer='" + nameCustomer + '\'' +
+                ", genderCustomer=" + genderCustomer +
+                ", birthdayCustomer='" + birthdayCustomer + '\'' +
+                ", idCardCustomer='" + idCardCustomer + '\'' +
+                ", phoneCustomer='" + phoneCustomer + '\'' +
+                ", emailCustomer='" + emailCustomer + '\'' +
+                ", addressCustomer='" + addressCustomer + '\'' +
+                ", delFlagCustomer=" + delFlagCustomer +
+                ", countries=" + countries +
+                ", customerType=" + customerType +
+                '}';
+    }
 }

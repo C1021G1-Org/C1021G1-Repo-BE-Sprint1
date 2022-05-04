@@ -1,6 +1,7 @@
 package com.codegym.controller;
 
 import com.codegym.dto.CustomerDto;
+import com.codegym.dto.CustomerDtoCheck;
 import com.codegym.model.Customer;
 import com.codegym.service.ICustomerService;
 
@@ -28,7 +29,7 @@ import java.util.Optional;
 
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:4200")
 @RequestMapping(value = "/customer")
 public class CustomerController {
 
@@ -59,33 +60,37 @@ public class CustomerController {
         });
         return errors;
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> findCustomerById(@PathVariable Long id) {
-        Customer customer =iCustomerService.findById(id);
-        if (customer==null) {
+        Customer customer = iCustomerService.findById(id);
+        if (customer == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
-    @PatchMapping("/{id}")
-    public ResponseEntity<Customer> updateCustomer( @PathVariable Long id,@Valid @RequestBody CustomerDto customerDto) {
 
+    @PatchMapping({"/{id}"})
+    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @Valid @RequestBody CustomerDtoCheck customerDtoCheck) {
+
+
+        System.out.println(customerDtoCheck.getCountries().toString());
+        System.out.println(customerDtoCheck.getCustomerType().toString());
+        CustomerDto customerDto = new CustomerDto();
         customerDto.setId(id);
+        customerDto.setGenderCustomer(customerDtoCheck.getGenderCustomer());
+        customerDto.setNameCustomer(customerDtoCheck.getNameCustomer());
+        customerDto.setBirthdayCustomer(customerDtoCheck.getBirthdayCustomer());
+        customerDto.setIdCardCustomer(customerDtoCheck.getIdCardCustomer());
+        customerDto.setGenderCustomer(customerDtoCheck.getGenderCustomer());
+        customerDto.setPhoneCustomer(customerDtoCheck.getPhoneCustomer());
+        customerDto.setEmailCustomer(customerDtoCheck.getEmailCustomer());
+        customerDto.setAddressCustomer(customerDtoCheck.getAddressCustomer());
+        customerDto.setCountries(customerDtoCheck.getCountries().getId());
+        customerDto.setCustomerType(customerDtoCheck.getCustomerType().getId());
         iCustomerService.update(customerDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Customer> updateCustomer(@PathVariable Integer id, @RequestBody Customer customer) {
-//        Optional<Customer> customerOptional = Optional.ofNullable(iCustomerService.findById(id));
-//        if (!customerOptional.isPresent()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        customer.setId(customerOptional.get().getId());
-//        return new ResponseEntity<>(iCustomerService.save(customer), HttpStatus.OK);
-//    }
 
 
     @GetMapping("/list")

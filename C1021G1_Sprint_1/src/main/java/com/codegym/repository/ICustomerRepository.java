@@ -66,7 +66,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
                       Long countries,
                       Boolean delFlagCustomer);
 
-
+    @Transactional
     @Modifying
     @Query(value = "update `customer` SET name_customer = ?1,phone_customer = ?2,gender_customer = ?3,email_customer = ?4,id_card_customer = ?5,birthday_customer= ?6,address_customer = ?7,id_customer_type = ?8,id_country = ?9,del_flag_customer = ?10 where id = ?11", nativeQuery = true)
     void updateCustomer(

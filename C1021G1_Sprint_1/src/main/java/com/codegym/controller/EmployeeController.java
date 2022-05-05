@@ -3,6 +3,7 @@ import com.codegym.model.Employee;
 import com.codegym.model.EmployeeType;
 import com.codegym.repository.IEmployeeTypeRepository;
 import com.codegym.service.IEmployeeService;
+import com.codegym.service.IEmployeeTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +24,7 @@ public class EmployeeController {
     private IEmployeeService iEmployeeService;
 
     @Autowired
-    private IEmployeeTypeRepository iEmployeeTypeService;
+    private IEmployeeTypeService iEmployeeTypeService;
 
     @GetMapping("")
     public ResponseEntity<Page<Employee>> getAllEmployee(@RequestParam(defaultValue = "0") int page){

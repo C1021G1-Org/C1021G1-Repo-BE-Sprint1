@@ -1,33 +1,24 @@
 package com.codegym.controller;
-
-
 import com.codegym.dto.NewsDto;
 import com.codegym.dto.NewsDtoA;
-
 import com.codegym.model.Category;
 import com.codegym.model.News;
 import com.codegym.service.ICategoryService;
 import com.codegym.service.INewsService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-
 import org.springframework.web.bind.annotation.*;
-
-
 import javax.validation.Valid;
-
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import java.util.List;
-
-
 @RestController
+
+@CrossOrigin("*")
+
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
 public class NewsController {
     @Autowired
     private INewsService iNewsService;
@@ -72,7 +63,11 @@ public class NewsController {
         }
         return new ResponseEntity<>(categoryList,HttpStatus.OK);
     }
+
  // lấy đường link nào ae dạt trọng tự giải quyết
+
+
+
     @GetMapping("/list-news/{id}")
     public ResponseEntity<News> getId(@PathVariable Long id) {
         News news = iNewsService.findById(id);

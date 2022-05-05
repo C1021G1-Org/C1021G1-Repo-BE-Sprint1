@@ -15,7 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import java.util.List;
 @RestController
+
 @CrossOrigin("*")
+
 @RequestMapping("/api")
 public class NewsController {
     @Autowired
@@ -61,7 +63,11 @@ public class NewsController {
         }
         return new ResponseEntity<>(categoryList,HttpStatus.OK);
     }
-//  lấy đường link nào ae dạt trọng tự giải quyết
+
+ // lấy đường link nào ae dạt trọng tự giải quyết
+
+
+
     @GetMapping("/list-news/{id}")
     public ResponseEntity<News> getId(@PathVariable Long id) {
         News news = iNewsService.findById(id);

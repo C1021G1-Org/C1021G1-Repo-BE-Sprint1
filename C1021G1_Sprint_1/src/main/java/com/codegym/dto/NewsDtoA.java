@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 
 public class NewsDtoA {
     private Long id;
-
+    @Pattern(regexp = "^[a-zA-Zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]+(\\s[a-zA-Zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]+)*$", message = "vui lòng không nhập ký tự đặc biệt")
     @NotNull(message = "Vui lòng không được để trống")
     private String nameNews;
 
@@ -31,7 +31,7 @@ public class NewsDtoA {
     @Column(columnDefinition = "LONGTEXT")
     @NotNull(message = "Vui lòng không được để trống")
     private String descriptionNews;
-
+    @NotNull(message = "Vui lòng không được để trống")
     private Category category;
 
     public NewsDtoA() {

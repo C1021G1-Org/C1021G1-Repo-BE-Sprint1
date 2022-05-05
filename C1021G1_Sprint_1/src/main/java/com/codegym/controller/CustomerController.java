@@ -118,14 +118,15 @@ public class CustomerController {
     public ResponseEntity<Iterable<Customer>> getAllCustomer(@RequestParam(defaultValue = "0") int page) {
         Pageable pageable = PageRequest.of(page, 10);
         Page<Customer> customers = iCustomerService.findAllCustomer(pageable);
-        System.out.println(123);
         if (customers.isEmpty()) {
-            System.out.println(456);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        System.out.println(789);
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
+
+
+
+
 
     @GetMapping("/customer-not-pagination")
     public ResponseEntity<List<Customer>> getAllCustomerNotPagination() {
@@ -144,6 +145,7 @@ public class CustomerController {
         List<CustomerType> customerTypes = iCustomerTypeService.findAll();
         if (customerTypes.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
         }
         return new ResponseEntity<>(customerTypes, HttpStatus.OK);
     }
@@ -151,7 +153,7 @@ public class CustomerController {
 
     //*LongLT* Triển khai phương thức xóa
 
-    /*LongLT xoa customer */
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable Long id) {
@@ -164,44 +166,45 @@ public class CustomerController {
     }
 
 
-    //*LongLT* Triển khai phương thức tìm kiếm
-    @GetMapping("/search")
-    public ResponseEntity<Page<Customer>> searchCustomer(@RequestParam(defaultValue = "", required = false) String keyword,
-                                                         @RequestParam(defaultValue = "", required = false) String option,
-                                                         @RequestParam(defaultValue = "0") int page) {
-
-        Page<Customer> customerList = null;
-        switch (option) {
-            case "name":
-                customerList = iCustomerService.searchCustomerByName(keyword, PageRequest.of(page, 10));
-                break;
-            case "email":
-                customerList = iCustomerService.searchCustomerByEmail(keyword, PageRequest.of(page, 10));
-                break;
-            case "address":
-                customerList = iCustomerService.searchCustomerByAddress(keyword, PageRequest.of(page, 10));
-                break;
-            case "country":
-                customerList = iCustomerService.searchCustomerByCountry(keyword, PageRequest.of(page, 10));
-                break;
-            case "customerType":
-                customerList = iCustomerService.searchCustomerByCustomerType(keyword, PageRequest.of(page, 10));
-                break;
-            case "idCard":
-                customerList = iCustomerService.searchCustomerByIdCrad(keyword, PageRequest.of(page, 10));
-                break;
-            case "phone":
-                customerList = iCustomerService.searchCustomerByPhone(keyword, PageRequest.of(page, 10));
-                break;
-        }
-        if (customerList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(customerList, HttpStatus.OK);
-        }
-    }
 
 
+        //*LongLT* Triển khai phương thức tìm kiếm
+
+        @GetMapping("/search")
+        public ResponseEntity<Page<Customer>> searchCustomer (@RequestParam(defaultValue = "", required = false) String keyword,
+                                                                @RequestParam(defaultValue = "", required = false) String option,
+                                                                @RequestParam(defaultValue = "0") int page){
+
+                Page<Customer> customerList = null;
+                switch (option) {
+                    case "name":
+                        customerList = iCustomerService.searchCustomerByName(keyword, PageRequest.of(page, 10));
+                        break;
+                    case "email":
+                        customerList = iCustomerService.searchCustomerByEmail(keyword, PageRequest.of(page, 10));
+                        break;
+                    case "address":
+                        customerList = iCustomerService.searchCustomerByAddress(keyword, PageRequest.of(page, 10));
+                        break;
+                    case "country":
+                        customerList = iCustomerService.searchCustomerByCountry(keyword, PageRequest.of(page, 10));
+                        break;
+                    case "customerType":
+                        customerList = iCustomerService.searchCustomerByCustomerType(keyword, PageRequest.of(page, 10));
+                        break;
+                    case "idCard":
+                        customerList = iCustomerService.searchCustomerByIdCrad(keyword, PageRequest.of(page, 10));
+                        break;
+                    case "phone":
+                        customerList = iCustomerService.searchCustomerByPhone(keyword, PageRequest.of(page, 10));
+                        break;
+                }
+                if (customerList.isEmpty()) {
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                } else {
+                    return new ResponseEntity<>(customerList, HttpStatus.OK);
+                }
+            }
     /*ThangDBX lấy thông tin cá nhân của khách hàng */
     @GetMapping("view/{id}")
     public ResponseEntity<Customer> findCustomerPersonalInfoById(@PathVariable("id") Long id) {
@@ -210,6 +213,7 @@ public class CustomerController {
             return new ResponseEntity<>(customer, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
         }
 
     }

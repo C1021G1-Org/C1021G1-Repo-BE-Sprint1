@@ -30,6 +30,7 @@ public class Ticket {
 
     private Integer pointTicket;
 
+    private String idCard;
 
 
     // Ngày sinh của người đi vé
@@ -169,5 +170,13 @@ public class Ticket {
 
     public void setSeat(Seat seat) {
         this.seat = seat;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
     }
 }

@@ -4,10 +4,7 @@ package com.codegym.dto;
 import com.codegym.model.Employee;
 
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 
 
 public class TicketFirstDto {
@@ -22,25 +19,29 @@ public class TicketFirstDto {
     @Pattern(regexp = "^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$", message = "số điện thoại không đúng định dạng")
     private String phoneTicket;
 
+    @NotNull(message = "số tiền không được để trống")
+//    @Pattern(regexp = "^[0-9]$", message = "giá tiền không được để ký tự")
+    private Double priceTicket;
 
-    private Boolean genderTicket;
+    private String genderTicket;
 
-    @NotNull(message = "phai thay đổi giá trị không được null")
-    private Boolean statusTicket;
+//    @NotNull(message = "phai thay đổi giá trị không được null")
+//    private Boolean statusTicket;
 
     @NotBlank(message = "tên không được để trống")
-    @Pattern(regexp = "^[A-Z|a-z]$",message = "tên không đưuọc để ký tự số")
+    @Pattern(regexp = "^[A-Z|a-z]$", message = "tên không đưuọc để ký tự số")
     private String buyerTicket;
 
     @NotBlank(message = "ngày tháng không để trống")
-    @Pattern(regexp = "^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$",message = "ngày tháng không đúng định dạng")
+//    @Pattern(regexp = "^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$", message = "ngày tháng không đúng định dạng")
     private String birthdayTicket;
 
 
-    private EmployeeTicketDto employeeTicketDto;
+    private String idCard;
 
-
-
+    //    private EmployeeTicketDto employee;
+    private Long employee;
+    private Long customer;
 
 
     public TicketFirstDto() {
@@ -70,21 +71,30 @@ public class TicketFirstDto {
         this.phoneTicket = phoneTicket;
     }
 
-    public Boolean getGenderTicket() {
+//    public Boolean getGenderTicket() {
+//        return genderTicket;
+//    }
+//
+//    public void setGenderTicket(Boolean genderTicket) {
+//        this.genderTicket = genderTicket;
+//    }
+
+    public String getGenderTicket() {
         return genderTicket;
     }
 
-    public void setGenderTicket(Boolean genderTicket) {
+    public void setGenderTicket(String genderTicket) {
         this.genderTicket = genderTicket;
     }
 
-    public Boolean getStatusTicket() {
-        return statusTicket;
-    }
 
-    public void setStatusTicket(Boolean statusTicket) {
-        this.statusTicket = statusTicket;
-    }
+//    public Boolean getStatusTicket() {
+//        return statusTicket;
+//    }
+//
+//    public void setStatusTicket(Boolean statusTicket) {
+//        this.statusTicket = statusTicket;
+//    }
 
 
     public String getBuyerTicket() {
@@ -103,11 +113,45 @@ public class TicketFirstDto {
         this.birthdayTicket = birthdayTicket;
     }
 
-    public EmployeeTicketDto getEmployeeTicketDto() {
-        return employeeTicketDto;
+
+//    public EmployeeTicketDto getEmployee() {
+//        return employee;
+//    }
+//
+//    public void setEmployee(EmployeeTicketDto employee) {
+//        this.employee = employee;
+//    }
+
+    //
+    public Long getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeTicketDto(EmployeeTicketDto employeeTicketDto) {
-        this.employeeTicketDto = employeeTicketDto;
+    public void setEmployee(Long employee) {
+        this.employee = employee;
+    }
+
+    public Double getPriceTicket() {
+        return priceTicket;
+    }
+
+    public void setPriceTicket(Double priceTicket) {
+        this.priceTicket = priceTicket;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    public Long getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Long customer) {
+        this.customer = customer;
     }
 }

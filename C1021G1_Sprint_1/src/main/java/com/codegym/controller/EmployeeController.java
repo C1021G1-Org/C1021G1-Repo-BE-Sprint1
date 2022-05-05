@@ -1,5 +1,4 @@
 package com.codegym.controller;
-
 import com.codegym.model.Employee;
 import com.codegym.model.EmployeeType;
 import com.codegym.repository.IEmployeeTypeRepository;
@@ -77,3 +76,4 @@ public class EmployeeController {
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 }
+

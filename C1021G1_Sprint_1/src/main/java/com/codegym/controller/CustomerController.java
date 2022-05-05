@@ -49,14 +49,15 @@ public class CustomerController {
     /*TinhHD tao thông tinh khách hàng bời nhân viên */
     @PostMapping("/create")
     public ResponseEntity<?> saveCustomer(@Valid @RequestBody CustomerDto customerDto) {
+
 //        if (bindingResult.hasErrors()) {
-//            return new ResponseEntity<>(bindingResult.getAllErrors().get(0).getDefaultMessage(),HttpStatus.NOT_ACCEPTABLE);
+//            return new ResponseEntity<>(bindingResult.getAllErrors().get(0).getDefaultMessage(), HttpStatus.NOT_ACCEPTABLE);
 //        }
         iCustomerService.save(customerDto);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
-// TinhHD validator
+    // TinhHD validator
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(
@@ -80,7 +81,6 @@ public class CustomerController {
         }
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
-
 
 
     /*TinhHD cập nhật thông tinh khách hàng bời nhân viên */
@@ -213,7 +213,6 @@ public class CustomerController {
         }
 
     }
-
 
 
     /* ThangDBX cập nhật thông tin bản thân khách hàng  */

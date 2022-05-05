@@ -40,9 +40,6 @@ public class CustomerServiceImpl implements ICustomerService {
 //    }
 
 
-
-
-
     @Override
     public Customer findById(Long id) {
         return iCustomerRepository.findByIdCustomer(id);
@@ -121,34 +118,50 @@ public class CustomerServiceImpl implements ICustomerService {
         return iCustomerRepository.getAllCustomerNotPagination();
     }
 
-            /*ThangDBX lấy dữ liệu của khách hàng  */
-            @Override
-            public Customer findCustomerById(Long id) {
-                return iCustomerRepository.findCustomerByID(id);
-            }
+    /*ThangDBX lấy dữ liệu của khách hàng  */
+    @Override
+    public Customer findCustomerById(Long id) {
+        return iCustomerRepository.findCustomerByID(id);
+    }
 
-            @Override
-            public Customer findByIdPersonal(Long id) {
-                return iCustomerRepository.findByIdPersonal(id);
-            }
+    @Override
+    public Customer findByIdPersonal(Long id) {
+        return iCustomerRepository.findByIdPersonal(id);
+    }
 
-            /*ThangDBX cap nhat liệu của khách hàng  */
-            @Override
-            public void updatePersonalInfo(Customer customer) {
-                String name = customer.getNameCustomer();
-                Boolean gender = customer.getGenderCustomer();
-                String email = customer.getEmailCustomer();
-                String phone = customer.getPhoneCustomer();
-                String birth = customer.getBirthdayCustomer();
-                String idCard = customer.getIdCardCustomer();
-                Long idCountry = customer.getCountries().getId();
-                String address = customer.getAddressCustomer();
-                String image = customer.getImageCustomer();
-                Long id = customer.getId();
+    /*ThangDBX cap nhat liệu của khách hàng  */
+    @Override
+    public void updatePersonalInfo(Customer customer) {
+        String name = customer.getNameCustomer();
+        Boolean gender = customer.getGenderCustomer();
+        String email = customer.getEmailCustomer();
+        String phone = customer.getPhoneCustomer();
+        String birth = customer.getBirthdayCustomer();
+        String idCard = customer.getIdCardCustomer();
+        Long idCountry = customer.getCountries().getId();
+        String address = customer.getAddressCustomer();
+        String image = customer.getImageCustomer();
+        Long id = customer.getId();
 
-                iCustomerRepository.updatePersonalInfo(name,gender,email,phone,birth,idCard,idCountry,address,image,id);
-        }
+        iCustomerRepository.updatePersonalInfo(name, gender, email, phone, birth, idCard, idCountry, address, image, id);
+    }
 
+    @Override
+    public Integer finByIdCard(String idCard) {
+        return iCustomerRepository.finByIdCard(idCard);
+    }
+
+    @Override
+    public Integer finByEmail(String email) {
+        return iCustomerRepository.finByEmail(email);
+
+    }
+
+    @Override
+    public Integer finByPhone(String phone) {
+        return iCustomerRepository.finByPhone(phone);
+
+    }
 
 
 }

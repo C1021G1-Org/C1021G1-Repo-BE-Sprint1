@@ -1,39 +1,37 @@
 package com.codegym.dto;
 
-import com.codegym.model.Countries;
-import com.codegym.model.CustomerType;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.validation.Valid;
 import javax.validation.constraints.*;
-import java.util.Date;
 
-public class CustomerDto  {
+@Component
+public class CustomerDto implements Validator {
+
+
+
     private static final String REGEX_NAME = "^[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ]+(\\s[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ]+)*$";
     private static final String REGEX_PHONE = "^([0-9])*$";
     private Long id;
-    @Size( max = 40,message = "Tối đa 40 kí tự!")
+    @Size(max = 40, message = "Tối đa 40 kí tự!")
     @Pattern(regexp = REGEX_NAME, message = "Vui lòng nhập đúng tên của bạn!")
     @NotEmpty(message = "Vui lòng nhập tên !")
     private String nameCustomer;
-    @NotEmpty(message = "Vui lòng chọn giới tính")
     private Boolean genderCustomer;
     @NotBlank(message = "Vui lòng nhập ngày sinh!")
     private String birthdayCustomer;
-    @Size( max = 10,message = "Tối đa 10 số!")
+    @ValidatorCustomer(message = "CMND đã tồn tại")
+    @Size(max = 10, message = "Tối đa 10 số!")
     @NotBlank(message = "Vui lòng nhập CCCD!")
     private String idCardCustomer;
-     @Size( max = 13,message = "Tối đa 13 số!")
+    @ValidatorCustomer(message = "Số điện thoại đã tồn tại")
+    @Size(max = 13, message = "Tối đa 13 số!")
     @Pattern(regexp = REGEX_PHONE, message = "Vui lòng nhập đúng số điện thoại!")
     @NotBlank(message = "Vui lòng nhập số điện thoại!")
     private String phoneCustomer;
-    @Size( max = 40,message = "Tối đa 40 kí tự!")
+    @ValidatorCustomer(message = "email đã tồn tại")
+    @Size(max = 40, message = "Tối đa 40 kí tự!")
     @NotBlank(message = "Vui lòng nhập email!")
     @Email(message = "Phải đúng định dạng email ví dụ: tinh@gmail.com")
     private String emailCustomer;
@@ -41,10 +39,10 @@ public class CustomerDto  {
     private String addressCustomer;
     private Boolean delFlagCustomer;
 
-//    @JsonProperty("data")
+    //    @JsonProperty("data")
     @NotNull(message = "Vui lòng chọn quốc gia.")
     private Long countries;
-//    @JsonProperty("data")
+    //    @JsonProperty("data")
     @NotNull(message = "Vui lòng chọn loại khách hàng.")
     private Long customerType;
 
@@ -90,7 +88,6 @@ public class CustomerDto  {
     public void setGenderCustomer(Boolean genderCustomer) {
         this.genderCustomer = genderCustomer;
     }
-
 
 
     public void setBirthdayCustomer(String birthdayCustomer) {
@@ -142,4 +139,20 @@ public class CustomerDto  {
     }
 
 
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        CustomerDto customerDto = (CustomerDto) target;
+        System.out.println(customerDto.getIdCardCustomer());
+
+
+        if (customerDto.getGenderCustomer().equals("")) {
+            errors.rejectValue("genderCustomer", "", "Vui lòng chọn giới tính");
+        }
+    }
 }

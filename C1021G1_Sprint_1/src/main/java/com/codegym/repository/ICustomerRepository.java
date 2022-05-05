@@ -1,7 +1,6 @@
 package com.codegym.repository;
 
 
-
 import com.codegym.model.Customer;
 
 import com.codegym.dto.CustomerDto;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
-
 
 
 import java.util.List;
@@ -49,8 +47,6 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
 //            "or address_customer like %:keyword%  or gender_customer like %:keyword%  or birthday_customer like %:keyword%  or email_customer like %:keyword% " +
 //            "or phone_customer like %:keyword%  or id_customer_type like %:keyword%  or id_card_customer like %:keyword% ", nativeQuery = true)
 //    List<Customer> searchAllByFields(@Param("keyword") String keyword);
-
-
 
 
     /*LongLT search customer */
@@ -97,7 +93,6 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
             Long countries,
             Boolean delFlagCustomer,
             Long id);
-
 
 
     @Query(value = "select id, name_customer, gender_customer, birthday_customer, email_customer, phone_customer, address_customer," +
@@ -150,16 +145,15 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     @Query(value = "select *" +
             "from customer\n" +
             "join customer_type on customer.id_customer_type = customer_type.id\n" +
-            "where customer.id = :id" , nativeQuery = true )
-    Customer findCustomerByID(@Param("id") Long id );
-
+            "where customer.id = :id", nativeQuery = true)
+    Customer findCustomerByID(@Param("id") Long id);
 
 
     @Query(value = "select customer.id, customer.name_customer, customer.gender_customer, customer.birthday_customer, customer.email_customer, customer.phone_customer, " +
             "customer.address_customer, customer.id_country ,customer.id_customer_type, customer.id_card_customer, customer.del_flag_customer, customer.image_customer, customer.point_customer " +
             "from customer\n" +
             "join customer_type on customer.id_customer_type = customer_type.id\n" +
-            "where customer.id = :id" , nativeQuery = true )
+            "where customer.id = :id", nativeQuery = true)
     Customer findByIdPersonal(Long id);
 
 
@@ -195,4 +189,15 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
             Long customerId
     );
 
+    //TinhHD lấy idcard để validator
+    @Query(value = "select count(id_card_customer) from customer where id_card_customer = ?", nativeQuery = true)
+    Integer finByIdCard(String idCard);
+
+    //TinhHD lấy email để validator
+    @Query(value = "select count(email_customer) from customer where email_customer = ?", nativeQuery = true)
+    Integer finByEmail(String email);
+
+    //TinhHD lấy phone để validator
+    @Query(value = "select count(phone_customer) from customer where phone_customer = ?", nativeQuery = true)
+    Integer finByPhone(String phone);
 }

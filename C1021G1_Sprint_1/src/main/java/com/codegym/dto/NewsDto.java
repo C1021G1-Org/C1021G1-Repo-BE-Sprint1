@@ -3,12 +3,14 @@ import com.codegym.model.Category;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class NewsDto  {
 
     private Long id;
 
+    @Pattern(regexp = "^[a-zA-Zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]+(\\s[a-zA-Zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]+)*$", message = "vui lòng không nhập ký tự đặc biệt")
     @NotBlank(message = "Vui lòng không được để trống")
     private String nameNews;
 
@@ -30,7 +32,7 @@ public class NewsDto  {
     @Column(columnDefinition = "LONGTEXT")
     @NotBlank(message = "Vui lòng không được để trống")
     private String descriptionNews;
-
+    @NotNull(message = "Vui lòng không được để trống")
     private Long category;
 
     public NewsDto() {

@@ -15,17 +15,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.stereotype.Service;
-
-import javax.print.attribute.Attribute;
-import java.util.List;
-import java.util.Optional;
 
 
 @Service
 public class NewsServiceImpl implements INewsService {
+
     @Autowired
     private INewsRepository repository;
 
@@ -63,15 +58,17 @@ public class NewsServiceImpl implements INewsService {
 
     @Override
     public void deleteNewsById(Long id) {
-        repository.removeNewsById(id);
-    }
-
-
-    @Override
-    public List<News> getAllNewsNotPagination() {
-        return repository.getAllNewsNotPagination();
+//        repository.removeNewsById(id);
 
     }
+
+
+//    @Override
+//    public List<News> getAllNewsNotPagination() {
+//        return repository.getAllNewsNotPagination();
+//
+//    }
+
 
 
 }

@@ -14,8 +14,6 @@ import java.util.Optional;
 
 public interface INewsService {
 
-
-
     void createNews(NewsDto newsDto);
 
     List<News> findAll();
@@ -24,11 +22,11 @@ public interface INewsService {
 
 
     Page<News> findAllNews(Pageable pageable);
+
     void deleteNewsById(Long id);
 
     News findById(Long id);
 
-    List<News> getAllNewsNotPagination();
 
 
 }

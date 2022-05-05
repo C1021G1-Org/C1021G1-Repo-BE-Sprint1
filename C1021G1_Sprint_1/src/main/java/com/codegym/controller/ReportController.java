@@ -1,6 +1,7 @@
 package com.codegym.controller;
 
 import com.codegym.dto.IReport;
+import com.codegym.dto.IReportAirlineType;
 import com.codegym.dto.IReportEmployee;
 import com.codegym.model.Ticket;
 import com.codegym.service.IReportService;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -34,6 +36,16 @@ public class ReportController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(list,HttpStatus.OK);
+    }
+
+
+    @GetMapping("/report-airline")
+    public ResponseEntity<List<IReportAirlineType>> getAllReportAirline(){
+        List<IReportAirlineType> typeList = iReportService.getAllAirlineType();
+        if (typeList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(typeList,HttpStatus.OK);
     }
 
 

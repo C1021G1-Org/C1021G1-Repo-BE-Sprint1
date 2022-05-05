@@ -17,9 +17,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Autowired
     IEmployeeRepository iEmployeeRepository;
-  
-    @Override
-    public EmployeeFindIdDto findByID(Long id) {
 
     @Override
     public Page<Employee> findAllEmployee(Pageable pageable) {
@@ -30,21 +27,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public Optional<Employee> findEmployeeById(Long id) {
         return iEmployeeRepository.findEmployeeById(id);
     }
-
-    @Override
-    public void createNewEmployee(EmployeeDto employeeDto) {
-        iEmployeeRepository.createEmployee(employeeDto.getAddress_Employee(),employeeDto.getCode_Employee()
-                ,employeeDto.getDel_Flag_Employee(),employeeDto.getBirthday_Employee(),employeeDto.getEmail_Employee(),
-                employeeDto.getGender_Employee(),employeeDto.getName_Employee(), employeeDto.getPhone_Employee(),
-                employeeDto.getEmployee_Type_Id());
-    }
-
-    @Override
-    public void editEmployee(EmployeeDto employeeDto) {
-        iEmployeeRepository.editEmployee(employeeDto.getAddress_Employee(),employeeDto.getCode_Employee(),
-                employeeDto.getDel_Flag_Employee(),employeeDto.getBirthday_Employee(),employeeDto.getEmail_Employee(),
-                employeeDto.getGender_Employee(),employeeDto.getName_Employee(), employeeDto.getPhone_Employee(),
-                employeeDto.getEmployee_Type_Id(),employeeDto.getId());
 
     public void deleteEmployee(Long id) {
         iEmployeeRepository.deleteEmployee(id);

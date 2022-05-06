@@ -35,7 +35,7 @@ public class FlightController {
     public ResponseEntity<Page<Flight>> searchFlight(@RequestParam(defaultValue = "") String fromFlight,String toFlight,String dateStart,String dateEnd,
                                                        @RequestParam(defaultValue = "0") int page){
 
-        Page<Flight> flightList = flightService.searchFlight(fromFlight,toFlight,dateStart,dateEnd,PageRequest.of(page, 5));
+        Page<Flight> flightList = flightService.searchFlight(fromFlight,toFlight,dateStart,dateEnd,PageRequest.of(page, 10));
 
         if (flightList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -45,7 +45,7 @@ public class FlightController {
 
     @GetMapping("/list")
     public ResponseEntity<Page<Flight>> getListFlight(@RequestParam(defaultValue = "0") int page) {
-        Page<Flight> flightPage = flightService.findAllFlight(PageRequest.of(page, 5));
+        Page<Flight> flightPage = flightService.findAllFlight(PageRequest.of(page, 10));
         if (flightPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

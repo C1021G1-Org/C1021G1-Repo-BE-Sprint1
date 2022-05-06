@@ -41,6 +41,7 @@ public class CustomerPersonalInfoDto implements Validator {
 
     @NotBlank
     @Pattern(regexp = REGEX_ID_CARD)
+//    @ValidatorCustomer(message = "Hộ chiếu / CMND đã có trong dữ liệu")
     private String idCardCustomer;
 
     @NotBlank
@@ -192,5 +193,7 @@ public class CustomerPersonalInfoDto implements Validator {
         return isRetry;
 
     }
+
+
 
 }

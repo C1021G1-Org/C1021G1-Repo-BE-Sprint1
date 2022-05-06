@@ -48,13 +48,19 @@ public interface IReportRepository extends JpaRepository<Ticket,Long> {
             "GROUP BY employee.id ORDER BY SUM(ticket.point_ticket) DESC;",nativeQuery = true)
     List<IReportEmployee> getAllReportEmployee();
 
-    @Query(value = "SELECT airline_type.name_airline, COUNT(flight.id_airline_type) FROM airline_type\n" +
-            "INNER JOIN flight ON flight.id_airline_type = airline_type.id\n" +
-            "INNER JOIN seat ON seat.id_flight= flight.id\n" +
-            "INNER JOIN ticket ON ticket.id_seat = seat.id\n" +
-            "WHERE MONTH(date_start) BETWEEN date_start AND date_end )= \n" +
-            "GROUP BY airline_type.id ORDER BY COUNT(flight.id_airline_type) DESC;",nativeQuery = true)
-    List<IReportAirlineType> getAllAirlineType();
+    @Query(value = "SELECT  airline_type.name_airline," +
+            "COUNT(flight.id_airline_type)countAirline " +
+            "FROM airline_type\n" +
+            "INNER JOIN flight " +
+            "ON flight.id_airline_type = airline_type.id\n" +
+            "INNER JOIN seat " +
+            "ON seat.id_flight= flight.id\n" +
+            "INNER JOIN ticket " +
+            "ON ticket.id_seat = seat.id\n" +
+            "WHERE (date_start  BETWEEN ?1 AND ?2) \n" +
+            "GROUP BY airline_type.id " +
+            "ORDER BY COUNT(flight.id_airline_type) DESC;",nativeQuery = true)
+    List<IReportAirlineType> getAllAirlineType(String fromDate,String toDate);
 
 
 }

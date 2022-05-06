@@ -33,7 +33,7 @@ public class ReportServiceImpl implements IReportService {
     }
 
     @Override
-    public List<IReportAirlineType> getAllAirlineType() {
-        return iReportRepository.getAllAirlineType();
+    public List<IReportAirlineType> getAllAirlineType(String fromDate,String toDate) {
+        return iReportRepository.getAllAirlineType(fromDate,toDate);
     }
 }

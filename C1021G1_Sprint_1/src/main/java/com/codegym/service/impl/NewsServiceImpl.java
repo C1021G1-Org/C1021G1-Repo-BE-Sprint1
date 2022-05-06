@@ -1,34 +1,79 @@
 package com.codegym.service.impl;
 
+
+import com.codegym.dto.NewsDto;
+
+
 import com.codegym.model.News;
 import com.codegym.repository.INewsRepository;
 import com.codegym.service.INewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
+
+
 
 @Service
 public class NewsServiceImpl implements INewsService {
+
     @Autowired
-    private INewsRepository iNewsRepository;
+    private INewsRepository repository;
+
+
+    @Override
+    public News findById(Long id) {
+        return repository.findNewsById(id);
+    }
+
+    @Override
+    public void createNews(NewsDto newsDto) {
+
+        repository.createNews(newsDto.getCodeNews(), newsDto.getDateNews(), newsDto.getDescriptionNews(),
+                newsDto.getImageNews(), newsDto.getNameNews(), newsDto.getTitleNews(), newsDto.getCategory(), true);
+    }
+
+    @Override
+    public List<News> findAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public void editNews(NewsDto newsDto) {
+        repository.editNews(newsDto.getCodeNews(), newsDto.getDateNews(), newsDto.getDescriptionNews(),
+                newsDto.getImageNews(), newsDto.getNameNews(), newsDto.getTitleNews(),
+                newsDto.getCategory(), true, newsDto.getId());
+
+    }
+
 
     @Override
     public Page<News> findAllNews(Pageable pageable) {
-        return iNewsRepository.findAllNews(pageable);
+        return repository.findAllNews(pageable);
     }
 
     @Override
     public void deleteNewsById(Long id) {
-        iNewsRepository.removeNewsById(id);
+//        repository.removeNewsById(id);
+
     }
 
-    @Override
-    public Optional<News> findNewsById(Long id)
-    {
-        return iNewsRepository.findNewsById(id);
-    }
+
+//    @Override
+//    public List<News> getAllNewsNotPagination() {
+//        return repository.getAllNewsNotPagination();
+//
+//    }
+
+
 
 }
+
+
+
+
+

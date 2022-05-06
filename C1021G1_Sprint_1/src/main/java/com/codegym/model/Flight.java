@@ -1,7 +1,6 @@
 package com.codegym.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -18,10 +17,8 @@ public class Flight {
 
     private String toFlight;
 
-    @Column(columnDefinition = "DATETIME")
     private String dateStart;
 
-    @Column(columnDefinition = "DATETIME")
     private String dateEnd;
 
     private Boolean delFlagFlight;
@@ -29,6 +26,10 @@ public class Flight {
     @JsonBackReference(value = "flight_seat")
     @OneToMany(mappedBy = "flightSeat")
     private Set<Seat> seats;
+
+    @JsonBackReference(value = "flight_ticket")
+    @OneToMany(mappedBy = "flightTicket")
+    private Set<Ticket> tickets;
 
     @ManyToOne
     @JoinColumn(name = "id_airline_type", referencedColumnName = "id")
@@ -101,6 +102,14 @@ public class Flight {
         this.seats = seats;
     }
 
+    public Set<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
     public AirlineType getAirlineType() {
         return airlineType;
     }
@@ -108,6 +117,4 @@ public class Flight {
     public void setAirlineType(AirlineType airlineType) {
         this.airlineType = airlineType;
     }
-
-
 }

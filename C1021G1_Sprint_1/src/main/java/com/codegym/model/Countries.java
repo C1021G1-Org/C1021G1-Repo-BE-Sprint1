@@ -14,15 +14,31 @@ public class Countries {
 
     private String country;
 
-    @JsonBackReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "countries")
+    @JsonBackReference(value = "customer_country")
+    @OneToMany(mappedBy = "countries")
     private Set<Customer> customers;
+
+    @OneToMany(mappedBy = "country")
+    @JsonBackReference(value = "account_country")
+    private Set<Account> accounts;
+
+    public Set<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(Set<Account> accounts) {
+        this.accounts = accounts;
+    }
 
     public Countries() {
     }
 
     public Countries(String country) {
         this.country = country;
+    }
+    public Countries(Long id, String country){
+        this.id = id;
+        this.country =country;
     }
 
     public Long getId() {

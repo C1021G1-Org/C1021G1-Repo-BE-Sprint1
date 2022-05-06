@@ -6,6 +6,7 @@ import com.codegym.dto.FlightSearchDto;
 import com.codegym.dto.IFlightDto;
 import com.codegym.model.Flight;
 import com.codegym.model.FormSearch;
+import com.codegym.service.IAirlineTypeService;
 import com.codegym.service.IFlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

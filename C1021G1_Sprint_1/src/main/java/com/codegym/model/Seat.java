@@ -32,9 +32,9 @@ public class Seat {
     @OneToOne(mappedBy = "seat")
     private Ticket ticket;
 
-    @JsonBackReference(value = "seat_ticketHistory")
-    @OneToOne(mappedBy = "seat")
-    private TicketHistory ticketHistory;
+//    @JsonBackReference(value = "seat_ticketHistory")
+//    @OneToOne(mappedBy = "seat")
+//    private TicketHistory ticketHistory;
 
     public Seat() {
     }
@@ -93,21 +93,5 @@ public class Seat {
 
     public void setFlightSeat(Flight flightSeat) {
         this.flightSeat = flightSeat;
-    }
-
-    public Ticket getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
-    }
-
-    public TicketHistory getTicketHistory() {
-        return ticketHistory;
-    }
-
-    public void setTicketHistory(TicketHistory ticketHistory) {
-        this.ticketHistory = ticketHistory;
     }
 }

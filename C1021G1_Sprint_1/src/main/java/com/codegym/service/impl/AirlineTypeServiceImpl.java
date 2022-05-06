@@ -15,7 +15,12 @@ public class AirlineTypeServiceImpl implements IAirlineTypeService {
     private IAirlineTypeRepository repository;
 
     @Override
-    public List<AirlineType> getAll() {
-        return repository.findAll();
+    public List<AirlineType> findAll() {
+        return repository.findAllAirlineType();
+    }
+
+    @Override
+    public AirlineType findById(Long id) {
+        return repository.findById(id).orElse(null);
     }
 }

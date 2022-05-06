@@ -10,5 +10,5 @@ public interface IReportService {
     List<IReport> getAllReport();
     List<Ticket> getAllTicket();
     List<IReportEmployee> getAllReportEmployee();
-    List<IReportAirlineType>  getAllAirlineType();
+    List<IReportAirlineType>  getAllAirlineType(String fromDate,String toDate);
 }

@@ -5,8 +5,11 @@
     <file type="web" url="file://$PROJECT_DIR$" />
   </component>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="jbr-11" project-jdk-type="JavaSDK" />
 =======
+=======
+>>>>>>> af3a9e344695452f319be0eee141f98d235e9a26
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
   <component name="ProjectType">
     <option name="id" value="jpab" />

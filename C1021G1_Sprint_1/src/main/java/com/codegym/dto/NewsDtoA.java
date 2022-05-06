@@ -1,41 +1,40 @@
 package com.codegym.dto;
+
 import com.codegym.model.Category;
 
 import javax.persistence.Column;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-public class NewsDto  {
-
+public class NewsDtoA {
     private Long id;
-
     @Pattern(regexp = "^[a-zA-Zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]+(\\s[a-zA-Zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]+)*$", message = "vui lòng không nhập ký tự đặc biệt")
-    @NotBlank(message = "Vui lòng không được để trống")
+    @NotNull(message = "Vui lòng không được để trống")
     private String nameNews;
 
     @Pattern(regexp = "^TT-[0-9]{4}$",message = "vui lòng nhập đúng định danh TT-XXXX")
-    @NotBlank(message = "Vui lòng không được để trống")
+    @NotNull(message = "Vui lòng không được để trống")
     private String codeNews;
 
-    @NotBlank(message = "Vui lòng không được để trống")
+    @NotNull(message = "Vui lòng không được để trống")
     private String dateNews;
 
-    @Column(columnDefinition = "LONGTEXT")
-    @NotBlank(message = "Vui lòng không được để trống")
+    @NotNull(message = "Vui lòng không được để trống")
     private String imageNews;
 
-    @NotBlank(message = "Vui lòng không được để trống")
+    @NotNull(message = "Vui lòng không được để trống")
     private String titleNews;
 
     private Boolean delFlagNews;
+
     @Column(columnDefinition = "LONGTEXT")
-    @NotBlank(message = "Vui lòng không được để trống")
+    @NotNull(message = "Vui lòng không được để trống")
     private String descriptionNews;
     @NotNull(message = "Vui lòng không được để trống")
-    private Long category;
+    private Category category;
 
-    public NewsDto() {
+    public NewsDtoA() {
     }
 
     public Long getId() {
@@ -44,6 +43,10 @@ public class NewsDto  {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getNameNews() {
@@ -102,11 +105,9 @@ public class NewsDto  {
         this.descriptionNews = descriptionNews;
     }
 
-    public Long getCategory() {
+    public Category getCategory() {
         return category;
     }
-
-    public void setCategory(Long category) {
-        this.category = category;
-    }
 }
+
+

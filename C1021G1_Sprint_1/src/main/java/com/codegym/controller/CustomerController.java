@@ -83,6 +83,7 @@ public class CustomerController {
         if (customer == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
@@ -251,7 +252,7 @@ public class CustomerController {
 
         /* ThangDBX cập nhật thông tin bản thân khách hàng  */
 
-//        new CustomerPersonalInfoDto().validate(customerDto,bindingResult);
+        new CustomerPersonalInfoDto().validate(customerDto,bindingResult);
 
             if (bindingResult.hasErrors()) {
                 return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.NOT_FOUND);
@@ -261,6 +262,8 @@ public class CustomerController {
                 iCustomerService.updatePersonalInfo(customer);
                 return new ResponseEntity<>(HttpStatus.OK);
             }
+
+
 
         }
 

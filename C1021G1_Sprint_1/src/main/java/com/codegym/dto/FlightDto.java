@@ -24,6 +24,8 @@ public class FlightDto {
     @Size(min = 10, max = 50, message = "Địa điểm phải dài trên 10 ký tự và không được nhiều hơn 50 ký tự!")
     private String fromFlight;
 
+
+
     @NotNull(message = "Địa điểm phải bắt buộc nhập!")
     @NotBlank(message = "Địa điểm không được để trống!")
     @Pattern(regexp = REGEX_NAME, message = "Không được nhập ký tự đặt biệt!")

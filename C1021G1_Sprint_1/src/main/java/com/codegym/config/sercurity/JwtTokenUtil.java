@@ -11,7 +11,7 @@ import java.util.Date;
 @Component
 public class JwtTokenUtil {
     private String jwtSecret = "c1021g1";
-    private int jwtExpiration = 86400;
+    private int jwtExpiration = 86400000;
     public String createToken(Authentication authentication){
         AccountPrinciple accountPrinciple = (AccountPrinciple) authentication.getPrincipal();
         String token = Jwts.builder().setSubject(accountPrinciple.getEmail())

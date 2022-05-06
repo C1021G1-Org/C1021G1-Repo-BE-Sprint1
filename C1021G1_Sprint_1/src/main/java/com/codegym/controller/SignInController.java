@@ -52,11 +52,11 @@ public class SignInController {
         acc.setPassword(passwordEncoder.encode(signForm.getPassword()));
         Set<Role> roleSet = new HashSet<>();
         roleSet.add(new Role(3L, RoleName.CUSTOMER));
-        if(acc.getEmail().contains("admin")){
+        if(acc.getEmail().equals("admin@gmail.com")){
             roleSet.add(new Role(2L, RoleName.EMPLOYEE));
             roleSet.add(new Role(1L, RoleName.ADMIN));
         }
-        if(acc.getEmail().contains("employee")){
+        if(acc.getEmail().equals("employee@gmail.com")){
             roleSet.add(new Role(2L, RoleName.EMPLOYEE));
         }
         acc.setRoles(roleSet);

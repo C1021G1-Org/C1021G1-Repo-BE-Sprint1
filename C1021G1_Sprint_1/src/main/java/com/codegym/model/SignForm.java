@@ -4,6 +4,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import javax.validation.constraints.*;
+import java.util.Date;
 
 public class SignForm implements Validator {
     @Email
@@ -14,7 +15,7 @@ public class SignForm implements Validator {
     private String password;
     private String confirmPassword;
     @NotBlank
-    @Pattern(regexp = "(\\+849|09)[0-9]{8}")
+    @Pattern(regexp = "(\\+849|09)+[0-9]{8}")
     private String phone;
     @Size(min = 10, max = 50)
     @NotBlank
@@ -138,8 +139,17 @@ public class SignForm implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         SignForm signForm = (SignForm) target;
-        if(!signForm.getConfirmPassword().equals(signForm.getPassword())){
-            errors.rejectValue("confirmPassword","","Phải giống với mật khẩu");
+        if (!signForm.getConfirmPassword().equals(signForm.getPassword())) {
+            errors.rejectValue("confirmPassword", "", "Phải giống với mật khẩu");
+        }
+        Long birthdayToSeconds = new Date(signForm.birthday).getTime();
+        Long currentToSeconds = new Date().getTime();
+        Long between = currentToSeconds - birthdayToSeconds;
+        Long age = between/(60*60*24*1000*365);
+        if(age<18 || age>150){
+            errors.rejectValue("ageError","","Tuổi phải lớn lớn 18 và nhỏ hơn 150");
         }
     }
+
+
 }

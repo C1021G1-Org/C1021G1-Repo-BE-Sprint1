@@ -1,13 +1,9 @@
 package com.codegym.model;
-
-<<<<<<< HEAD
-=======
 import com.codegym.model.Customer;
 import com.codegym.model.Employee;
 import com.codegym.model.Flight;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
->>>>>>> origin
 import javax.persistence.*;
 
 @Entity
@@ -47,15 +43,15 @@ public class Ticket {
     @JoinColumn(name = "id_customer", referencedColumnName = "id")
     private Customer customer;
 
-<<<<<<< HEAD
+
     @ManyToOne
     @JoinColumn(name = "id_flight", referencedColumnName = "id")
     private Flight flightTicket;
-=======
+
     @OneToOne
     @JoinColumn(name = "id_seat", referencedColumnName = "id")
     private Seat seat;
->>>>>>> origin
+
 
     public Ticket() {
     }

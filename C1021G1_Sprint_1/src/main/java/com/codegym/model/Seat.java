@@ -28,17 +28,14 @@ public class Seat {
     @JoinColumn(name = "id_flight", referencedColumnName = "id")
     private Flight flightSeat;
 
-<<<<<<< HEAD
-=======
     @JsonBackReference(value = "seat_ticket")
     @OneToOne(mappedBy = "seat")
     private Ticket ticket;
 
-    @JsonBackReference(value = "seat_ticketHistory")
-    @OneToOne(mappedBy = "seat")
-    private TicketHistory ticketHistory;
+//    @JsonBackReference(value = "seat_ticketHistory")
+//    @OneToOne(mappedBy = "seat")
+//    private TicketHistory ticketHistory;
 
->>>>>>> origin
     public Seat() {
     }
 

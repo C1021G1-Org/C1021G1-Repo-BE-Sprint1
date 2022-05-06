@@ -42,6 +42,9 @@ public interface IFlightRepository extends JpaRepository<Flight, Long> {
     void updateFlight(String codeFlight, String fromFlight, String toFlight, String dateStart,
                       String dateEnd, Long airlineType, Boolean delFlagFlight, Long id);
 
+//    tronghd lấy giá trị validate trùng nhau
+    @Query(value = "select count(code_flight) from flight where code_flight = ?", nativeQuery = true)
+    Integer finByCodeFlight(String codeFlight);
 
     @Query(value = "SELECT id" +
             ", code_flight" +

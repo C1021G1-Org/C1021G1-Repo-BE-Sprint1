@@ -6,11 +6,11 @@ import com.codegym.model.Flight;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
 public interface IFlightService {
 
     Flight findById(Long id);
+
+    Integer findByCodeFlight(String codeFlight);
 
     void createFlight(FlightDto flightDto);
 
@@ -21,6 +21,7 @@ public interface IFlightService {
     Page<Flight> findAllFlightNotPage(Pageable pageable);
 
     IFlightDto findById1(Long id);
+
 
     void deleteById(Long id);
 

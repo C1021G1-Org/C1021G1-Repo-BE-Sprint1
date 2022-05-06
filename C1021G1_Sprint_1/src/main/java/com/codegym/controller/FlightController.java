@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import com.codegym.model.AirlineType;
@@ -16,6 +18,9 @@ import com.codegym.service.IAirlineTypeService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -94,13 +99,27 @@ public class FlightController {
     }
 //    tronghd create chuyến bay
     @PostMapping("/create")
-    public ResponseEntity<?> createFlight(@Valid @RequestBody FlightDto flightDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getAllErrors().get(0).getDefaultMessage(),HttpStatus.NOT_ACCEPTABLE);
-        }
+    public ResponseEntity<?> createFlight(@Valid @RequestBody FlightDto flightDto) {
+//        if (bindingResult.hasErrors()) {
+//            return new ResponseEntity<>(bindingResult.getAllErrors().get(0).getDefaultMessage(),HttpStatus.NOT_ACCEPTABLE);
+//        }
         flightService.createFlight(flightDto);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
-    }   
+    }
+
+//    tronghd validate dữ liệu thêm mới
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(
+            MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Flight> getId(@PathVariable Long id) {

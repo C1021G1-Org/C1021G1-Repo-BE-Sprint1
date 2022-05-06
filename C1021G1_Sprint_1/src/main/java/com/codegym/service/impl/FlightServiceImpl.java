@@ -7,16 +7,8 @@ import com.codegym.repository.IFlightRepository;
 import com.codegym.service.IFlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
 
 @Service
 public class FlightServiceImpl implements IFlightService {
@@ -27,6 +19,11 @@ public class FlightServiceImpl implements IFlightService {
     @Override
     public Flight findById(Long id) {
         return repository.findByIdFlight(id);
+    }
+
+    @Override
+    public Integer findByCodeFlight(String codeFlight) {
+        return repository.finByCodeFlight(codeFlight);
     }
 
     @Override

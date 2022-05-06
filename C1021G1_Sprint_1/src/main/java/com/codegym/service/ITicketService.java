@@ -15,6 +15,12 @@ public interface ITicketService {
 
     List<Ticket> findHistoryTicketsByCustomerId(Long customerId);
 
+    Page<Ticket> findAllTicketsByCustomerIdPage(Long customerId,Pageable pageable);
+
+    Page<Ticket> findHistoryTicketsByCustomerIdPage(Long customerId,Pageable pageable);
+
+
+
     Ticket findTicketByCodeTicket(String codeTicket);
 
 

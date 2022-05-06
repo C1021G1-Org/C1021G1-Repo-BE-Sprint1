@@ -17,6 +17,10 @@ public class CustomerType {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerType")
     private Set<Customer> customers;
 
+    public CustomerType(String s) {
+        this.nameCustomerType = s;
+    }
+
     public CustomerType() {
     }
 

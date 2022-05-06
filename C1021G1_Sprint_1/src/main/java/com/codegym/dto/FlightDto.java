@@ -12,4 +12,8 @@ public interface FlightDto {
 
     String getDate_end();
 
+    String getTo_flight();
+
+    String getFrom_flight();
+
 }

@@ -21,7 +21,7 @@ public class FlightController_searchFlight {
     @Autowired
     private MockMvc mockMvc;
 
-    FormSearch formSearch = new FormSearch("Hồ Chí Minh (SGN)", "Hà Nội (HAN)", "2022-05-13 17:30:00", "2022-05-13 15:00:00", "oneway");
+    FormSearch formSearch = new FormSearch("price", "Hồ Chí Minh (SGN)", "Hà Nội (HAN)", "2022-05-13 17:30:00", "2022-05-13 15:00:00", "oneway");
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -45,6 +45,7 @@ public class FlightController_searchFlight {
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
+
 
     @Test
     public void searchFlight_from_flight_9() throws Exception {

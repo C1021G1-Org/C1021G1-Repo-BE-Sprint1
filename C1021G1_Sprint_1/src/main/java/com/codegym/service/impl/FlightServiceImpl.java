@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -25,10 +26,10 @@ public class FlightServiceImpl implements IFlightService {
     Page arrival;
 
     @Override
-    public Map<String, Page<FlightDto>> searchFlight(String departureDestination, String arrivalDestination, String departureDate, String arrivalDate, Pageable pageable) {
-        departure = iFlightRepository.searchFlight(departureDestination, arrivalDestination, departureDate, arrivalDate, pageable);
+    public Map<String, Page<FlightDto>> searchFlight(String departureDestination, String arrivalDestination, String departureDate, String arrivalDate, String sortOption, Pageable pageable) {
+        departure = iFlightRepository.searchFlight(departureDestination, arrivalDestination, departureDate, arrivalDate, sortOption, pageable);
         searchFlight.put("oneway", departure);
-        arrival = iFlightRepository.searchFlight(arrivalDestination, departureDestination, departureDate, arrivalDate, pageable);
+        arrival = iFlightRepository.searchFlight(arrivalDestination, departureDestination, departureDate, arrivalDate, sortOption, pageable);
         searchFlight.put("twoway", arrival);
         return searchFlight;
     }
@@ -37,6 +38,12 @@ public class FlightServiceImpl implements IFlightService {
     public Page<Flight> findAllFlight(Pageable pageable) {
         return iFlightRepository.findAllFlight(pageable);
     }
+
+    @Override
+    public List<Flight> searchFlightByDate(String date) {
+        return iFlightRepository.findFlightsByDateStartContains(date);
+    }
+
 
     @Override
     public Flight findById(Long id) {

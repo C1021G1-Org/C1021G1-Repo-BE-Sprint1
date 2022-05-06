@@ -9,16 +9,18 @@ public class FormSearch {
     private String dateStart;
     private String dateEnd;
     private String searchOption;
+    private String sortOption;
 
     public FormSearch() {
     }
 
-    public FormSearch(String fromFlight, String toFlight, String dateStart, String dateEnd, String searchOption) {
+    public FormSearch(String fromFlight, String toFlight, String dateStart, String dateEnd, String sortOption, String searchOption) {
         this.fromFlight = fromFlight;
         this.toFlight = toFlight;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.searchOption = searchOption;
+        this.sortOption = sortOption;
     }
 
     public String getFromFlight() {
@@ -59,5 +61,13 @@ public class FormSearch {
 
     public void setSearchOption(String searchOption) {
         this.searchOption = searchOption;
+    }
+
+    public String getSortOption() {
+        return sortOption;
+    }
+
+    public void setSortOption(String sortOption) {
+        this.sortOption = sortOption;
     }
 }

@@ -24,9 +24,11 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 
 @RestController
@@ -109,7 +111,7 @@ public class CustomerController {
 
     /*LongLT hiển thị list khách hàng*/
     @GetMapping("/list")
-    public ResponseEntity<Iterable<Customer>> getAllCustomer(@RequestParam(defaultValue = "0") int page) {
+    public ResponseEntity<Iterable<Customer>> getAllCustomer(@RequestParam(defaultValue = "1") int page) {
         Pageable pageable = PageRequest.of(page, 10);
         Page<Customer> customers = iCustomerService.findAllCustomer(pageable);
         if (customers.isEmpty()) {
@@ -119,14 +121,6 @@ public class CustomerController {
     }
 
 
-    @GetMapping("/customer-not-pagination")
-    public ResponseEntity<List<Customer>> getAllCustomerNotPagination() {
-        List<Customer> vaccines = iCustomerService.getAllCustomerNotPagination();
-        if (vaccines.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(vaccines, HttpStatus.OK);
-    }
 
 
     /*LongLT hiển thị list phân loại khách hàng */
@@ -143,6 +137,8 @@ public class CustomerController {
 
 
     //*LongLT* Triển khai phương thức xóa
+
+
 
 
     @DeleteMapping("/delete/{id}")
@@ -191,6 +187,7 @@ public class CustomerController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(customerList, HttpStatus.OK);
+
         }
     }
 

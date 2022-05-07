@@ -2,6 +2,7 @@ package com.codegym.controller;
 
 import com.codegym.common.ticket.MyConstants;
 import com.codegym.dto.TicketFirstDto;
+import com.codegym.dto.TicketMailDto;
 import com.codegym.model.Flight;
 import com.codegym.model.SeatType;
 import com.codegym.model.Ticket;
@@ -11,9 +12,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
@@ -68,18 +72,29 @@ public class TicketController {
             response.put("error", errorMap);
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
         } else {
+
             if (ticketService.getTicketByFlightIdAndTypeSeatAndTicketId(idFlight, typeSeat, ticketFirstDto.getId()) == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             } else {
-                Boolean gender = Boolean.parseBoolean(ticketFirstDto.getGenderTicket());
-//                ticketService.updateFirstTicketByIdEmployee(ticketFirstDto.getBuyerTicket(),
-//                        ticketFirstDto.getBirthdayTicket(), ticketFirstDto.getEmailTicket(), ticketFirstDto.getGenderTicket(),
-//                        ticketFirstDto.getPhoneTicket(), ticketFirstDto.getEmployeeTicketDto(), ticketFirstDto.getId());
+
                 ticketService.updateFirstTicket(ticketFirstDto.getBuyerTicket(),
-                        ticketFirstDto.getBirthdayTicket(), ticketFirstDto.getEmailTicket(), gender,
-                        ticketFirstDto.getPhoneTicket(), ticketFirstDto.getPriceTicket(), ticketFirstDto.getIdCard(), ticketFirstDto.getEmployee(), ticketFirstDto.getCustomer(), ticketFirstDto.getId());
+                        ticketFirstDto.getBirthdayTicket(), ticketFirstDto.getEmailTicket(), ticketFirstDto.getGenderTicket(),
+                        ticketFirstDto.getPhoneTicket(), ticketFirstDto.getDateTicket(), ticketFirstDto.getPriceTicket(), ticketFirstDto.getIdCard(),
+                        ticketFirstDto.getEmployee(), ticketFirstDto.getCustomer(), ticketFirstDto.getId());
+
+
+                Ticket ticketHistory = ticketService.getTicketAddHistory(ticketFirstDto.getId());
+
+                ticketService.addTicketHistory(ticketFirstDto.getBirthdayTicket(), ticketFirstDto.getBuyerTicket(),
+                        ticketHistory.getCodeTicket(), ticketHistory.getDelFlagTicket(), ticketFirstDto.getEmailTicket(),
+                        ticketFirstDto.getGenderTicket(), ticketFirstDto.getPhoneTicket(), ticketHistory.getPointTicket(),
+                        ticketFirstDto.getPriceTicket(), ticketFirstDto.getStatusTicket(), ticketFirstDto.getCustomer(),
+                        ticketFirstDto.getEmployee(), ticketHistory.getSeat().getId(), ticketFirstDto.getDateTicket(), ticketFirstDto.getIdCard());
+
             }
-            return new ResponseEntity<>(HttpStatus.OK);
+
+
+            return new ResponseEntity<>(ticketFirstDto, HttpStatus.OK);
         }
 
     }
@@ -107,14 +122,49 @@ public class TicketController {
 
 
     @ResponseBody
-    @GetMapping("/sendEmailTicket")
-    public String sendEmailTicket() {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(MyConstants.FRIEND_EMAIL);
-        message.setSubject("thu send email");
-        message.setText("nhind thấy là làm đuco rồi");
-        this.mailSender.send(message);
-        return "ok";
+    @PostMapping("/sendEmailTicket")
+    public ResponseEntity<TicketMailDto> sendEmailTicket(@RequestBody TicketMailDto ticketMailDto) {
+
+        MimeMessage message = mailSender.createMimeMessage();
+
+        boolean multipart = true;
+
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, multipart, "utf-8");
+
+            String htmlEmail = "<!DOCTYPE html>\n" +
+                    "<html lang=\"en\">\n" +
+                    "<head>\n" +
+                    "    <meta charset=\"UTF-8\">\n" +
+                    "    <title>Title</title>\n" +
+                    "<style>\n" +
+                    "</style>\n" +
+                    "</head>\n" +
+                    "<body>\n" +
+                    "<div style=\"text-align: center;font-size: 30px\">\n" +
+                    "    <h3 style=\"color: #ef7e06\">C1021G1Airline</h3>\n" +
+                    "    <p style=\"color: brown\">Hãng hàng không C1021G1Airline chúng tôi thông báo với quý khách,về việc khách hàng đã\n" +
+                    "        đăng ký sử dụng dịch vụ của hãng hàng không chúng tôi</p>\n" +
+                    "    <p>quý khách đă đăng ký thành công " + ticketMailDto.getNumTicket() + " vé và tổng số tiền là" + ticketMailDto.getSumPrice() + "</p>\n" +
+                    "    <p>rất cảm ơn khách hàng đã tin tưởng và sư dụng dịch vụ của chúng tôi,rất mong trong tương lai rất mong quý khách\n" +
+                    "        vẩn tin tưởng sử dụng dịch vụ của chúng tôi</p>\n" +
+                    "\n" +
+                    "</div>\n" +
+                    "\n" +
+                    "\n" +
+                    "</body>\n" +
+                    "</html>";
+            message.setContent(htmlEmail, "text/html; charset=utf-8");
+            helper.setTo(MyConstants.FRIEND_EMAIL);
+            helper.setSubject("C1021G1Airline thông báo đặt vé thành công");
+            this.mailSender.send(message);
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
+
 
 }

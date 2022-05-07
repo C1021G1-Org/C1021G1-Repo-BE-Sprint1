@@ -33,14 +33,15 @@ public class Ticket {
     private String idCard;
 
 
-    // Ngày sinh của người đi vé
+    //ngay dat ve
+    @Column(columnDefinition = "DATE")
+    private String dateTicket;
 
-
-              // Người mua vé
+    // Người mua vé
     private String buyerTicket;
 
     @Column(columnDefinition = "DATE")
-          // Ngày sinh của người mua vé
+    // Ngày sinh của người mua vé
     private String birthdayTicket;
 
     @ManyToOne
@@ -50,7 +51,6 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "id_customer", referencedColumnName = "id")
     private Customer customer;
-
 
 
     @OneToOne
@@ -178,5 +178,13 @@ public class Ticket {
 
     public void setIdCard(String idCard) {
         this.idCard = idCard;
+    }
+
+    public String getDateTicket() {
+        return dateTicket;
+    }
+
+    public void setDateTicket(String dateTicket) {
+        this.dateTicket = dateTicket;
     }
 }

@@ -16,19 +16,19 @@ import java.util.List;
 public interface ITicketRepository extends JpaRepository<Ticket, Long> {
 
 
-    @Query(value = "select ticket.id,ticket.buyer_ticket,ticket.birthday_ticket,ticket.code_ticket,ticket.del_flag_ticket,ticket.email_ticket,ticket.gender_ticket,ticket.id_card,ticket.phone_ticket,ticket.point_ticket,ticket.price_ticket,ticket.status_ticket,ticket.id_customer,ticket.id_employee,ticket.id_seat " +
+    @Query(value = "select ticket.id,ticket.buyer_ticket,ticket.birthday_ticket,ticket.code_ticket,ticket.del_flag_ticket,ticket.email_ticket,ticket.date_ticket,ticket.gender_ticket,ticket.id_card,ticket.phone_ticket,ticket.point_ticket,ticket.price_ticket,ticket.status_ticket,ticket.id_customer,ticket.id_employee,ticket.id_seat " +
             "from ticket " +
             "join seat on seat.id = ticket.id_seat " +
             "join flight on flight.id = seat.id_flight " +
             "join seat_type on seat_type.id = seat.id_seat_type " +
-            "where flight.id = :idFlight " +
+            "where seat.id_flight = :idFlight " +
             "and seat.status_seat = 0 " +
             "and seat_type.name_seat_type = :typeSeat " +
             "limit 5", nativeQuery = true)
     List<Ticket> getListNumberTicket(@Param("idFlight") Long idFlight, @Param("typeSeat") String typeSeat);
 
 
-    @Query(value = "select ticket.id,ticket.buyer_ticket,ticket.birthday_ticket,ticket.code_ticket,ticket.del_flag_ticket,ticket.email_ticket,ticket.gender_ticket,ticket.phone_ticket,ticket.id_card,ticket.point_ticket,ticket.price_ticket,ticket.status_ticket,ticket.id_customer,ticket.id_employee,ticket.id_seat " +
+    @Query(value = "select ticket.id,ticket.buyer_ticket,ticket.birthday_ticket,ticket.code_ticket,ticket.del_flag_ticket,ticket.email_ticket,ticket.date_ticket,ticket.gender_ticket,ticket.phone_ticket,ticket.id_card,ticket.point_ticket,ticket.price_ticket,ticket.status_ticket,ticket.id_customer,ticket.id_employee,ticket.id_seat " +
             "from ticket " +
             "join seat on seat.id = ticket.id_seat " +
             "join flight on flight.id = seat.id_flight " +
@@ -39,6 +39,12 @@ public interface ITicketRepository extends JpaRepository<Ticket, Long> {
             "and ticket.id = :idTicket " +
             "and ticket.del_flag_ticket = 1", nativeQuery = true)
     Ticket getTicketByFlightIdAndTypeSeatAndTicketId(@Param("idFlight") Long idFlight, @Param("typeSeat") String typeSeat, @Param("idTicket") Long idTicket);
+
+    @Query(value = "select ticket.id,ticket.buyer_ticket,ticket.birthday_ticket,ticket.code_ticket,ticket.del_flag_ticket,ticket.email_ticket,ticket.date_ticket,ticket.gender_ticket,ticket.phone_ticket,ticket.id_card,ticket.point_ticket,ticket.price_ticket,ticket.status_ticket,ticket.id_customer,ticket.id_employee,ticket.id_seat " +
+            "from ticket " +
+            "where ticket.id = :idTicket"
+            , nativeQuery = true)
+    Ticket getTicketAddHistory(@Param("idTicket") Long idTicket);
 
 
     @Modifying
@@ -51,6 +57,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Long> {
             ",gender_ticket = :gender " +
             ",phone_ticket = :phone " +
             ",status_ticket = 0 " +
+            ",date_ticket = :dateTicket " +
             ",id_employee = :employee " +
             ",id_customer = :customer" +
             ",price_ticket = :price " +
@@ -64,6 +71,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Long> {
             @Param("email") String email,
             @Param("gender") Boolean gender,
             @Param("phone") String phone,
+            @Param("dateTicket") String dateTicket,
             @Param("price") Double price,
             @Param("idCard") String idCard,
             @Param("employee") Long employee,
@@ -71,6 +79,30 @@ public interface ITicketRepository extends JpaRepository<Ticket, Long> {
             @Param("idTicket") Long idTicket
 
     );
+
+    //    INSERT INTO ticket_history ( `birthday_ticket`, `buyer_ticket`, `code_ticket`, `del_flag_ticket`, `email_ticket`, `gender_ticket`, `phone_ticket`, `point_ticket`, `price_ticket`, `status_ticket`, `id_customer`, `id_employee`, `id_seat`, `date_ticket`, `id_card`) VALUES
+//            ( '1995-01-01', 'thanh tam23', 'TK-016', b'1', 'nguyen@gmail.com', b'1','796238932', '2', '500000', b'0', NULL,'1', '16','1995-01-01','123456789')
+    @Modifying
+    @Query(value = "INSERT INTO ticket_history (birthday_ticket, buyer_ticket, code_ticket, del_flag_ticket, email_ticket, gender_ticket, " +
+            " phone_ticket, point_ticket, price_ticket, status_ticket, id_customer, id_employee, id_seat, date_ticket, id_card) VALUES " +
+            " (:birthdayTicket, :buyerTicket, :codeTicket, :delFlagTicket, :emailTicket, :genderTicket, :phoneTicket , :pointTicket, :priceTicket, :statusTicket, :idCustomer, :idEmployee, :idSeat, :dateTicket, :idCard) ", nativeQuery = true)
+    void addTicketHistory(
+            @Param("birthdayTicket") String birthdayTicket,
+            @Param("buyerTicket") String buyerTicket,
+            @Param("codeTicket") String codeTicket,
+            @Param("delFlagTicket") Boolean delFlagTicket,
+            @Param("emailTicket") String emailTicket,
+            @Param("genderTicket") Boolean genderTicket,
+            @Param("phoneTicket") String phoneTicket,
+            @Param("pointTicket") Integer pointTicket,
+            @Param("priceTicket") Double priceTicket,
+            @Param("statusTicket") Boolean statusTicket,
+            @Param("idCustomer") Long idCustomer,
+            @Param("idEmployee") Long idEmployee,
+            @Param("idSeat") Long idSeat,
+            @Param("dateTicket") String dateTicket,
+            @Param("idCard") String idCard);
+
 
 //    @Query(value = "select ticket.id,ticket.buyer_ticket,ticket.birthday_ticket,ticket.code_ticket,ticket.email_ticket,ticket.gender_ticket,ticket.phone_ticket,ticket.price_ticket,ticket.status_ticket,ticket.id_employee,ticket.id_seat " +
 //            "from ticket ", nativeQuery = true)

@@ -36,9 +36,15 @@ public class TicketServiceImpl implements ITicketService {
     }
 
     @Override
-    public void updateFirstTicket(String buyer, String birthDay, String email, Boolean gender, String phone, Double price, String idCard, Long employee, Long customer, Long idTicket) {
-        ticketRepository.updateTicketByIdTicketAndIdEmployee(buyer, birthDay, email, gender, phone, price, idCard, employee, customer, idTicket);
+    public void updateFirstTicket(String buyer, String birthDay, String email, Boolean gender, String phone, String dateTicket, Double price, String idCard, Long employee, Long customer, Long idTicket) {
+        ticketRepository.updateTicketByIdTicketAndIdEmployee(buyer, birthDay, email, gender, phone, dateTicket, price, idCard, employee, customer, idTicket);
     }
+
+
+//    @Override
+//    public void updateFirstTicket(String buyer, String birthDay, String email, Boolean gender, String phone, Double price, String idCard, Long employee, Long customer, Long idTicket) {
+//        ticketRepository.updateTicketByIdTicketAndIdEmployee(buyer, birthDay, email, gender, phone, price, idCard, employee, customer, idTicket);
+//    }
 
 //    @Override
 //    public void updateFirstTicket(String buyer, String birthDay, String email, Boolean gender, String phone, Double price, String idCard, Long employee, Long idTicket) {
@@ -65,7 +71,15 @@ public class TicketServiceImpl implements ITicketService {
         return seatTypeRepository.findAll();
     }
 
+    @Override
+    public void addTicketHistory(String birthdayTicket, String buyerTicket, String codeTicket, Boolean delFlagTicket, String emailTicket, Boolean genderTicket, String phoneTicket, Integer pointTicket, Double priceTicket, Boolean statusTicket, Long idCustomer, Long idEmployee, Long idSeat, String dateTicket, String idCard) {
+        ticketRepository.addTicketHistory(birthdayTicket, buyerTicket, codeTicket, delFlagTicket, emailTicket, genderTicket, phoneTicket, pointTicket, priceTicket, statusTicket, idCustomer, idEmployee, idSeat, dateTicket, idCard);
+    }
 
+    @Override
+    public Ticket getTicketAddHistory(Long idTicket) {
+        return ticketRepository.getTicketAddHistory(idTicket);
+    }
 
 
 }

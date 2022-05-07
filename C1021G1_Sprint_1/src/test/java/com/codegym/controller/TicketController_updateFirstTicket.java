@@ -34,7 +34,7 @@ public class TicketController_updateFirstTicket {
         ticketFirstDto.setBuyerTicket("");
         ticketFirstDto.setBirthdayTicket("1995-01-01");
         ticketFirstDto.setEmailTicket("hdqphu1301@gmail.com");
-        ticketFirstDto.setGenderTicket("1");
+        ticketFirstDto.setGenderTicket(true);
         ticketFirstDto.setPriceTicket(2000000.0);
         ticketFirstDto.setPhoneTicket("0909123123");
         ticketFirstDto.setIdCard("123456789");
@@ -59,7 +59,7 @@ public class TicketController_updateFirstTicket {
         ticketFirstDto.setBuyerTicket(null);
         ticketFirstDto.setBirthdayTicket("1995-01-01");
         ticketFirstDto.setEmailTicket("hdqphu1301@gmail.com");
-        ticketFirstDto.setGenderTicket("1");
+        ticketFirstDto.setGenderTicket(true);
         ticketFirstDto.setPriceTicket(2000000.0);
         ticketFirstDto.setPhoneTicket("0909123123");
         ticketFirstDto.setIdCard("123456789");
@@ -80,12 +80,11 @@ public class TicketController_updateFirstTicket {
     @Test
     public void updateFirstTicket_buyerTicket_21() throws Exception {
         TicketFirstDto ticketFirstDto = new TicketFirstDto();
-
-
-        ticketFirstDto.setBuyerTicket("thanh tam 123");
+        ticketFirstDto.setId(17L);
+        ticketFirstDto.setBuyerTicket("thanh tam");
         ticketFirstDto.setBirthdayTicket("1995-01-01");
         ticketFirstDto.setEmailTicket("hdqphu1301@gmail.com");
-        ticketFirstDto.setGenderTicket("1");
+        ticketFirstDto.setGenderTicket(true);
         ticketFirstDto.setPriceTicket(2000000.0);
         ticketFirstDto.setPhoneTicket("0909123123");
         ticketFirstDto.setIdCard("123456789");
@@ -108,7 +107,7 @@ public class TicketController_updateFirstTicket {
         ticketFirstDto.setBuyerTicket("thanh tam");
         ticketFirstDto.setBirthdayTicket(null);
         ticketFirstDto.setEmailTicket("hdqphu1301@gmail.com");
-        ticketFirstDto.setGenderTicket("1");
+        ticketFirstDto.setGenderTicket(true);
         ticketFirstDto.setPriceTicket(2000000.0);
         ticketFirstDto.setPhoneTicket("0909123123");
         ticketFirstDto.setIdCard("123456789");
@@ -131,7 +130,7 @@ public class TicketController_updateFirstTicket {
         ticketFirstDto.setBuyerTicket("thanh tam");
         ticketFirstDto.setBirthdayTicket("");
         ticketFirstDto.setEmailTicket("hdqphu1301@gmail.com");
-        ticketFirstDto.setGenderTicket("1");
+        ticketFirstDto.setGenderTicket(true);
         ticketFirstDto.setPriceTicket(2000000.0);
         ticketFirstDto.setPhoneTicket("0909123123");
         ticketFirstDto.setIdCard("123456789");
@@ -155,7 +154,7 @@ public class TicketController_updateFirstTicket {
         ticketFirstDto.setBuyerTicket("thanh tam");
         ticketFirstDto.setBirthdayTicket("1995-01-01 17:05");
         ticketFirstDto.setEmailTicket("hdqphu1301@gmail.com");
-        ticketFirstDto.setGenderTicket("1");
+        ticketFirstDto.setGenderTicket(true);
         ticketFirstDto.setPriceTicket(2000000.0);
         ticketFirstDto.setPhoneTicket("0909123123");
         ticketFirstDto.setIdCard("123456789");
@@ -179,7 +178,7 @@ public class TicketController_updateFirstTicket {
         ticketFirstDto.setBuyerTicket("thanh tam");
         ticketFirstDto.setBirthdayTicket("1995-01-01");
         ticketFirstDto.setEmailTicket(null);
-        ticketFirstDto.setGenderTicket("1");
+        ticketFirstDto.setGenderTicket(true);
         ticketFirstDto.setPriceTicket(2000000.0);
         ticketFirstDto.setPhoneTicket("0909123123");
         ticketFirstDto.setIdCard("123456789");
@@ -203,7 +202,7 @@ public class TicketController_updateFirstTicket {
         ticketFirstDto.setBuyerTicket("thanh tam");
         ticketFirstDto.setBirthdayTicket("1995-01-01");
         ticketFirstDto.setEmailTicket("");
-        ticketFirstDto.setGenderTicket("1");
+        ticketFirstDto.setGenderTicket(true);
         ticketFirstDto.setPriceTicket(2000000.0);
         ticketFirstDto.setPhoneTicket("0909123123");
         ticketFirstDto.setIdCard("123456789");
@@ -227,7 +226,7 @@ public class TicketController_updateFirstTicket {
         ticketFirstDto.setBuyerTicket("thanh tam");
         ticketFirstDto.setBirthdayTicket("1995-01-01");
         ticketFirstDto.setEmailTicket("quocphu.com");
-        ticketFirstDto.setGenderTicket("1");
+        ticketFirstDto.setGenderTicket(true);
         ticketFirstDto.setPriceTicket(2000000.0);
         ticketFirstDto.setPhoneTicket("0909123123");
         ticketFirstDto.setIdCard("123456789");
@@ -249,7 +248,7 @@ public class TicketController_updateFirstTicket {
         ticketFirstDto.setBuyerTicket("thanh tam");
         ticketFirstDto.setBirthdayTicket("1995-01-01");
         ticketFirstDto.setEmailTicket("quocphu@gmail.com");
-        ticketFirstDto.setGenderTicket("1");
+        ticketFirstDto.setGenderTicket(true);
         ticketFirstDto.setPriceTicket(2000000.0);
         ticketFirstDto.setPhoneTicket(null);
         ticketFirstDto.setIdCard("123456789");
@@ -271,7 +270,7 @@ public class TicketController_updateFirstTicket {
         ticketFirstDto.setBuyerTicket("thanh tam");
         ticketFirstDto.setBirthdayTicket("1995-01-01");
         ticketFirstDto.setEmailTicket("quocphu@gmail.com");
-        ticketFirstDto.setGenderTicket("1");
+        ticketFirstDto.setGenderTicket(true);
         ticketFirstDto.setPriceTicket(2000000.0);
         ticketFirstDto.setPhoneTicket("");
         ticketFirstDto.setIdCard("123456789");
@@ -293,7 +292,7 @@ public class TicketController_updateFirstTicket {
         ticketFirstDto.setBuyerTicket("thanh tam");
         ticketFirstDto.setBirthdayTicket("1995-01-01");
         ticketFirstDto.setEmailTicket("quocphu@gmail.com");
-        ticketFirstDto.setGenderTicket("1");
+        ticketFirstDto.setGenderTicket(true);
         ticketFirstDto.setPriceTicket(2000000.0);
         ticketFirstDto.setPhoneTicket("464989564654564654");
         ticketFirstDto.setIdCard("123456789");
@@ -315,7 +314,7 @@ public class TicketController_updateFirstTicket {
         ticketFirstDto.setBuyerTicket("thanh tam");
         ticketFirstDto.setBirthdayTicket("1995-01-01");
         ticketFirstDto.setEmailTicket("quocphu@gmail.com");
-        ticketFirstDto.setGenderTicket("1");
+        ticketFirstDto.setGenderTicket(true);
         ticketFirstDto.setPriceTicket(null);
         ticketFirstDto.setPhoneTicket("464989564654564654");
         ticketFirstDto.setIdCard("123456789");
@@ -343,7 +342,7 @@ public class TicketController_updateFirstTicket {
         ticketFirstDto.setBuyerTicket("thanh tam");
         ticketFirstDto.setBirthdayTicket("1995-01-01");
         ticketFirstDto.setEmailTicket("quocphu@gmail.com");
-        ticketFirstDto.setGenderTicket("1");
+        ticketFirstDto.setGenderTicket(true);
         ticketFirstDto.setPriceTicket(2000000.0);
         ticketFirstDto.setPhoneTicket("0796298932");
         ticketFirstDto.setIdCard("123456789");

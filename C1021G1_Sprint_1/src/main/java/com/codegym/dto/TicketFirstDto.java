@@ -23,20 +23,22 @@ public class TicketFirstDto {
 //    @Pattern(regexp = "^[0-9]$", message = "giá tiền không được để ký tự")
     private Double priceTicket;
 
-    private String genderTicket;
+    private Boolean genderTicket;
+
+    private Boolean statusTicket;
 
 //    @NotNull(message = "phai thay đổi giá trị không được null")
 //    private Boolean statusTicket;
 
     @NotBlank(message = "tên không được để trống")
-    @Pattern(regexp = "^[A-Z|a-z]$", message = "tên không đưuọc để ký tự số")
+    @Pattern(regexp = "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]{3,50}$", message = "tên không đưuọc để ký tự số")
     private String buyerTicket;
 
     @NotBlank(message = "ngày tháng không để trống")
 //    @Pattern(regexp = "^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$", message = "ngày tháng không đúng định dạng")
     private String birthdayTicket;
 
-
+private String dateTicket;
     private String idCard;
 
     //    private EmployeeTicketDto employee;
@@ -71,21 +73,21 @@ public class TicketFirstDto {
         this.phoneTicket = phoneTicket;
     }
 
-//    public Boolean getGenderTicket() {
-//        return genderTicket;
-//    }
-//
-//    public void setGenderTicket(Boolean genderTicket) {
-//        this.genderTicket = genderTicket;
-//    }
-
-    public String getGenderTicket() {
+    public Boolean getGenderTicket() {
         return genderTicket;
     }
 
-    public void setGenderTicket(String genderTicket) {
+    public void setGenderTicket(Boolean genderTicket) {
         this.genderTicket = genderTicket;
     }
+
+//    public String getGenderTicket() {
+//        return genderTicket;
+//    }
+//
+//    public void setGenderTicket(String genderTicket) {
+//        this.genderTicket = genderTicket;
+//    }
 
 
 //    public Boolean getStatusTicket() {
@@ -153,5 +155,21 @@ public class TicketFirstDto {
 
     public void setCustomer(Long customer) {
         this.customer = customer;
+    }
+
+    public String getDateTicket() {
+        return dateTicket;
+    }
+
+    public void setDateTicket(String dateTicket) {
+        this.dateTicket = dateTicket;
+    }
+
+    public Boolean getStatusTicket() {
+        return statusTicket;
+    }
+
+    public void setStatusTicket(Boolean statusTicket) {
+        this.statusTicket = statusTicket;
     }
 }

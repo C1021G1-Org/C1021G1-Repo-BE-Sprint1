@@ -61,4 +61,12 @@ public interface ICustomerService {
     //TinhHD lấy idcard để validator
     Integer finByPhone(String phone);
 
+    // ThangDBX kiểm tra CMND/ ho chieu đã tồn tại hoặc có thay đổi không khi thực hiện cập nhật
+    Integer checkIdCardIsExistUpdate(String idCard, Long id);
+
+    // ThangDBX kiểm tra phone đã tồn tại hoặc có thay đổi không khi thực hiện cập nhật
+    Integer checkPhoneIsExistUpdate(String phone, Long id);
+
+    // ThangDBX kiểm tra email đã tồn tại hoặc có thay đổi không khi thực hiện cập nhật
+    Integer checkEmailIsExistUpdate(String email, Long id);
 }

@@ -204,27 +204,42 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     // ThangDBX kiểm tra email đã tồn tại hoặc có thay đổi không khi thực hiện cập nhật
     @Query(value = "select count(email_customer) \n" +
             "from c1021g1_sprint_1.customer \n" +
-            "where customer.email_customer = ? \n" +
+            "where customer.email_customer = ?1 \n" +
             "and customer.id not in  (\n" +
-            "select customer.id   from customer where customer.id = ? \n" +
+            "select customer.id   from customer where customer.id = ?2 \n" +
             ") ;", nativeQuery = true)
-    Integer checkEmailIsExistUpdate(String email, Integer id);
+    Integer checkEmailIsExistUpdate(String email, Long id);
 
     // ThangDBX kiểm tra phone đã tồn tại hoặc có thay đổi không khi thực hiện cập nhật
     @Query(value = "select count(phone_customer) \n" +
             "from c1021g1_sprint_1.customer \n" +
-            "where customer.phone_customer = ? \n" +
+            "where customer.phone_customer = ?1 \n" +
             "and customer.id not in  (\n" +
-            "select customer.id   from customer where customer.id = ? \n" +
+            "select customer.id   from customer where customer.id = ?2 \n" +
             ") ;", nativeQuery = true)
-    Integer checkPhoneIsExistUpdate(String email, Integer id);
+    Integer checkPhoneIsExistUpdate(String phone, Long id);
 
     // ThangDBX kiểm tra CMND/ ho chieu đã tồn tại hoặc có thay đổi không khi thực hiện cập nhật
     @Query(value = "select count(id_card_customer) \n" +
             "from c1021g1_sprint_1.customer \n" +
-            "where customer.id_card_customer = ? \n" +
+            "where customer.id_card_customer = ?1 \n" +
             "and customer.id not in  (\n" +
-            "select customer.id   from customer where customer.id = ? \n" +
+            "select customer.id   from customer where customer.id = ?2 \n" +
             ") ;", nativeQuery = true)
-    Integer checkIdCardIsExistUpdate(String email, Integer id);
+    Integer checkIdCardIsExistUpdate(String idCard, Long id);
+
+    // ThangDBX lấy lịch sử tichket đã thanh toán để tính tổng điểm khách hàng đạt được,
+    @Query(value = "", nativeQuery = true)
+    Integer getPoint();
+
+    //ThangDBX cập nhật điểm thưởng của khách hàng
+    @Query(value = "update customer\n" +
+            "set customer.point_customer = ?1\n" +
+            "where customer.id = ?2", nativeQuery = true)
+    void updatePointCustomer(Integer point, Long id);
+
+
+
+    // ThangDBX set lại CustomerType cho khách hàng
+
 }

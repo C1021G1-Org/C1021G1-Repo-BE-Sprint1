@@ -226,8 +226,15 @@ public class CustomerController {
                                                         @Validated
                                                         @RequestBody CustomerPersonalInfoDto customerDto,
                                                         BindingResult bindingResult) {
+        /* check email, sdt, CMND/HO chieu da co chưa */
+        Map<String, String> error = new HashMap<>();
 
-        new CustomerPersonalInfoDto().validate(customerDto,bindingResult);
+
+        if (iCustomerService.checkIdCardIsExistUpdate(customerDto.getIdCardCustomer(),id) == 0
+        && iCustomerService.checkEmailIsExistUpdate(customerDto.getIdCardCustomer(),id) == 0
+        && iCustomerService.checkPhoneIsExistUpdate(customerDto.getIdCardCustomer(),id) == 0){
+
+            new CustomerPersonalInfoDto().validate(customerDto,bindingResult);
 
             if (bindingResult.hasErrors()) {
                 return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.NOT_FOUND);
@@ -237,6 +244,23 @@ public class CustomerController {
                 iCustomerService.updatePersonalInfo(customer);
                 return new ResponseEntity<>(HttpStatus.OK);
             }
+
+        } /* tra ve loi */
+        else {
+            if (iCustomerService.checkIdCardIsExistUpdate(customerDto.getIdCardCustomer(),id) > 0){
+                error.put("idCardCustomer", "CMND đã tồn tại!");
+            }
+
+            if (iCustomerService.checkEmailIsExistUpdate(customerDto.getIdCardCustomer(),id) > 0){
+                error.put("emailCustomer", "Email đã tồn tại!");
+            }
+
+            if (iCustomerService.checkPhoneIsExistUpdate(customerDto.getIdCardCustomer(),id) > 0){
+                error.put("phoneCustomer", "Số điện thoại đã tồn tại!");
+            }
+
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
 
     }
 

@@ -163,5 +163,21 @@ public class CustomerServiceImpl implements ICustomerService {
 
     }
 
+    // ThangDBX check CMND/Ho chieu co chua
+    @Override
+    public Integer checkIdCardIsExistUpdate(String idCard, Long id) {
+        return iCustomerRepository.checkIdCardIsExistUpdate(idCard,id);
+    }
+
+    @Override
+    public Integer checkPhoneIsExistUpdate(String phone, Long id) {
+        return iCustomerRepository.checkPhoneIsExistUpdate(phone,id);
+    }
+
+    @Override
+    public Integer checkEmailIsExistUpdate(String email, Long id) {
+        return iCustomerRepository.checkEmailIsExistUpdate(email,id);
+    }
+
 
 }

@@ -1,8 +1,10 @@
 package com.codegym.dto;
 
 import com.codegym.model.Countries;
+import com.codegym.service.ICustomerService;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -23,6 +25,7 @@ import java.util.regex.Matcher;
 public class CustomerPersonalInfoDto implements Validator {
     private final String REGEX_ID_CARD = "^[0-9]{12}";
     private final String REGEX_PHONE = "^([0-9])*$";
+
 
 
 
@@ -163,14 +166,16 @@ public class CustomerPersonalInfoDto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        CustomerPersonalInfoDto customerPersonalInfoDto = (CustomerPersonalInfoDto) target;
+        CustomerPersonalInfoDto dto = (CustomerPersonalInfoDto) target;
 
-        if (checkAgeMember(customerPersonalInfoDto.getBirthdayCustomer())) {
-            errors.rejectValue("dateOfBirth", "birthday.checkAge", "Tuổi phải từ 18 trở lên");
+        if (checkAgeMember(dto.getBirthdayCustomer())) {
+            errors.rejectValue("birthdayCustomer", "birthday.checkAge", "Tuổi phải từ 18 trở lên");
         }
+
+
     }
 
-    /* kiem tra tren 18 tuoi */
+    /*ThangDBX kiem tra tren 18 tuoi */
     public boolean checkAgeMember(String dateOfBirth) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate now = LocalDate.now();

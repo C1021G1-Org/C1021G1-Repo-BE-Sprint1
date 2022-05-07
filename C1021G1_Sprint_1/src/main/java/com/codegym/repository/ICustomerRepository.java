@@ -200,4 +200,20 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     //TinhHD lấy phone để validator
     @Query(value = "select count(phone_customer) from customer where phone_customer = ?", nativeQuery = true)
     Integer finByPhone(String phone);
+
+    //TinhHD validator edit cho phép update
+    @Query(value = "select customer.id from customer where email_customer = ?1 and phone_customer = ?2 and id_card_customer = ?3", nativeQuery = true)
+    Long findByCheck(String emailCustomer, String phoneCustomer, String idCard);
+
+    //TinhHD validator edit cho phép update
+    @Query(value = "select count(customer.email_customer) from customer where not customer.id =?1 and email_customer = ?2", nativeQuery = true)
+    Integer findByEmailNot(Long id, String emailCustomer);
+
+    //TinhHD validator edit cho phép update
+    @Query(value = "select count(customer.phone_customer) from customer where not customer.id =?1 and phone_customer = ?2", nativeQuery = true)
+    Integer findByPhoneNot(Long id, String phoneCustomer);
+
+    //TinhHD validator edit cho phép update
+    @Query(value = "select count(customer.id_card_customer) from customer where not customer.id =?1 and id_card_customer = ?2", nativeQuery = true)
+    Integer findByIdCardNot(Long id, String idCardCustomer);
 }

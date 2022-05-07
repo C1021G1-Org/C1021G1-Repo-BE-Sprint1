@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -113,16 +112,14 @@ public class CustomerServiceImpl implements ICustomerService {
         return iCustomerRepository.searchByIdCard(keyword, pageable);
     }
 
-    @Override
-    public List<Customer> getAllCustomerNotPagination() {
-        return iCustomerRepository.getAllCustomerNotPagination();
-    }
 
     /*ThangDBX lấy dữ liệu của khách hàng  */
     @Override
     public Customer findCustomerById(Long id) {
         return iCustomerRepository.findCustomerByID(id);
     }
+
+
 
     @Override
     public Customer findByIdPersonal(Long id) {

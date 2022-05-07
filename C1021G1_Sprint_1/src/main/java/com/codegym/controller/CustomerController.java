@@ -11,15 +11,12 @@ import com.codegym.service.ICustomerService;
 import com.codegym.model.CustomerType;
 import com.codegym.service.ICustomerTypeService;
 
-import org.assertj.core.internal.Iterables;
-
 import org.springframework.beans.BeanUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -32,12 +29,11 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 
 @RestController
 @CrossOrigin("http://localhost:4200")
-@RequestMapping(value = "/customer")
+@RequestMapping(value = "/api/customer")
 public class CustomerController {
 
     @Autowired
@@ -115,7 +111,7 @@ public class CustomerController {
 
 
     @GetMapping("/list")
-    public ResponseEntity<Iterable<Customer>> getAllCustomer(@RequestParam(defaultValue = "0") int page) {
+    public ResponseEntity<Iterable<Customer>> getAllCustomer(@RequestParam(defaultValue = "1") int page) {
         Pageable pageable = PageRequest.of(page, 10);
         Page<Customer> customers = iCustomerService.findAllCustomer(pageable);
         if (customers.isEmpty()) {
@@ -124,18 +120,6 @@ public class CustomerController {
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
-
-
-
-
-    @GetMapping("/customer-not-pagination")
-    public ResponseEntity<List<Customer>> getAllCustomerNotPagination() {
-        List<Customer> vaccines = iCustomerService.getAllCustomerNotPagination();
-        if (vaccines.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(vaccines, HttpStatus.OK);
-    }
 
 
     /*LongLT hiển thị list phân loại khách hàng */
@@ -152,9 +136,6 @@ public class CustomerController {
 
 
     //*LongLT* Triển khai phương thức xóa
-
-
-
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable Long id) {
         Customer customers = iCustomerService.findById(id);
@@ -166,45 +147,45 @@ public class CustomerController {
     }
 
 
+    //*LongLT* Triển khai phương thức tìm kiếm
 
+    @GetMapping("/search")
+    public ResponseEntity<Page<Customer>> searchCustomer(@RequestParam(defaultValue = "", required = false) String keyword,
+                                                         @RequestParam(defaultValue = "", required = false) String option,
+                                                         @RequestParam(defaultValue = "0") int page) {
 
-        //*LongLT* Triển khai phương thức tìm kiếm
+        Page<Customer> customerList = null;
+        switch (option) {
+            case "name":
+                customerList = iCustomerService.searchCustomerByName(keyword, PageRequest.of(page, 10));
+                break;
+            case "email":
+                customerList = iCustomerService.searchCustomerByEmail(keyword, PageRequest.of(page, 10));
+                break;
+            case "address":
+                customerList = iCustomerService.searchCustomerByAddress(keyword, PageRequest.of(page, 10));
+                break;
+            case "country":
+                customerList = iCustomerService.searchCustomerByCountry(keyword, PageRequest.of(page, 10));
+                break;
+            case "customerType":
+                customerList = iCustomerService.searchCustomerByCustomerType(keyword, PageRequest.of(page, 10));
+                break;
+            case "idCard":
+                customerList = iCustomerService.searchCustomerByIdCrad(keyword, PageRequest.of(page, 10));
+                break;
+            case "phone":
+                customerList = iCustomerService.searchCustomerByPhone(keyword, PageRequest.of(page, 10));
+                break;
+        }
+        if (customerList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(customerList, HttpStatus.OK);
 
-        @GetMapping("/search")
-        public ResponseEntity<Page<Customer>> searchCustomer (@RequestParam(defaultValue = "", required = false) String keyword,
-                                                                @RequestParam(defaultValue = "", required = false) String option,
-                                                                @RequestParam(defaultValue = "0") int page){
+        }
+    }
 
-                Page<Customer> customerList = null;
-                switch (option) {
-                    case "name":
-                        customerList = iCustomerService.searchCustomerByName(keyword, PageRequest.of(page, 10));
-                        break;
-                    case "email":
-                        customerList = iCustomerService.searchCustomerByEmail(keyword, PageRequest.of(page, 10));
-                        break;
-                    case "address":
-                        customerList = iCustomerService.searchCustomerByAddress(keyword, PageRequest.of(page, 10));
-                        break;
-                    case "country":
-                        customerList = iCustomerService.searchCustomerByCountry(keyword, PageRequest.of(page, 10));
-                        break;
-                    case "customerType":
-                        customerList = iCustomerService.searchCustomerByCustomerType(keyword, PageRequest.of(page, 10));
-                        break;
-                    case "idCard":
-                        customerList = iCustomerService.searchCustomerByIdCrad(keyword, PageRequest.of(page, 10));
-                        break;
-                    case "phone":
-                        customerList = iCustomerService.searchCustomerByPhone(keyword, PageRequest.of(page, 10));
-                        break;
-                }
-                if (customerList.isEmpty()) {
-                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-                } else {
-                    return new ResponseEntity<>(customerList, HttpStatus.OK);
-                }
-            }
     /*ThangDBX lấy thông tin cá nhân của khách hàng */
     @GetMapping("view/{id}")
     public ResponseEntity<Customer> findCustomerPersonalInfoById(@PathVariable("id") Long id) {

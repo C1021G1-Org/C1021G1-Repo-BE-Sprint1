@@ -1,13 +1,14 @@
 package com.codegym.controller;
 
+
 import com.codegym.dto.CustomerDto;
-
 import com.codegym.dto.CustomerDtoCheck;
-
 import com.codegym.dto.CustomerPersonalInfoDto;
-
 import com.codegym.model.Customer;
 import com.codegym.service.ICustomerService;
+import org.springframework.web.bind.annotation.*;
+
+
 import com.codegym.model.CustomerType;
 import com.codegym.service.ICustomerTypeService;
 
@@ -24,11 +25,11 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 
 @RestController
@@ -121,8 +122,6 @@ public class CustomerController {
     }
 
 
-
-
     /*LongLT hiển thị list phân loại khách hàng */
     @GetMapping("/customerType")
 
@@ -137,8 +136,6 @@ public class CustomerController {
 
 
     //*LongLT* Triển khai phương thức xóa
-
-
 
 
     @DeleteMapping("/delete/{id}")
@@ -223,5 +220,5 @@ public class CustomerController {
 
     }
 
-
 }
+

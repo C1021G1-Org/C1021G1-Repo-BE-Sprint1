@@ -15,6 +15,12 @@ public interface ITicketService {
 
     List<Ticket> findHistoryTicketsByCustomerId(Long customerId);
 
+    Page<Ticket> findAllTicketsByCustomerIdPage(Long customerId,Pageable pageable);
+
+    Page<Ticket> findHistoryTicketsByCustomerIdPage(Long customerId,Pageable pageable);
+
+
+
     Ticket findTicketByCodeTicket(String codeTicket);
 
 
@@ -40,6 +46,6 @@ public interface ITicketService {
     Page<TicketDto> ticketCodeTicket(String keyword, Pageable pageable);
 
 
-    List<TicketDto> getAllTicketDTONotPagination();
+    Page<TicketDto> getAllTicketDTONotPagination(Pageable pageable);
 
 }

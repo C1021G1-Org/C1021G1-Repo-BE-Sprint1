@@ -18,7 +18,6 @@ public class TicketServiceImpl implements ITicketService {
     ITicketRepository repository;
 
 
-
     @Override
     public List<Ticket> findAllTicketsByCustomerId(Long customerId) {
         return repository.getAllTicketsByCustomerID(customerId);
@@ -28,6 +27,19 @@ public class TicketServiceImpl implements ITicketService {
     public List<Ticket> findHistoryTicketsByCustomerId(Long customerId) {
         return repository.getHistoryTicketsByCustomerID(customerId);
     }
+//    SonNH lấy list ticket trả về page
+
+    @Override
+    public Page<Ticket> findAllTicketsByCustomerIdPage(Long customerId, Pageable pageable) {
+        return repository.getAllTicketsByCustomerIDPage(customerId, pageable);
+    }
+
+    @Override
+    public Page<Ticket> findHistoryTicketsByCustomerIdPage(Long customerId, Pageable pageable) {
+        return repository.getHistoryTicketsByCustomerIDPage(customerId, pageable);
+    }
+
+
 
     @Override
     public Ticket findTicketByCodeTicket(String codeTicket) {
@@ -39,6 +51,7 @@ public class TicketServiceImpl implements ITicketService {
         repository.payTicketByCodeTicket(codeTicket);
         repository.payHistoryTicketByCodeTicket(codeTicket);
     }
+
     @Override
     public void abortTicketByCodeTicket(String codeTicket) {
         repository.abortTicketByCodeTicket(codeTicket);
@@ -46,21 +59,10 @@ public class TicketServiceImpl implements ITicketService {
     }
 
 
-
     @Override // danh sách
     public Page<TicketDto> findAllTicket(Pageable pageable) {
         return repository.findAllListTicket(pageable);
     }
-
-//    @Override // danh sách
-//    public Page<TicketDto> findAllTicketDTO(Pageable pageable) {
-//        return repository.findAllListTicketDTO(pageable);
-//    }
-//
-//    @Override
-//    public List<Ticket> findAllTicketDto(int index) {
-//        return repository.findAllListTicketDTO(index);
-//    }
 
     @Override // tim id
     public TicketDto findTicketById(Long id) {
@@ -93,8 +95,8 @@ public class TicketServiceImpl implements ITicketService {
     }
 
     @Override
-    public List<TicketDto> getAllTicketDTONotPagination() {
-        return repository.getAllTicketDTONotPagination();
+    public Page<TicketDto> getAllTicketDTONotPagination(Pageable pageable) {
+        return repository.getAllTicketDTONotPagination(pageable);
     }
 
 

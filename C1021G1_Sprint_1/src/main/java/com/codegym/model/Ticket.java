@@ -3,6 +3,8 @@ package com.codegym.model;
 import com.codegym.model.Customer;
 import com.codegym.model.Employee;
 import com.codegym.model.Flight;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,17 +23,18 @@ public class Ticket {
     private Boolean genderTicket;
 
     private Boolean statusTicket;
-                // Giá vé
+    // Giá vé
     private Double priceTicket;
 
     private Boolean delFlagTicket;
 
     private Integer pointTicket;
-              // Người mua vé
+
+    // Người mua vé
     private String buyerTicket;
 
     @Column(columnDefinition = "DATE")
-          // Ngày sinh của người mua vé
+    // Ngày sinh của người mua vé
     private String birthdayTicket;
 
     @ManyToOne
@@ -42,7 +45,7 @@ public class Ticket {
     @JoinColumn(name = "id_customer", referencedColumnName = "id")
     private Customer customer;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "id_seat", referencedColumnName = "id")
     private Seat seat;
 

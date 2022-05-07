@@ -13,12 +13,13 @@ import javax.validation.Valid;
 
 @RestController
 @CrossOrigin("*")
+@RequestMapping("/api/ticket")
 public class TicketController {
 
     @Autowired
     private TicketServiceImpl ticketService;
 
-    @GetMapping(value = "/ticket/{id}")
+    @GetMapping(value = "/findTicket/{id}")
     public ResponseEntity<?> findTicket(@PathVariable Long id) {
         Ticket ticket = ticketService.findTicketById(id);
         if(ticket == null){

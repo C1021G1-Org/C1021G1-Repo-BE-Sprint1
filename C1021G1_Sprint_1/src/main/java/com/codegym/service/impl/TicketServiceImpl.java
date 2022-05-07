@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-
 @Service
 public class TicketServiceImpl implements ITicketService {
 
@@ -18,7 +17,7 @@ public class TicketServiceImpl implements ITicketService {
 
     @Override
     public void editTicket( EditTicketDto editTicketDto) {
-        ticketRepository.editTicket( editTicketDto.getBuyer(), editTicketDto.getEmailTicket(), editTicketDto.getId());
+        ticketRepository.editTicket( editTicketDto.getBuyerTicket(), editTicketDto.getEmailTicket(), editTicketDto.getId());
     }
 
     @Override

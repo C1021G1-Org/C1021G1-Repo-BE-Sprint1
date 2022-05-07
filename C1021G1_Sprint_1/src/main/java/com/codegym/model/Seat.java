@@ -12,7 +12,7 @@ public class Seat {
     private Long id;
 
     private String codeSeat;
-            // số ghế là vị trí của ghế (từ 1-100)
+    // số ghế là vị trí của ghế (từ 1-100)
     private int positionSeat;
 
     // Trạng thái đặt chỗ
@@ -25,14 +25,14 @@ public class Seat {
     private SeatType seatType;
 
     @ManyToOne
-    @JsonBackReference
     @JoinColumn(name = "id_flight", referencedColumnName = "id")
     private Flight flightSeat;
 
+    @JsonBackReference(value = "seat_ticket")
     @OneToOne(mappedBy = "seat")
-    @JsonBackReference
     private Ticket ticket;
 
+    @JsonBackReference(value = "seat_ticketHistory")
     @OneToOne(mappedBy = "seat")
     private TicketHistory ticketHistory;
 

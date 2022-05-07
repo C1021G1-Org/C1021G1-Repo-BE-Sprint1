@@ -8,7 +8,7 @@ public class EditTicketDto {
     private String codeTicket;
 
     @NotNull( message = "Vui lòng nhập email")
-    @NotBlank( message = "Vui lòng nhập email")
+    @NotBlank( message = "Vui lòng không để trống email")
     @Email(message = "Vui lòng nhập đúng định dạng email - VD:xxx@gmail.com")
     private String emailTicket;
 
@@ -25,9 +25,9 @@ public class EditTicketDto {
     private Integer pointTicket;
 
     @NotNull( message = "Vui lòng nhập tên khách hàng")
-    @NotBlank( message = "Vui lòng nhập tên khách hàng")
+    @NotBlank( message = "Vui lòng không để trống tên khách hàng")
     @Pattern(regexp = "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]{10,50}$", message = "Tên khách hàng không chứa số và từ 10 - 50 kí tự")
-    private String buyer;
+    private String buyerTicket;
 
     private String dayOfBirth;
 
@@ -105,12 +105,12 @@ public class EditTicketDto {
         this.pointTicket = pointTicket;
     }
 
-    public String getBuyer() {
-        return buyer;
+    public String getBuyerTicket() {
+        return buyerTicket;
     }
 
-    public void setBuyer(String buyer) {
-        this.buyer = buyer;
+    public void setBuyerTicket(String buyerTicket) {
+        this.buyerTicket = buyerTicket;
     }
 
     public String getDayOfBirth() {

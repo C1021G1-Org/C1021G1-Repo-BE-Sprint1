@@ -22,15 +22,16 @@ public class CustomerDtoCheck {
     private Boolean genderCustomer;
     @NotBlank(message = "Vui lòng nhập ngày sinh!")
     private String birthdayCustomer;
-
+    @ValidatorCustomer(message = "CMND đã tồn tại")
     @Size( max = 10,message = "Tối đa 10 số!")
     @NotBlank(message = "Vui lòng nhập CCCD!")
     private String idCardCustomer;
-
+    @ValidatorCustomer(message = "Số điện thoại đã tồn tại")
     @Size( max = 13,message = "Tối đa 13 số!")
     @Pattern(regexp = REGEX_PHONE, message = "Vui lòng nhập đúng số điện thoại!")
     @NotBlank(message = "Vui lòng nhập số điện thoại!")
     private String phoneCustomer;
+    @ValidatorCustomer(message = "email đã tồn tại")
     @Size( max = 40,message = "Tối đa 40 kí tự!")
     @NotBlank(message = "Vui lòng nhập email!")
     @Email(message = "Phải đúng định dạng email ví dụ: tinh@gmail.com")

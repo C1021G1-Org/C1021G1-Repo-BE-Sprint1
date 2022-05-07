@@ -15,7 +15,37 @@ import java.util.List;
 @Service
 public class TicketServiceImpl implements ITicketService {
     @Autowired
-    private ITicketRepository repository;
+    ITicketRepository repository;
+
+
+
+    @Override
+    public List<Ticket> findAllTicketsByCustomerId(Long customerId) {
+        return repository.getAllTicketsByCustomerID(customerId);
+    }
+
+    @Override
+    public List<Ticket> findHistoryTicketsByCustomerId(Long customerId) {
+        return repository.getHistoryTicketsByCustomerID(customerId);
+    }
+
+    @Override
+    public Ticket findTicketByCodeTicket(String codeTicket) {
+        return repository.findTicketByCodeTicket(codeTicket);
+    }
+
+    @Override
+    public void payTicketByCodeTicket(String codeTicket) {
+        repository.payTicketByCodeTicket(codeTicket);
+        repository.payHistoryTicketByCodeTicket(codeTicket);
+    }
+    @Override
+    public void abortTicketByCodeTicket(String codeTicket) {
+        repository.abortTicketByCodeTicket(codeTicket);
+        repository.abortHistoryTicketByCodeTicketTicketByCodeTicket(codeTicket);
+    }
+
+
 
     @Override // danh sách
     public Page<TicketDto> findAllTicket(Pageable pageable) {
@@ -56,5 +86,6 @@ public class TicketServiceImpl implements ITicketService {
     public Page<TicketDto> getAllTicketDTONotPagination(Pageable pageable) {
         return repository.getAllTicketDTONotPagination(pageable);
     }
+
 
 }

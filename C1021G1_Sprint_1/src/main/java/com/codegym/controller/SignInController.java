@@ -125,6 +125,17 @@ public class SignInController {
 
     }
 
+    @PatchMapping("/api/changePassword")
+    public ResponseEntity <?> changePassword (@RequestBody PasswordForgettedForm passwordForgettedForm) {
+        if (accountService.existAccountByEmail(passwordForgettedForm.getEmail())
+                && (accountService.existAccountByPassword(passwordForgettedForm.getPassword()))) {
+            Account account = accountService.findAccountByEmail(passwordForgettedForm.getEmail());
+            account.setPassword(passwordEncoder.encode(passwordForgettedForm.getPassword()));
+            accountService.save(account);
+        }
+        return new ResponseEntity<>("ok",HttpStatus.OK);
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {

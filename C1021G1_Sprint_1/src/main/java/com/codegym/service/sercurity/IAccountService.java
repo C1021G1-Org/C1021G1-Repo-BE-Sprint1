@@ -7,7 +7,8 @@ public interface IAccountService {
     Boolean existAccountByEmail(String email);
     Boolean existAccountByPhone(String phone);
     Boolean existAccountByIdCard(String idCard);
+
+    Boolean existAccountByPassword(String password);
     void save(Account acc);
 
-    boolean existAccountByPassword(String password);
 }

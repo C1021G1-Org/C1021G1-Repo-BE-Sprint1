@@ -41,6 +41,14 @@ public class AccountServiceImpl implements IAccountService {
         }
         return false;
     }
+    public Boolean existAccountByPassword(String password) {
+        Account account = accountRepository.findAccountByPassword(password).orElse(null);
+
+        if(account != null){
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public void save(Account acc) {
@@ -51,12 +59,4 @@ public class AccountServiceImpl implements IAccountService {
         accountRepository.save(acc);
     }
 
-    @Override
-    public boolean existAccountByPassword(String password) {
-        Account account = accountRepository.findAccountByPassword(password).orElse(null);
-        if(account != null){
-            return true;
-        }
-        return false;
-    }
 }

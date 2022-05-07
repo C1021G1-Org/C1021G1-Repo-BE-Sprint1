@@ -1,7 +1,6 @@
 package com.codegym.service;
 
 
-import com.codegym.model.Countries;
 import com.codegym.model.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,13 +40,18 @@ public interface ICustomerService {
 
     Page<Customer> searchCustomerByIdCrad(String keyword, Pageable pageable);
 
-    List<Customer> getAllCustomerNotPagination();
+
+//        /*ThangDBX lấy dữ liệu của khách hàng  */
+//        Customer findCustomerById(Long id);
+
+//    List<Customer> getAllCustomerNotPagination();
 
     /*ThangDBX lấy dữ liệu của khách hàng  */
     Customer findCustomerById(Long id);
 
     /*ThangDBX lấy dữ liệu của khách hàng  */
     Customer findByIdPersonal(Long id);
+
 
     /*ThangDBX: cập nhật dữ liệu của khách hàng  */
     void updatePersonalInfo(Customer customer);
@@ -60,6 +64,13 @@ public interface ICustomerService {
 
     //TinhHD lấy idcard để validator
     Integer finByPhone(String phone);
+    //TinhHD  validator
+    Long findByCheck(String emailCustomer,String phoneCustomer,String idCard);
+    //TinhHD  validator
+    Integer findByEmailNot(Long id, String emailCustomer);
+
+    Integer findByPhoneNot(Long id, String phoneCustomer);
+
 
     // ThangDBX kiểm tra CMND/ ho chieu đã tồn tại hoặc có thay đổi không khi thực hiện cập nhật
     Integer checkIdCardIsExistUpdate(String idCard, Long id);
@@ -79,5 +90,8 @@ public interface ICustomerService {
     /* ThangDBX update customerType  */
     void updateCustomerType(Long customerId);
 
+
+
+    Integer findByIdCardNot(Long id, String idCardCustomer);
 
 }

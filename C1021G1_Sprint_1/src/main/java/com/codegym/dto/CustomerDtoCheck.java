@@ -1,15 +1,8 @@
 package com.codegym.dto;
-
 import com.codegym.model.Countries;
 import com.codegym.model.CustomerType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.Column;
 import javax.validation.constraints.*;
-@Data
-@AllArgsConstructor
+
 public class CustomerDtoCheck {
     private static final String REGEX_NAME = "^[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ]+(\\s[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ]+)*$";
     private static final String REGEX_PHONE = "^([0-9])*$";
@@ -18,20 +11,16 @@ public class CustomerDtoCheck {
     @Pattern(regexp = REGEX_NAME, message = "Vui lòng nhập đúng tên của bạn!")
     @NotEmpty(message = "Vui lòng nhập tên !")
     private String nameCustomer;
-
     private Boolean genderCustomer;
     @NotBlank(message = "Vui lòng nhập ngày sinh!")
     private String birthdayCustomer;
-    @ValidatorCustomer(message = "CMND đã tồn tại")
     @Size( max = 10,message = "Tối đa 10 số!")
     @NotBlank(message = "Vui lòng nhập CCCD!")
     private String idCardCustomer;
-    @ValidatorCustomer(message = "Số điện thoại đã tồn tại")
     @Size( max = 13,message = "Tối đa 13 số!")
     @Pattern(regexp = REGEX_PHONE, message = "Vui lòng nhập đúng số điện thoại!")
     @NotBlank(message = "Vui lòng nhập số điện thoại!")
     private String phoneCustomer;
-    @ValidatorCustomer(message = "email đã tồn tại")
     @Size( max = 40,message = "Tối đa 40 kí tự!")
     @NotBlank(message = "Vui lòng nhập email!")
     @Email(message = "Phải đúng định dạng email ví dụ: tinh@gmail.com")
@@ -156,20 +145,4 @@ public class CustomerDtoCheck {
         this.customerType = customerType;
     }
 
-    @Override
-    public String toString() {
-        return "CustomerDtoCheck{" +
-                "id=" + id +
-                ", nameCustomer='" + nameCustomer + '\'' +
-                ", genderCustomer=" + genderCustomer +
-                ", birthdayCustomer='" + birthdayCustomer + '\'' +
-                ", idCardCustomer='" + idCardCustomer + '\'' +
-                ", phoneCustomer='" + phoneCustomer + '\'' +
-                ", emailCustomer='" + emailCustomer + '\'' +
-                ", addressCustomer='" + addressCustomer + '\'' +
-                ", delFlagCustomer=" + delFlagCustomer +
-                ", countries=" + countries +
-                ", customerType=" + customerType +
-                '}';
-    }
 }

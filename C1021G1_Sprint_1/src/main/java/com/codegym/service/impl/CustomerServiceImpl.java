@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -113,16 +112,14 @@ public class CustomerServiceImpl implements ICustomerService {
         return iCustomerRepository.searchByIdCard(keyword, pageable);
     }
 
-    @Override
-    public List<Customer> getAllCustomerNotPagination() {
-        return iCustomerRepository.getAllCustomerNotPagination();
-    }
 
     /*ThangDBX lấy dữ liệu của khách hàng  */
     @Override
     public Customer findCustomerById(Long id) {
         return iCustomerRepository.findCustomerByID(id);
     }
+
+
 
     @Override
     public Customer findByIdPersonal(Long id) {
@@ -162,6 +159,7 @@ public class CustomerServiceImpl implements ICustomerService {
         return iCustomerRepository.finByPhone(phone);
 
     }
+
 
     // ThangDBX check CMND/Ho chieu co chua
     @Override
@@ -220,6 +218,27 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
 
+
+
+    @Override
+    public Long findByCheck(String emailCustomer,String phoneCustomer,String idCard) {
+        return iCustomerRepository.findByCheck(emailCustomer,phoneCustomer,idCard);
+    }
+
+    @Override
+    public Integer findByEmailNot(Long id, String emailCustomer) {
+        return iCustomerRepository.findByEmailNot( id, emailCustomer);
+    }
+
+    @Override
+    public Integer findByPhoneNot(Long id, String phoneCustomer) {
+        return iCustomerRepository.findByPhoneNot( id,  phoneCustomer);
+    }
+
+    @Override
+    public Integer findByIdCardNot(Long id, String idCardCustomer) {
+        return iCustomerRepository.findByIdCardNot( id,  idCardCustomer);
+    }
 
 
 }

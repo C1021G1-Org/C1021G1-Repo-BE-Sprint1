@@ -6,11 +6,7 @@ import org.springframework.validation.Validator;
 
 import javax.validation.constraints.*;
 
-@Component
-public class CustomerDto implements Validator {
-
-
-
+public class CustomerDto {
     private static final String REGEX_NAME = "^[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ]+(\\s[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ]+)*$";
     private static final String REGEX_PHONE = "^([0-9])*$";
     private Long id;
@@ -22,11 +18,11 @@ public class CustomerDto implements Validator {
     @NotBlank(message = "Vui lòng nhập ngày sinh!")
     private String birthdayCustomer;
     @ValidatorCustomer(message = "CMND đã tồn tại")
-    @Size(max = 10, message = "Tối đa 10 số!")
+    @Size(min = 10,max = 10, message = "Tối đa 10 số!")
     @NotBlank(message = "Vui lòng nhập CCCD!")
     private String idCardCustomer;
     @ValidatorCustomer(message = "Số điện thoại đã tồn tại")
-    @Size(max = 13, message = "Tối đa 13 số!")
+    @Size(min = 10,max = 13, message = "Tối đa 13 số!")
     @Pattern(regexp = REGEX_PHONE, message = "Vui lòng nhập đúng số điện thoại!")
     @NotBlank(message = "Vui lòng nhập số điện thoại!")
     private String phoneCustomer;
@@ -136,23 +132,5 @@ public class CustomerDto implements Validator {
 
     public void setDelFlagCustomer(Boolean delFlagCustomer) {
         this.delFlagCustomer = delFlagCustomer;
-    }
-
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return false;
-    }
-
-
-    @Override
-    public void validate(Object target, Errors errors) {
-        CustomerDto customerDto = (CustomerDto) target;
-        System.out.println(customerDto.getIdCardCustomer());
-
-
-        if (customerDto.getGenderCustomer().equals("")) {
-            errors.rejectValue("genderCustomer", "", "Vui lòng chọn giới tính");
-        }
     }
 }

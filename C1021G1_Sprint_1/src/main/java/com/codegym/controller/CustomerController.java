@@ -24,16 +24,16 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
+
 @RestController
 @CrossOrigin("http://localhost:4200")
-@RequestMapping(value = "/api/customer")
+@RequestMapping(value = "api/customer")
 public class CustomerController {
 
     @Autowired
@@ -50,7 +50,7 @@ public class CustomerController {
 //            return new ResponseEntity<>(bindingResult.getAllErrors().get(0).getDefaultMessage(), HttpStatus.NOT_ACCEPTABLE);
 //        }
         iCustomerService.save(customerDto);
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     // TinhHD validator
@@ -78,38 +78,38 @@ public class CustomerController {
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
-
     /*TinhHD cập nhật thông tinh khách hàng bời nhân viên */
     @PatchMapping({"/{id}"})
-    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @Valid @RequestBody CustomerDtoCheck
+    public ResponseEntity<?> updateCustomer(@PathVariable Long id, @Valid @RequestBody CustomerDtoCheck
             customerDtoCheck) {
-
-
-        System.out.println(customerDtoCheck.getCountries().toString());
-        System.out.println(customerDtoCheck.getCustomerType().toString());
         CustomerDto customerDto = new CustomerDto();
         customerDto.setId(id);
-        customerDto.setGenderCustomer(customerDtoCheck.getGenderCustomer());
-        customerDto.setNameCustomer(customerDtoCheck.getNameCustomer());
-        customerDto.setBirthdayCustomer(customerDtoCheck.getBirthdayCustomer());
-        customerDto.setIdCardCustomer(customerDtoCheck.getIdCardCustomer());
-        customerDto.setGenderCustomer(customerDtoCheck.getGenderCustomer());
-        customerDto.setPhoneCustomer(customerDtoCheck.getPhoneCustomer());
-        customerDto.setEmailCustomer(customerDtoCheck.getEmailCustomer());
-        customerDto.setAddressCustomer(customerDtoCheck.getAddressCustomer());
-        customerDto.setCountries(customerDtoCheck.getCountries().getId());
-        customerDto.setCustomerType(customerDtoCheck.getCustomerType().getId());
-        iCustomerService.update(customerDto);
-        return new ResponseEntity<>(HttpStatus.OK);
+        if (iCustomerService.findByEmailNot(customerDtoCheck.getId(), customerDtoCheck.getEmailCustomer()) == 0
+                && iCustomerService.findByPhoneNot(customerDtoCheck.getId(), customerDtoCheck.getPhoneCustomer()) == 0
+                && iCustomerService.findByIdCardNot(customerDtoCheck.getId(), customerDtoCheck.getIdCardCustomer()) == 0) {
+            BeanUtils.copyProperties(customerDtoCheck, customerDto);
+            customerDto.setCountries(customerDtoCheck.getCountries().getId());
+            customerDto.setCustomerType(customerDtoCheck.getCustomerType().getId());
+            iCustomerService.update(customerDto);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        Map<String, String> errors = new HashMap<>();
+        if (iCustomerService.findByEmailNot(customerDtoCheck.getId(), customerDtoCheck.getEmailCustomer()) > 0) {
+            errors.put("emailCustomer", "Email đã tồn tại!");
+        }
+        if (iCustomerService.findByPhoneNot(customerDtoCheck.getId(), customerDtoCheck.getPhoneCustomer()) > 0) {
+            errors.put("phoneCustomer", "Số điện thoại đã tồn tại!");
+        }
+
+        if (iCustomerService.findByIdCardNot(customerDtoCheck.getId(), customerDtoCheck.getIdCardCustomer()) > 0) {
+            errors.put("idCardCustomer", "CMND đã tồn tại!");
+        }
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+
     }
 
 
-    //*LongLT* triển khai lấy list customer
-
-
     /*LongLT hiển thị list khách hàng*/
-
-
     @GetMapping("/list")
     public ResponseEntity<Iterable<Customer>> getAllCustomer(@RequestParam(defaultValue = "1") int page) {
         Pageable pageable = PageRequest.of(page, 10);
@@ -119,6 +119,7 @@ public class CustomerController {
         }
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
+
 
 
 
@@ -136,6 +137,10 @@ public class CustomerController {
 
 
     //*LongLT* Triển khai phương thức xóa
+
+
+
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable Long id) {
         Customer customers = iCustomerService.findById(id);

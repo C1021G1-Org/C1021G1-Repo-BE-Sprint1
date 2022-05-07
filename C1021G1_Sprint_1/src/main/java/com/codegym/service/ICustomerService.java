@@ -64,5 +64,12 @@ public interface ICustomerService {
 
     //TinhHD lấy idcard để validator
     Integer finByPhone(String phone);
+    //TinhHD  validator
+    Long findByCheck(String emailCustomer,String phoneCustomer,String idCard);
+    //TinhHD  validator
+    Integer findByEmailNot(Long id, String emailCustomer);
 
+    Integer findByPhoneNot(Long id, String phoneCustomer);
+
+    Integer findByIdCardNot(Long id, String idCardCustomer);
 }

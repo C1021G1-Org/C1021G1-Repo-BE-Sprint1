@@ -160,5 +160,25 @@ public class CustomerServiceImpl implements ICustomerService {
 
     }
 
+    @Override
+    public Long findByCheck(String emailCustomer,String phoneCustomer,String idCard) {
+        return iCustomerRepository.findByCheck(emailCustomer,phoneCustomer,idCard);
+    }
+
+    @Override
+    public Integer findByEmailNot(Long id, String emailCustomer) {
+        return iCustomerRepository.findByEmailNot( id, emailCustomer);
+    }
+
+    @Override
+    public Integer findByPhoneNot(Long id, String phoneCustomer) {
+        return iCustomerRepository.findByPhoneNot( id,  phoneCustomer);
+    }
+
+    @Override
+    public Integer findByIdCardNot(Long id, String idCardCustomer) {
+        return iCustomerRepository.findByIdCardNot( id,  idCardCustomer);
+    }
+
 
 }

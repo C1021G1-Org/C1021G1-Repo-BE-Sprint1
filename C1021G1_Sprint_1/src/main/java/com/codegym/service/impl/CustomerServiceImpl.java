@@ -169,15 +169,57 @@ public class CustomerServiceImpl implements ICustomerService {
         return iCustomerRepository.checkIdCardIsExistUpdate(idCard,id);
     }
 
+    // ThangDBX kiểm tra phone đã tồn tại hoặc có thay đổi không khi thực hiện cập nhật
     @Override
     public Integer checkPhoneIsExistUpdate(String phone, Long id) {
         return iCustomerRepository.checkPhoneIsExistUpdate(phone,id);
     }
 
+    // ThangDBX kiểm tra email đã tồn tại hoặc có thay đổi không khi thực hiện cập nhật
     @Override
     public Integer checkEmailIsExistUpdate(String email, Long id) {
         return iCustomerRepository.checkEmailIsExistUpdate(email,id);
     }
+
+    //ThangDBX cập nhật điểm thưởng của khách hàng
+    @Override
+    public void updatePointCustomer(Integer point, Long id) {
+        Integer total = point + iCustomerRepository.getPointCustomer(id);
+        iCustomerRepository.updatePointCustomer(total,id);
+    }
+
+    // ThangDBX lấy lịch sử tichket đã thanh toán để tính tổng điểm khách hàng đạt được,
+    @Override
+    public Integer getPoint(Long idCustomer) {
+        return iCustomerRepository.getPoint(idCustomer);
+    }
+
+    /* ThangDBX update customerType dựa trên số point  */
+    @Override
+    public void updateCustomerType( Long customerId) {
+        Integer pointCustomer = iCustomerRepository.getPointCustomer(customerId);
+
+        if (pointCustomer == 0){
+            iCustomerRepository.updatePointCustomer(5,customerId); // normal
+        }
+        if (pointCustomer > 0 && pointCustomer < 11){
+            iCustomerRepository.updatePointCustomer(4,customerId); // sliver
+        }
+
+        if (pointCustomer >= 11 && pointCustomer < 21){
+            iCustomerRepository.updatePointCustomer(3,customerId); // sliver
+        }
+
+        if (pointCustomer >= 21 && pointCustomer < 30){
+            iCustomerRepository.updatePointCustomer(4,customerId); // Platium
+        }
+
+        if (pointCustomer > 30){
+            iCustomerRepository.updatePointCustomer(5,customerId); // Platium
+        }
+    }
+
+
 
 
 }

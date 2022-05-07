@@ -229,8 +229,10 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     Integer checkIdCardIsExistUpdate(String idCard, Long id);
 
     // ThangDBX lấy lịch sử tichket đã thanh toán để tính tổng điểm khách hàng đạt được,
-    @Query(value = "", nativeQuery = true)
-    Integer getPoint();
+    @Query(value = "select sum(point_ticket)\n" +
+            "from c1021g1_sprint_1.ticket_history\n" +
+            "where ticket_history.id_customer = ?", nativeQuery = true)
+    Integer getPoint(Long idCustomer);
 
     //ThangDBX cập nhật điểm thưởng của khách hàng
     @Query(value = "update customer\n" +
@@ -238,8 +240,10 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
             "where customer.id = ?2", nativeQuery = true)
     void updatePointCustomer(Integer point, Long id);
 
+    @Query(value ="select customer.point_customer\n" +
+            "from c1021g1_sprint_1.customer\n" +
+            "where customer.id = ?;", nativeQuery =true)
+    Integer getPointCustomer(Long id);
 
-
-    // ThangDBX set lại CustomerType cho khách hàng
 
 }

@@ -69,4 +69,15 @@ public interface ICustomerService {
 
     // ThangDBX kiểm tra email đã tồn tại hoặc có thay đổi không khi thực hiện cập nhật
     Integer checkEmailIsExistUpdate(String email, Long id);
+
+    //ThangDBX cập nhật điểm thưởng của khách hàng
+    void updatePointCustomer(Integer point, Long id);
+
+    // ThangDBX lấy lịch sử tichket đã thanh toán để tính tổng điểm khách hàng đạt được,
+    Integer getPoint(Long idCustomer);
+
+    /* ThangDBX update customerType  */
+    void updateCustomerType(Long customerId);
+
+
 }

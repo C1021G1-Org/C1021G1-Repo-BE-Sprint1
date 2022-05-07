@@ -31,7 +31,7 @@ public class CustomerController_searchCustomer {
     @Test
     public void searchCustomerName_1() throws Exception {
         this.mockMvc.perform(
-                MockMvcRequestBuilders.get("http://localhost:8080/customer/search?keyword=null "))
+                MockMvcRequestBuilders.get("http://localhost:8080/customer/search?option=name&keyword=null"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
@@ -40,7 +40,7 @@ public class CustomerController_searchCustomer {
     @Test
     public void searchCustomerName_2() throws Exception {
         this.mockMvc.perform(
-                        MockMvcRequestBuilders.get("http://localhost:8080/customer/search?keyword=''"))
+                        MockMvcRequestBuilders.get("http://localhost:8080/customer/search?option=name&keyword=''"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
@@ -48,7 +48,7 @@ public class CustomerController_searchCustomer {
     @Test
     public void searchCustomerName_3() throws Exception {
         this.mockMvc.perform(
-                        MockMvcRequestBuilders.get("http://localhost:8080/customer/search?keyword=longlt"))
+                        MockMvcRequestBuilders.get("http://localhost:8080/customer/search?option=name&keyword=gjhgggjkg123"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
@@ -56,7 +56,7 @@ public class CustomerController_searchCustomer {
     @Test
     public void searchCustomerName_4() throws Exception {
         this.mockMvc.perform(
-                        MockMvcRequestBuilders.get("http://localhost:8080/customer/search?keyword=Nguyên"))
+                        MockMvcRequestBuilders.get("http://localhost:8080/customer/search?option=name&keyword=long"))
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful());
     }

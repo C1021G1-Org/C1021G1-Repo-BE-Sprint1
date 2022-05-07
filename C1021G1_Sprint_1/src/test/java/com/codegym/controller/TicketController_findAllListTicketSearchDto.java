@@ -1,6 +1,10 @@
 //package com.codegym.controller;
 //
+<<<<<<< HEAD
+//
+=======
 //import com.codegym.dto.ListTicketDto;
+>>>>>>> 65341659a97dce5425c8270ab278be284a859f7f
 //import org.junit.jupiter.api.Assertions;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.beans.factory.annotation.Autowired;

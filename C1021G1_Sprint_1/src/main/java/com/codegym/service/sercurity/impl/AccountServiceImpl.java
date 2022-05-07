@@ -25,11 +25,38 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
+    public Boolean existAccountByPhone(String phone) {
+        Account account = accountRepository.findAccountByPhone(phone).orElse(null);
+        if(account != null){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean existAccountByIdCard(String idCard) {
+        Account account = accountRepository.findAccountByIdCard(idCard).orElse(null);
+        if(account != null){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public void save(Account acc) {
         //address,birthday,confirm_password,email,full_name,gender,id_card,password,phone,country_id
 //        accountRepository.saveAccount(acc.getAddress(), acc.getBirthday(), acc.getConfirmPassword(),acc.getEmail(),
 //                acc.getFullName(),acc.getGender(),acc.getIdCard(), acc.getPhone(), acc.getPassword(), acc.getCountry());
 //    }
         accountRepository.save(acc);
+    }
+
+    @Override
+    public boolean existAccountByPassword(String password) {
+        Account account = accountRepository.findAccountByPassword(password).orElse(null);
+        if(account != null){
+            return true;
+        }
+        return false;
     }
 }

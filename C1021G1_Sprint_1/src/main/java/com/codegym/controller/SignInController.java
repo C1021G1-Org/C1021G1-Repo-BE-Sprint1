@@ -9,6 +9,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,6 +21,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -38,12 +42,19 @@ public class SignInController {
     PasswordEncoder passwordEncoder;
     @Autowired
     JwtTokenUtil jwtTokenUtil;
-
+    @Autowired
+    private JavaMailSender javaMailSender;
     @PostMapping(value = "api/signUp")
     public ResponseEntity<?> register(@Valid @RequestBody SignForm signForm) {
 //        new SignForm().validate(signForm, bindingResult);
 //        System.out.println(bindingResult.getAllErrors());
-
+        System.out.println("sign up");
+        if (accountService.existAccountByPhone(signForm.getPhone())) {
+            return new ResponseEntity<>("duplicate phone", HttpStatus.BAD_REQUEST);
+        }
+        if (accountService.existAccountByIdCard(signForm.getIdCard())) {
+            return new ResponseEntity<>("duplicate idCard", HttpStatus.BAD_REQUEST);
+        }
         if (accountService.existAccountByEmail(signForm.getEmail())) {
             return new ResponseEntity<>("duplicate email", HttpStatus.BAD_REQUEST);
         }
@@ -51,13 +62,13 @@ public class SignInController {
         BeanUtils.copyProperties(signForm, acc);
         acc.setPassword(passwordEncoder.encode(signForm.getPassword()));
         Set<Role> roleSet = new HashSet<>();
-        roleSet.add(new Role(3L, RoleName.CUSTOMER));
+        roleSet.add(new Role(3L, RoleName.ROLE_CUSTOMER));
         if(acc.getEmail().equals("admin@gmail.com")){
-            roleSet.add(new Role(2L, RoleName.EMPLOYEE));
-            roleSet.add(new Role(1L, RoleName.ADMIN));
+            roleSet.add(new Role(2L, RoleName.ROLE_EMPLOYEE));
+            roleSet.add(new Role(1L, RoleName.ROLE_ADMIN));
         }
         if(acc.getEmail().equals("employee@gmail.com")){
-            roleSet.add(new Role(2L, RoleName.EMPLOYEE));
+            roleSet.add(new Role(2L, RoleName.ROLE_EMPLOYEE));
         }
         acc.setRoles(roleSet);
         accountService.save(acc);
@@ -66,6 +77,7 @@ public class SignInController {
 
     @PostMapping("api/signIn")
     public ResponseEntity<?> signIn(@RequestBody User user) {
+        System.out.println("sign in");
         Authentication authentication;
         if (!accountService.existAccountByEmail(user.getEmail())) {
             return new ResponseEntity<>("emailError", HttpStatus.BAD_REQUEST);
@@ -83,13 +95,34 @@ public class SignInController {
     }
 
     @PostMapping("api/forgetPassword")
-    public ResponseEntity<?> forgetPassword(@RequestBody PasswordForgettedForm passwordForgettedForm){
+    public ResponseEntity<?> forgetPassword(@Valid @RequestBody PasswordForgettedForm passwordForgettedForm){
+        SimpleMailMessage message = new SimpleMailMessage();
         if(accountService.existAccountByEmail(passwordForgettedForm.getEmail())){
             Account account = accountService.findAccountByEmail(passwordForgettedForm.getEmail());
             account.setPassword(passwordEncoder.encode(passwordForgettedForm.getPassword()));
+            account.setConfirmPassword(passwordForgettedForm.getConfirmPassword());
             accountService.save(account);
-        }
-        return new ResponseEntity<>("ok",HttpStatus.OK);
+            message.setTo(passwordForgettedForm.getEmail());
+            message.setSubject("Thay đổi mật khẩu");
+            message.setText("Mật khẩu của bạn đã ở website C1021G1 Flight đã được thay đôi thành "+ passwordForgettedForm.getPassword());
+            javaMailSender.send(message);
+            return new ResponseEntity<>("ok",HttpStatus.OK);
+        }else  return new ResponseEntity<>("Email không tồn taị",HttpStatus.BAD_REQUEST);
+
+
+    }
+
+    @PostMapping("api/changePassword")
+    public ResponseEntity<?> forgetPassword(@RequestBody ChangingPassword changingPassword){
+        if(accountService.existAccountByEmail(changingPassword.getEmail())&&
+        accountService.existAccountByPassword(changingPassword.getPassword())){
+            Account account = accountService.findAccountByEmail(changingPassword.getEmail());
+            account.setPassword(passwordEncoder.encode(changingPassword.getNewPassword()));
+            account.setConfirmPassword(changingPassword.getConfirmPassword());
+            accountService.save(account);
+            return new ResponseEntity<>("ok",HttpStatus.OK);
+        }else  return new ResponseEntity<>("error",HttpStatus.BAD_REQUEST);
+
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

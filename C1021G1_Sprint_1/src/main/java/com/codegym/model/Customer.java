@@ -3,6 +3,7 @@ package com.codegym.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -172,4 +173,6 @@ public class Customer {
     public void setTicketHistories(Set<TicketHistory> ticketHistories) {
         this.ticketHistories = ticketHistories;
     }
+
+
 }

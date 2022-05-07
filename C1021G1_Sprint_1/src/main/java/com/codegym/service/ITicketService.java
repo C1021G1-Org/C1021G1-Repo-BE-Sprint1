@@ -29,6 +29,6 @@ public interface ITicketService {
     Page<TicketDto> ticketCodeTicket(String keyword, Pageable pageable);
 
 
-    List<TicketDto> getAllTicketDTONotPagination();
+    Page<TicketDto> getAllTicketDTONotPagination(Pageable pageable);
 
 }

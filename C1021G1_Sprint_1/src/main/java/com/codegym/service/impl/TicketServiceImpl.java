@@ -22,16 +22,6 @@ public class TicketServiceImpl implements ITicketService {
         return repository.findAllListTicket(pageable);
     }
 
-//    @Override // danh sách
-//    public Page<TicketDto> findAllTicketDTO(Pageable pageable) {
-//        return repository.findAllListTicketDTO(pageable);
-//    }
-//
-//    @Override
-//    public List<Ticket> findAllTicketDto(int index) {
-//        return repository.findAllListTicketDTO(index);
-//    }
-
     @Override // tim id
     public TicketDto findTicketById(Long id) {
         return repository.findTicketById(id).orElse(null);
@@ -63,8 +53,8 @@ public class TicketServiceImpl implements ITicketService {
     }
 
     @Override
-    public List<TicketDto> getAllTicketDTONotPagination() {
-        return repository.getAllTicketDTONotPagination();
+    public Page<TicketDto> getAllTicketDTONotPagination(Pageable pageable) {
+        return repository.getAllTicketDTONotPagination(pageable);
     }
 
 }

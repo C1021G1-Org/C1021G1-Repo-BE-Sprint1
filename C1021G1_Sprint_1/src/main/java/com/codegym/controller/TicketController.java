@@ -392,8 +392,7 @@ public class TicketController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @Autowired
-    private ITicketService ticketService;
+
 
     @GetMapping("/not-pagination")
     public ResponseEntity<Page<TicketDto>> getAllTicketNotPagination(@RequestParam(defaultValue = "0") int page) {

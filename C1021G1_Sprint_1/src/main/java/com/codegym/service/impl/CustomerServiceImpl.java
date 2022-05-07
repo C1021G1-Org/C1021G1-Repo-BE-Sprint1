@@ -1,10 +1,8 @@
 package com.codegym.service.impl;
-
 import com.codegym.dto.CustomerDto;
-
-
 import com.codegym.model.Customer;
 import com.codegym.repository.ICustomerRepository;
+
 import com.codegym.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -38,9 +35,6 @@ public class CustomerServiceImpl implements ICustomerService {
 //    public List<Customer> searchCustomer(String keyword) {
 //        return null;
 //    }
-
-
-
 
 
     @Override
@@ -116,39 +110,73 @@ public class CustomerServiceImpl implements ICustomerService {
         return iCustomerRepository.searchByIdCard(keyword, pageable);
     }
 
+
+    /*ThangDBX lấy dữ liệu của khách hàng  */
     @Override
-    public List<Customer> getAllCustomerNotPagination() {
-        return iCustomerRepository.getAllCustomerNotPagination();
+    public Customer findCustomerById(Long id) {
+        return iCustomerRepository.findCustomerByID(id);
     }
 
-            /*ThangDBX lấy dữ liệu của khách hàng  */
-            @Override
-            public Customer findCustomerById(Long id) {
-                return iCustomerRepository.findCustomerByID(id);
-            }
 
-            @Override
-            public Customer findByIdPersonal(Long id) {
-                return iCustomerRepository.findByIdPersonal(id);
-            }
 
-            /*ThangDBX cap nhat liệu của khách hàng  */
-            @Override
-            public void updatePersonalInfo(Customer customer) {
-                String name = customer.getNameCustomer();
-                Boolean gender = customer.getGenderCustomer();
-                String email = customer.getEmailCustomer();
-                String phone = customer.getPhoneCustomer();
-                String birth = customer.getBirthdayCustomer();
-                String idCard = customer.getIdCardCustomer();
-                Long idCountry = customer.getCountries().getId();
-                String address = customer.getAddressCustomer();
-                String image = customer.getImageCustomer();
-                Long id = customer.getId();
+    @Override
+    public Customer findByIdPersonal(Long id) {
+        return iCustomerRepository.findByIdPersonal(id);
+    }
 
-                iCustomerRepository.updatePersonalInfo(name,gender,email,phone,birth,idCard,idCountry,address,image,id);
-        }
+    /*ThangDBX cap nhat liệu của khách hàng  */
+    @Override
+    public void updatePersonalInfo(Customer customer) {
+        String name = customer.getNameCustomer();
+        Boolean gender = customer.getGenderCustomer();
+        String email = customer.getEmailCustomer();
+        String phone = customer.getPhoneCustomer();
+        String birth = customer.getBirthdayCustomer();
+        String idCard = customer.getIdCardCustomer();
+        Long idCountry = customer.getCountries().getId();
+        String address = customer.getAddressCustomer();
+        String image = customer.getImageCustomer();
+        Long id = customer.getId();
 
+        iCustomerRepository.updatePersonalInfo(name, gender, email, phone, birth, idCard, idCountry, address, image, id);
+    }
+
+    @Override
+    public Integer finByIdCard(String idCard) {
+        return iCustomerRepository.finByIdCard(idCard);
+    }
+
+    @Override
+    public Integer finByEmail(String email) {
+        return iCustomerRepository.finByEmail(email);
+
+    }
+
+    @Override
+    public Integer finByPhone(String phone) {
+        return iCustomerRepository.finByPhone(phone);
+
+    }
+
+    @Override
+    public Long findByCheck(String emailCustomer,String phoneCustomer,String idCard) {
+        return iCustomerRepository.findByCheck(emailCustomer,phoneCustomer,idCard);
+    }
+
+    @Override
+    public Integer findByEmailNot(Long id, String emailCustomer) {
+        return iCustomerRepository.findByEmailNot( id, emailCustomer);
+    }
+
+    @Override
+    public Integer findByPhoneNot(Long id, String phoneCustomer) {
+        return iCustomerRepository.findByPhoneNot( id,  phoneCustomer);
+    }
+
+    @Override
+    public Integer findByIdCardNot(Long id, String idCardCustomer) {
+        return iCustomerRepository.findByIdCardNot( id,  idCardCustomer);
+    }
 
 
 }

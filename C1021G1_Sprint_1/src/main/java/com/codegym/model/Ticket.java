@@ -1,5 +1,4 @@
 package com.codegym.model;
-
 import com.codegym.model.Customer;
 import com.codegym.model.Employee;
 import com.codegym.model.Flight;
@@ -43,6 +42,11 @@ public class Ticket {
     @Column(columnDefinition = "DATE")
     // Ngày sinh của người mua vé
     private String birthdayTicket;
+              // Người mua vé
+    private String buyer;
+
+          // Ngày sinh của người mua vé
+    private String dayOfBirth;
 
     @ManyToOne
     @JoinColumn(name = "id_employee", referencedColumnName = "id")
@@ -52,9 +56,15 @@ public class Ticket {
     @JoinColumn(name = "id_customer", referencedColumnName = "id")
     private Customer customer;
 
+
+    @ManyToOne
+    @JoinColumn(name = "id_flight", referencedColumnName = "id")
+    private Flight flightTicket;
+
     @OneToOne
     @JoinColumn(name = "id_seat", referencedColumnName = "id")
     private Seat seat;
+
 
     public Ticket() {
     }
@@ -147,12 +157,12 @@ public class Ticket {
         this.pointTicket = pointTicket;
     }
 
-    public String getBuyerTicket() {
-        return buyerTicket;
+    public String getBuyer() {
+        return buyer;
     }
 
-    public void setBuyerTicket(String buyerTicket) {
-        this.buyerTicket = buyerTicket;
+    public void setBuyer(String buyer) {
+        this.buyer = buyer;
     }
 
     public Employee getEmployee() {
@@ -171,19 +181,19 @@ public class Ticket {
         this.customer = customer;
     }
 
-    public String getBirthdayTicket() {
-        return birthdayTicket;
+    public Flight getFlightTicket() {
+        return flightTicket;
     }
 
-    public void setBirthdayTicket(String birthdayTicket) {
-        this.birthdayTicket = birthdayTicket;
+    public void setFlightTicket(Flight flightTicket) {
+        this.flightTicket = flightTicket;
     }
 
-    public Seat getSeat() {
-        return seat;
+    public String getDayOfBirth() {
+        return dayOfBirth;
     }
 
-    public void setSeat(Seat seat) {
-        this.seat = seat;
+    public void setDayOfBirth(String dayOfBirth) {
+        this.dayOfBirth = dayOfBirth;
     }
 }

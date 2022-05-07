@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
+@RequestMapping("/api")
 public class ReportController {
 
     @Autowired
@@ -40,8 +41,8 @@ public class ReportController {
 
 
     @GetMapping("/report-airline")
-    public ResponseEntity<List<IReportAirlineType>> getAllReportAirline(){
-        List<IReportAirlineType> typeList = iReportService.getAllAirlineType();
+    public ResponseEntity<List<IReportAirlineType>> getAllReportAirline(String fromDate,String toDate){
+        List<IReportAirlineType> typeList = iReportService.getAllAirlineType(fromDate,toDate);
         if (typeList.isEmpty()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

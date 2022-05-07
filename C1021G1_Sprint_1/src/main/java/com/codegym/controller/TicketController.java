@@ -4,29 +4,26 @@ package com.codegym.controller;
 import com.codegym.comon.Security_Email;
 import com.codegym.model.Ticket;
 import com.codegym.service.ITicketService;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
+
 import com.codegym.dto.TicketDto;
 import com.codegym.service.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.*;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -41,8 +38,8 @@ public class TicketController {
 
     //    SonNh lấy danh sách ticket by customer Id
     @GetMapping("/list/{id}")
-    public ResponseEntity<List<Ticket>> listAllTicketListByCustomerId(@PathVariable Long id) {
-        List<Ticket> ticketList = ticketService.findAllTicketsByCustomerId(id);
+    public ResponseEntity<Page<Ticket>> listAllTicketListByCustomerId(@PathVariable Long id, @RequestParam(value = "page", defaultValue = "0") int page) {
+        Page<Ticket> ticketList = ticketService.findAllTicketsByCustomerIdPage(id, PageRequest.of(page, 5));
         if (ticketList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);//You many decide to return HttpStatus.NOT_FOUND
         }
@@ -51,13 +48,16 @@ public class TicketController {
 
     //    SonNh lấy danh sách ticket by customer Id
     @GetMapping("/listHistory/{id}")
-    public ResponseEntity<List<Ticket>> listHistoryTicketListByCustomerId(@PathVariable("id") Long id) {
-        List<Ticket> ticketList = ticketService.findHistoryTicketsByCustomerId(id);
+    public ResponseEntity<Page<Ticket>> listHistoryTicketListByCustomerId(@PathVariable("id") Long id, @RequestParam(value = "page", defaultValue = "0") int page) {
+        Page<Ticket> ticketList = ticketService.findHistoryTicketsByCustomerIdPage(id, PageRequest.of(page, 5));
         if (ticketList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);//You many decide to return HttpStatus.NOT_FOUND
         }
         return new ResponseEntity<>(ticketList, HttpStatus.OK);
     }
+
+
+
 
     //    SonNh lấy ticket by CodeTicket
     @GetMapping(value = "/{code_ticket}")
@@ -71,7 +71,7 @@ public class TicketController {
         return new ResponseEntity<>(ticket, HttpStatus.OK);
     }
 
-    //    SonNh pay ticket by ticket code
+//        SonNh pay ticket by ticket code
     @PatchMapping(value = "/pay/{code}")
     public ResponseEntity<Ticket> payTicketByCode(@PathVariable("code") String codeTicket) {
         System.out.println("Fetching Ticket with id " + codeTicket);
@@ -84,7 +84,7 @@ public class TicketController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //    SonNh pay tickets ticket by ticket codes
+//        SonNh pay tickets ticket by ticket codes
     @PatchMapping(value = "/pays/{codes}")
     public ResponseEntity<Ticket> payTicketByCodes(@PathVariable("codes") List<String> codeTicketList) {
         System.out.println("Fetching Ticket with id " + codeTicketList);
@@ -114,8 +114,7 @@ public class TicketController {
                 System.out.println("Ticket with id " + codeTicketList.get(i) + " not found");
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-//            SonNH thanh toán cho từng vé
-            ticketService.payTicketByCodeTicket(codeTicketList.get(i));
+
 
 //            Lấy giá tổng
             totalPrice += ticket.getPriceTicket();
@@ -136,6 +135,8 @@ public class TicketController {
         ticketService.abortTicketByCodeTicket(codeTicket);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
 
 
     @PutMapping(value = "/sendmail")
@@ -329,7 +330,7 @@ public class TicketController {
                     "                                            <tr>\n" +
                     "                                                <td align=\"left\" valign=\"top\" style=\"font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;\">\n" +
                     "                                                    <p style=\"font-weight: 800;\">Ngày Thanh toán</p>\n" +
-                    "                                                    <p></p>\n" +strDate+
+                    "                                                    <p></p>\n" + strDate +
                     "                                                </td>\n" +
                     "                                            </tr>\n" +
                     "                                        </table>\n" +
@@ -393,12 +394,12 @@ public class TicketController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
     @GetMapping("/not-pagination")
     public ResponseEntity<Page<TicketDto>> getAllTicketNotPagination(@RequestParam(defaultValue = "0") int page) {
         Pageable pageable = PageRequest.of(page,10);
         Page<TicketDto> ticketDtos = ticketService.getAllTicketDTONotPagination(pageable);
         if (ticketDtos.isEmpty()) {
+
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(ticketDtos, HttpStatus.OK);
@@ -407,6 +408,7 @@ public class TicketController {
     @GetMapping("/page")
     public ResponseEntity<Iterable<TicketDto>> getAllListTicket(@RequestParam(defaultValue = "0") int page) {
         Pageable pageable = PageRequest.of(page,10);
+
         Page<TicketDto> ticketPage = this.ticketService.findAllTicket(pageable);
         if (ticketPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -423,6 +425,7 @@ public class TicketController {
         return new ResponseEntity<>(ticketDto, HttpStatus.OK);
     }
 
+
     @PatchMapping("/delete/{id}")
     public ResponseEntity<TicketDto> deleteTicketById(@PathVariable Long id) {
         TicketDto tickets = ticketService.findTicketById(id);
@@ -435,10 +438,10 @@ public class TicketController {
 
     @GetMapping("/search")
     public ResponseEntity<Page<TicketDto>> findAllTicketSearch(@RequestParam(defaultValue = "", required = false) String keyword,
-                                                                   @RequestParam(defaultValue = "", required = false) String option,
-                                                                   @RequestParam(defaultValue = "0") int page) {
+                                                               @RequestParam(defaultValue = "", required = false) String option,
+                                                               @RequestParam(defaultValue = "0") int page) {
         Page<TicketDto> ticketPage = null;
-        switch (option){
+        switch (option) {
             case "buyer":
                 ticketPage = ticketService.ticketByBuyer(keyword,PageRequest.of(page,10));
                 break;
@@ -450,6 +453,7 @@ public class TicketController {
                 break;
             case "code":
                 ticketPage = ticketService.ticketCodeTicket(keyword,PageRequest.of(page,10));
+
                 break;
         }
         if (ticketPage.isEmpty()) {

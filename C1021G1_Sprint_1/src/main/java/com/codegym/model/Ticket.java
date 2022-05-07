@@ -23,18 +23,25 @@ public class Ticket {
     private Boolean genderTicket;
 
     private Boolean statusTicket;
-                // Giá vé
+    // Giá vé
     private Double priceTicket;
 
     private Boolean delFlagTicket;
 
     private Integer pointTicket;
 
-              // Người mua vé
+    private String idCard;
+
+
+    //ngay dat ve
+    @Column(columnDefinition = "DATE")
+    private String dateTicket;
+
+    // Người mua vé
     private String buyerTicket;
 
     @Column(columnDefinition = "DATE")
-          // Ngày sinh của người mua vé
+    // Ngày sinh của người mua vé
     private String birthdayTicket;
 
     @ManyToOne
@@ -50,6 +57,22 @@ public class Ticket {
     private Seat seat;
 
     public Ticket() {
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    public String getDateTicket() {
+        return dateTicket;
+    }
+
+    public void setDateTicket(String dateTicket) {
+        this.dateTicket = dateTicket;
     }
 
     public Long getId() {

@@ -18,7 +18,6 @@ public class TicketServiceImpl implements ITicketService {
     ITicketRepository repository;
 
 
-
     @Override
     public List<Ticket> findAllTicketsByCustomerId(Long customerId) {
         return repository.getAllTicketsByCustomerID(customerId);
@@ -28,6 +27,19 @@ public class TicketServiceImpl implements ITicketService {
     public List<Ticket> findHistoryTicketsByCustomerId(Long customerId) {
         return repository.getHistoryTicketsByCustomerID(customerId);
     }
+//    SonNH lấy list ticket trả về page
+
+    @Override
+    public Page<Ticket> findAllTicketsByCustomerIdPage(Long customerId, Pageable pageable) {
+        return repository.getAllTicketsByCustomerIDPage(customerId, pageable);
+    }
+
+    @Override
+    public Page<Ticket> findHistoryTicketsByCustomerIdPage(Long customerId, Pageable pageable) {
+        return repository.getHistoryTicketsByCustomerIDPage(customerId, pageable);
+    }
+
+
 
     @Override
     public Ticket findTicketByCodeTicket(String codeTicket) {
@@ -39,12 +51,12 @@ public class TicketServiceImpl implements ITicketService {
         repository.payTicketByCodeTicket(codeTicket);
         repository.payHistoryTicketByCodeTicket(codeTicket);
     }
+
     @Override
     public void abortTicketByCodeTicket(String codeTicket) {
         repository.abortTicketByCodeTicket(codeTicket);
         repository.abortHistoryTicketByCodeTicketTicketByCodeTicket(codeTicket);
     }
-
 
 
     @Override // danh sách

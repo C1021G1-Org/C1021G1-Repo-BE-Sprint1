@@ -25,8 +25,25 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
+    public Boolean existAccountByPhone(String phone) {
+        Account account = accountRepository.findAccountByPhone(phone).orElse(null);
+        if(account != null){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean existAccountByIdCard(String idCard) {
+        Account account = accountRepository.findAccountByIdCard(idCard).orElse(null);
+        if(account != null){
+            return true;
+        }
+        return false;
+    }
     public Boolean existAccountByPassword(String password) {
         Account account = accountRepository.findAccountByPassword(password).orElse(null);
+
         if(account != null){
             return true;
         }
@@ -41,4 +58,5 @@ public class AccountServiceImpl implements IAccountService {
 //    }
         accountRepository.save(acc);
     }
+
 }

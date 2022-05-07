@@ -1,29 +1,27 @@
 package com.codegym.model;
 
-import com.codegym.service.sercurity.ICheckingForgetedPsForm;
-import com.codegym.service.sercurity.ICheckingSignUpForm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import javax.validation.constraints.NotBlank;
 
-public class PasswordForgettedForm  implements Validator {
-    @Autowired
-    ICheckingForgetedPsForm checkingForgetedPsForm;
+public class ChangingPassword implements Validator {
     @NotBlank
     private String email;
     @NotBlank
     private String password;
     @NotBlank
+    private String newPassword;
+    @NotBlank
     private String confirmPassword;
 
-    public PasswordForgettedForm() {
+    public ChangingPassword() {
     }
 
-    public PasswordForgettedForm(String email, String password, String confirmPassword) {
+    public ChangingPassword(String email, String password, String newPassword, String confirmPassword) {
         this.email = email;
         this.password = password;
+        this.newPassword = newPassword;
         this.confirmPassword = confirmPassword;
     }
 
@@ -43,6 +41,14 @@ public class PasswordForgettedForm  implements Validator {
         this.password = password;
     }
 
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
     public String getConfirmPassword() {
         return confirmPassword;
     }
@@ -58,16 +64,6 @@ public class PasswordForgettedForm  implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        PasswordForgettedForm signForm = (PasswordForgettedForm) target;
-        String errorPs = checkingForgetedPsForm.checkPs(signForm);
-        if(errorPs!=""){
-            errors.rejectValue("passError", "", "Mật khẩu không đúng định dạng");
-        }
-
-        //confirmPs equal ps
-        if (!signForm.getConfirmPassword().equals(signForm.getPassword())) {
-            errors.rejectValue("confirmPassword", "", "Phải giống với mật khẩu");
-        }
 
     }
 }

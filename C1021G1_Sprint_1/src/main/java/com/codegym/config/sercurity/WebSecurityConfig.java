@@ -50,13 +50,15 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/report-employee","/api/report-airline","/api/report-price","/api/employee/**","/api/news/create",
                         "/api/news/update")
-                .hasAuthority("ADMIN")
+                .hasAuthority("ROLE_ADMIN")
                 .antMatchers("/api/flight/list","/api/ticket/list","/api/ticket/listHistory",
                         "/api/ticket/getPrice","/api/ticket/page","/api/ticket/delete","/api/ticket/search",
                         "/api/ticket/findTicket","/api/ticket/editTicket","/api/customer/list","/api/flight/create","/api/flight/update")
-                .hasAnyAuthority("EMPLOYEE")
-                .antMatchers("/api/signIn","/api/signUp").permitAll()
+                .hasAnyAuthority("ROLE_EMPLOYEE")
+                .antMatchers("**").permitAll()
                 .anyRequest().authenticated()
+                .and()
+                .rememberMe().userDetailsService(userDetailsService)
                 .and().exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

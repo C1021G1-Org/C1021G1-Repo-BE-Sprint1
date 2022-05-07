@@ -1,5 +1,7 @@
 package com.codegym.model;
 
+import com.codegym.service.sercurity.ICheckingSignUpForm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -7,6 +9,8 @@ import javax.validation.constraints.*;
 import java.util.Date;
 
 public class SignForm implements Validator {
+    @Autowired
+    ICheckingSignUpForm checkingSignUpForm;
     @Email
     @NotBlank
     private String email;
@@ -138,15 +142,21 @@ public class SignForm implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
+
         SignForm signForm = (SignForm) target;
+        String errorPs = checkingSignUpForm.checkPs(signForm);
+        if(errorPs!=""){
+            errors.rejectValue("passError", "", "Phải giống với mật khẩu");
+        }
+
+        //confirmPs equal ps
         if (!signForm.getConfirmPassword().equals(signForm.getPassword())) {
             errors.rejectValue("confirmPassword", "", "Phải giống với mật khẩu");
         }
-        Long birthdayToSeconds = new Date(signForm.birthday).getTime();
-        Long currentToSeconds = new Date().getTime();
-        Long between = currentToSeconds - birthdayToSeconds;
-        Long age = between/(60*60*24*1000*365);
-        if(age<18 || age>150){
+
+        //check birthday
+        String errorAge = checkingSignUpForm.checkBirthday(signForm);
+        if(errorAge!=""){
             errors.rejectValue("ageError","","Tuổi phải lớn lớn 18 và nhỏ hơn 150");
         }
     }

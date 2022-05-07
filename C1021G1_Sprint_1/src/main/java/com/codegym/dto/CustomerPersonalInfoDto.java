@@ -1,8 +1,10 @@
 package com.codegym.dto;
 
 import com.codegym.model.Countries;
+import com.codegym.service.ICustomerService;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -26,6 +28,7 @@ public class CustomerPersonalInfoDto implements Validator {
 
 
 
+
     private Long id;
 
     @NotBlank
@@ -41,6 +44,7 @@ public class CustomerPersonalInfoDto implements Validator {
 
     @NotBlank
     @Pattern(regexp = REGEX_ID_CARD)
+//    @ValidatorCustomer(message = "Hộ chiếu / CMND đã có trong dữ liệu")
     private String idCardCustomer;
 
     @NotBlank
@@ -162,14 +166,16 @@ public class CustomerPersonalInfoDto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        CustomerPersonalInfoDto customerPersonalInfoDto = (CustomerPersonalInfoDto) target;
+        CustomerPersonalInfoDto dto = (CustomerPersonalInfoDto) target;
 
-        if (checkAgeMember(customerPersonalInfoDto.getBirthdayCustomer())) {
-            errors.rejectValue("dateOfBirth", "birthday.checkAge", "Tuổi phải từ 18 trở lên");
+        if (checkAgeMember(dto.getBirthdayCustomer())) {
+            errors.rejectValue("birthdayCustomer", "birthday.checkAge", "Tuổi phải từ 18 trở lên");
         }
+
+
     }
 
-    /* kiem tra tren 18 tuoi */
+    /*ThangDBX kiem tra tren 18 tuoi */
     public boolean checkAgeMember(String dateOfBirth) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate now = LocalDate.now();
@@ -192,5 +198,7 @@ public class CustomerPersonalInfoDto implements Validator {
         return isRetry;
 
     }
+
+
 
 }

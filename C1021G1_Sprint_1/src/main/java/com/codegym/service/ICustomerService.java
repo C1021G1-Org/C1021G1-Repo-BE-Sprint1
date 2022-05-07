@@ -71,5 +71,27 @@ public interface ICustomerService {
 
     Integer findByPhoneNot(Long id, String phoneCustomer);
 
+
+    // ThangDBX kiểm tra CMND/ ho chieu đã tồn tại hoặc có thay đổi không khi thực hiện cập nhật
+    Integer checkIdCardIsExistUpdate(String idCard, Long id);
+
+    // ThangDBX kiểm tra phone đã tồn tại hoặc có thay đổi không khi thực hiện cập nhật
+    Integer checkPhoneIsExistUpdate(String phone, Long id);
+
+    // ThangDBX kiểm tra email đã tồn tại hoặc có thay đổi không khi thực hiện cập nhật
+    Integer checkEmailIsExistUpdate(String email, Long id);
+
+    //ThangDBX cập nhật điểm thưởng của khách hàng
+    void updatePointCustomer(Integer point, Long id);
+
+    // ThangDBX lấy lịch sử tichket đã thanh toán để tính tổng điểm khách hàng đạt được,
+    Integer getPoint(Long idCustomer);
+
+    /* ThangDBX update customerType  */
+    void updateCustomerType(Long customerId);
+
+
+
     Integer findByIdCardNot(Long id, String idCardCustomer);
+
 }

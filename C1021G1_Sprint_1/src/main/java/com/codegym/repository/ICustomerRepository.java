@@ -236,6 +236,53 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     @Query(value = "select count(phone_customer) from customer where phone_customer = ?", nativeQuery = true)
     Integer finByPhone(String phone);
 
+
+    // ThangDBX kiểm tra email đã tồn tại hoặc có thay đổi không khi thực hiện cập nhật
+    @Query(value = "select count(customer.email_customer) \n" +
+            "from c1021g1_sprint_1.customer \n" +
+            "where customer.email_customer = ?1 \n" +
+            "and customer.id not in  (\n" +
+            "select customer.id   from customer where customer.id = ?2 \n" +
+            ") ;", nativeQuery = true)
+    Integer checkEmailIsExistUpdate(String email, Long id);
+
+    // ThangDBX kiểm tra phone đã tồn tại hoặc có thay đổi không khi thực hiện cập nhật
+    @Query(value = "select count(customer.phone_customer) \n" +
+            "from c1021g1_sprint_1.customer \n" +
+            "where customer.phone_customer = ?1 \n" +
+            "and customer.id not in  (\n" +
+            "select customer.id   from customer where customer.id = ?2 \n" +
+            ") ;", nativeQuery = true)
+    Integer checkPhoneIsExistUpdate(String phone, Long id);
+
+    // ThangDBX kiểm tra CMND/ ho chieu đã tồn tại hoặc có thay đổi không khi thực hiện cập nhật
+    @Query(value = "select count(id_card_customer) \n" +
+            "from c1021g1_sprint_1.customer \n" +
+            "where customer.id_card_customer = ?1 \n" +
+            "and customer.id not in  (\n" +
+            "select customer.id   from customer where customer.id = ?2 \n" +
+            ") ;", nativeQuery = true)
+    Integer checkIdCardIsExistUpdate(String idCard, Long id);
+
+    // ThangDBX lấy lịch sử tichket đã thanh toán để tính tổng điểm khách hàng đạt được,
+    @Query(value = "select sum(point_ticket)\n" +
+            "from c1021g1_sprint_1.ticket_history\n" +
+            "where ticket_history.id_customer = ?", nativeQuery = true)
+    Integer getPoint(Long idCustomer);
+
+    //ThangDBX cập nhật điểm thưởng của khách hàng
+    @Query(value = "update customer\n" +
+            "set customer.point_customer = ?1\n" +
+            "where customer.id = ?2", nativeQuery = true)
+    void updatePointCustomer(Integer point, Long id);
+
+    @Query(value ="select customer.point_customer\n" +
+            "from c1021g1_sprint_1.customer\n" +
+            "where customer.id = ?;", nativeQuery =true)
+    Integer getPointCustomer(Long id);
+
+
+
     //TinhHD validator edit cho phép update
     @Query(value = "select customer.id from customer where email_customer = ?1 and phone_customer = ?2 and id_card_customer = ?3", nativeQuery = true)
     Long findByCheck(String emailCustomer, String phoneCustomer, String idCard);
@@ -251,4 +298,5 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     //TinhHD validator edit cho phép update
     @Query(value = "select count(customer.id_card_customer) from customer where not customer.id =?1 and id_card_customer = ?2", nativeQuery = true)
     Integer findByIdCardNot(Long id, String idCardCustomer);
+
 }

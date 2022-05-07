@@ -13,6 +13,8 @@ public class CustomerValidator implements ConstraintValidator<ValidatorCustomer,
     @Autowired
     CustomerController customerController;
 
+
+
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
 
@@ -27,4 +29,5 @@ public class CustomerValidator implements ConstraintValidator<ValidatorCustomer,
         }
         return true;
     }
+
 }

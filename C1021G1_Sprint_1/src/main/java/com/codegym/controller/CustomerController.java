@@ -75,6 +75,7 @@ public class CustomerController {
         if (customer == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
@@ -211,17 +212,43 @@ public class CustomerController {
                                                         @Validated
                                                         @RequestBody CustomerPersonalInfoDto customerDto,
                                                         BindingResult bindingResult) {
+        /* check email, sdt, CMND/HO chieu da co chưa */
+        Map<String, String> error = new HashMap<>();
+        new CustomerPersonalInfoDto().validate(customerDto,bindingResult);
 
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.NOT_FOUND);
-        } else {
-            Customer customer = new Customer();
-            BeanUtils.copyProperties(customerDto, customer);
-            iCustomerService.updatePersonalInfo(customer);
-            return new ResponseEntity<>(HttpStatus.OK);
+        if (iCustomerService.checkIdCardIsExistUpdate(customerDto.getIdCardCustomer(),id) == 0
+        && iCustomerService.checkEmailIsExistUpdate(customerDto.getEmailCustomer(),id) == 0
+        && iCustomerService.checkPhoneIsExistUpdate(customerDto.getPhoneCustomer(),id) == 0){
+            if (bindingResult.hasErrors()) {
+                return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.NOT_FOUND);
+            } else {
+                Customer customer = new Customer();
+                BeanUtils.copyProperties(customerDto, customer);
+                iCustomerService.updatePersonalInfo(customer);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+        } /* tra ve loi */
+        else {
+            if (iCustomerService.checkIdCardIsExistUpdate(customerDto.getIdCardCustomer(),id) > 0){
+                error.put("idCardCustomer", "CMND đã tồn tại!");
+            }
+
+            if (iCustomerService.checkEmailIsExistUpdate(customerDto.getEmailCustomer(),id) > 0){
+                error.put("emailCustomer", "Email đã tồn tại!");
+            }
+
+            if (iCustomerService.checkPhoneIsExistUpdate(customerDto.getPhoneCustomer(),id) > 0){
+                error.put("phoneCustomer", "Số điện thoại đã tồn tại!");
+            }
+
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
         }
 
+
+
     }
+
+
 
 
 }

@@ -1,7 +1,6 @@
 package com.codegym.service;
 
 
-import com.codegym.model.Countries;
 import com.codegym.model.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,8 +39,6 @@ public interface ICustomerService {
     Page<Customer> searchCustomerByPhone(String keyword, Pageable pageable);
 
     Page<Customer> searchCustomerByIdCrad(String keyword, Pageable pageable);
-
-    List<Customer> getAllCustomerNotPagination();
 
         /*ThangDBX lấy dữ liệu của khách hàng  */
         Customer findCustomerById(Long id);

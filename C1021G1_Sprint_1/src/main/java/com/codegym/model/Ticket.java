@@ -60,6 +60,7 @@ public class Ticket {
     public Ticket() {
     }
 
+
     public Long getId() {
         return id;
     }

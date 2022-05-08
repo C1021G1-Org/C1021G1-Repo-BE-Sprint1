@@ -25,10 +25,12 @@ public class TicketHistory {
 
     private String idCard;
     private Integer pointTicket;
-    // Người mua vé
-    private String buyerTicket;
+
+    //ngay dat ve
     @Column(columnDefinition = "DATE")
     private String dateTicket;
+    // Người mua vé
+    private String buyerTicket;
 
     @Column(columnDefinition = "DATE")
     // Ngày sinh của người mua vé

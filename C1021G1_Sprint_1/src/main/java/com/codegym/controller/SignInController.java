@@ -1,8 +1,10 @@
 package com.codegym.controller;
 
 import com.codegym.config.sercurity.JwtTokenUtil;
+import com.codegym.dto.CustomerDto;
 import com.codegym.model.*;
 import com.codegym.security.userprinciple.AccountPrinciple;
+import com.codegym.service.ICustomerService;
 import com.codegym.service.sercurity.impl.AccountServiceImpl;
 import com.codegym.service.sercurity.impl.RoleServiceImpl;
 import org.springframework.beans.BeanUtils;
@@ -35,6 +37,8 @@ public class SignInController {
     @Autowired
     AccountServiceImpl accountService;
     @Autowired
+    ICustomerService customerService;
+    @Autowired
     RoleServiceImpl roleService;
     @Autowired
     AuthenticationManager authenticationManager;
@@ -48,6 +52,7 @@ public class SignInController {
     public ResponseEntity<?> register(@Valid @RequestBody SignForm signForm) {
 //        new SignForm().validate(signForm, bindingResult);
 //        System.out.println(bindingResult.getAllErrors());
+        CustomerDto customerDto = new CustomerDto();
         System.out.println("sign up");
         if (accountService.existAccountByPhone(signForm.getPhone())) {
             return new ResponseEntity<>("duplicate phone", HttpStatus.BAD_REQUEST);
@@ -71,6 +76,27 @@ public class SignInController {
             roleSet.add(new Role(2L, RoleName.ROLE_EMPLOYEE));
         }
         acc.setRoles(roleSet);
+        // iCustomerRepository.saveCustomer(
+        //                customerDto.getNameCustomer(),
+        //                customerDto.getPhoneCustomer(),
+        //                customerDto.getGenderCustomer(),
+        //                customerDto.getEmailCustomer(),
+        //                customerDto.getIdCardCustomer(),
+        //                customerDto.getBirthdayCustomer(),
+        //                customerDto.getAddressCustomer(),
+        //                customerDto.getCustomerType(),
+        //                customerDto.getCountries(),
+        //                false);
+        customerDto.setNameCustomer(acc.getFullName());
+        customerDto.setPhoneCustomer(acc.getPhone());
+        customerDto.setBirthdayCustomer(acc.getBirthday());
+        customerDto.setGenderCustomer(acc.getGender());
+        customerDto.setEmailCustomer(acc.getEmail());
+        customerDto.setIdCardCustomer(acc.getIdCard());
+        customerDto.setAddressCustomer(acc.getAddress());
+        customerDto.setCustomerType(4L);
+        customerDto.setCountries(acc.getCountry().getId());
+        customerService.save(customerDto);
         accountService.save(acc);
         return new ResponseEntity<>(acc, HttpStatus.CREATED);
     }

@@ -24,6 +24,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Long> {
             "where seat.id_flight = :idFlight " +
             "and seat.status_seat = 0 " +
             "and seat_type.name_seat_type = :typeSeat " +
+            "and del_flag_ticket = 1 " +
             "limit 5", nativeQuery = true)
     List<Ticket> getListNumberTicket(@Param("idFlight") Long idFlight, @Param("typeSeat") String typeSeat);
 
@@ -108,4 +109,14 @@ public interface ITicketRepository extends JpaRepository<Ticket, Long> {
 //            "from ticket ", nativeQuery = true)
 //    Ticket getTicketDtoById();
 
+
+    @Query(value = "select employee.id from employee " +
+            "where employee.email_employee = :email " +
+            "and employee.del_flag_employee = 1 ",nativeQuery = true)
+    Long getIdEmployeeByEmailRole(@Param("email")String emailEmployee);
+
+    @Query(value = "select customer.id from customer " +
+            "where customer.email_customer = :email " +
+            "and cusromer.del_flag_employee = 1 ",nativeQuery = true)
+    Long getIdCustomerEmailRole(@Param("email")String emailCustomer);
 }

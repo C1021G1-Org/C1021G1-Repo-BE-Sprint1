@@ -9,24 +9,25 @@ import java.util.List;
 public interface ITicketService {
 
 
-    List<Ticket> getListNumberTicket(@Param("idFlight") Long idFlight, @Param("typeSeat") String typeSeat);
+    List<Ticket> getListNumberTicket(Long idFlight, String typeSeat);
 
-    Ticket getTicketByFlightIdAndTypeSeatAndTicketId(@Param("idFlight") Long idFlight, @Param("typeSeat") String typeSeat, @Param("idTicket") Long idTicket);
+    Ticket getTicketByFlightIdAndTypeSeatAndTicketId(Long idFlight, String typeSeat, Long idTicket);
 
     void updateFirstTicket(
-            @Param("buyer") String buyer,
-            @Param("birthDay") String birthDay,
-            @Param("email") String email,
-            @Param("gender") Boolean gender,
-            @Param("phone") String phone,
-            @Param("dateTicket") String dateTicket,
-            @Param("price") Double price,
-            @Param("idCard") String idCard,
-            @Param("employee") Long employee,
-            @Param("customer") Long customer,
-            @Param("idTicket") Long idTicket
+            String buyer,
+            String birthDay,
+            String email,
+            Boolean gender,
+            String phone,
+            String dateTicket,
+            Double price,
+            String idCard,
+            Long employee,
+            Long customer,
+            Long idTicket
 
     );
+
 
 //    Ticket findById(Long id);
 
@@ -36,21 +37,25 @@ public interface ITicketService {
 
 
     void addTicketHistory(
-            @Param("birthdayTicket") String birthdayTicket,
-            @Param("buyerTicket") String buyerTicket,
-            @Param("codeTicket") String codeTicket,
-            @Param("delFlagTicket") Boolean delFlagTicket,
-            @Param("emailTicket") String emailTicket,
-            @Param("genderTicket") Boolean genderTicket,
-            @Param("phoneTicket") String phoneTicket,
-            @Param("pointTicket") Integer pointTicket,
-            @Param("priceTicket") Double priceTicket,
-            @Param("statusTicket") Boolean statusTicket,
-            @Param("idCustomer") Long idCustomer,
-            @Param("idEmployee") Long idEmployee,
-            @Param("idSeat") Long idSeat,
-            @Param("dateTicket") String dateTicket,
-            @Param("idCard") String idCard);
+            String birthdayTicket,
+            String buyerTicket,
+            String codeTicket,
+            Boolean delFlagTicket,
+            String emailTicket,
+            Boolean genderTicket,
+            String phoneTicket,
+            Integer pointTicket,
+            Double priceTicket,
+            Boolean statusTicket,
+            Long idCustomer,
+            Long idEmployee,
+            Long idSeat,
+            String dateTicket,
+            String idCard);
 
-    Ticket getTicketAddHistory(@Param("idTicket")Long idTicket);
+    Ticket getTicketAddHistory(Long idTicket);
+
+    Long getIdCustomerEmailRole(String emailCustomer);
+
+    Long getIdEmployeeByEmailRole(String emailEmployee);
 }

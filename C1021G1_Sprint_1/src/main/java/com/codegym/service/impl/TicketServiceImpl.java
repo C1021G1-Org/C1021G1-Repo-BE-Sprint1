@@ -81,5 +81,15 @@ public class TicketServiceImpl implements ITicketService {
         return ticketRepository.getTicketAddHistory(idTicket);
     }
 
+    @Override
+    public Long getIdCustomerEmailRole(String emailCustomer) {
+        return ticketRepository.getIdCustomerEmailRole(emailCustomer);
+    }
+
+    @Override
+    public Long getIdEmployeeByEmailRole(String emailEmployee) {
+        return ticketRepository.getIdEmployeeByEmailRole(emailEmployee);
+    }
+
 
 }

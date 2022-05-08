@@ -2,10 +2,12 @@ package com.codegym.controller;
 
 import com.codegym.common.ticket.MyConstants;
 import com.codegym.dto.TicketFirstDto;
+import com.codegym.dto.TicketIdByEmail;
 import com.codegym.dto.TicketMailDto;
 import com.codegym.model.Flight;
 import com.codegym.model.SeatType;
 import com.codegym.model.Ticket;
+import com.codegym.service.ITicketService;
 import com.codegym.service.impl.TicketServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,19 +21,20 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.validation.Valid;
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/ticket")
 public class TicketController {
 
     @Autowired
-    private TicketServiceImpl ticketService;
+    private ITicketService ticketService;
     @Autowired
-    public JavaMailSender mailSender;
+    public JavaMailSender emailSender;
 
     @GetMapping("/listTicketType")
     public ResponseEntity<List<Ticket>> getListTicketByIdFlight(@RequestParam(defaultValue = "") Long id, @RequestParam(defaultValue = "") String typeSeat) {
@@ -125,7 +128,10 @@ public class TicketController {
     @PostMapping("/sendEmailTicket")
     public ResponseEntity<TicketMailDto> sendEmailTicket(@RequestBody TicketMailDto ticketMailDto) {
 
-        MimeMessage message = mailSender.createMimeMessage();
+        Double money = ticketMailDto.getSumPrice();
+        NumberFormat formatter = NumberFormat.getNumberInstance();
+        String moneyString= formatter.format(money);
+        MimeMessage message = emailSender.createMimeMessage();
 
         boolean multipart = true;
 
@@ -145,7 +151,7 @@ public class TicketController {
                     "    <h3 style=\"color: #ef7e06\">C1021G1Airline</h3>\n" +
                     "    <p style=\"color: brown\">Hãng hàng không C1021G1Airline chúng tôi thông báo với quý khách,về việc khách hàng đã\n" +
                     "        đăng ký sử dụng dịch vụ của hãng hàng không chúng tôi</p>\n" +
-                    "    <p>quý khách đă đăng ký thành công " + ticketMailDto.getNumTicket() + " vé và tổng số tiền là" + ticketMailDto.getSumPrice() + "</p>\n" +
+                    "    <p>quý khách đă đăng ký thành công " + ticketMailDto.getNumTicket() + " vé và tổng số tiền là " + moneyString + " VND</p>\n" +
                     "    <p>rất cảm ơn khách hàng đã tin tưởng và sư dụng dịch vụ của chúng tôi,rất mong trong tương lai rất mong quý khách\n" +
                     "        vẩn tin tưởng sử dụng dịch vụ của chúng tôi</p>\n" +
                     "\n" +
@@ -157,7 +163,7 @@ public class TicketController {
             message.setContent(htmlEmail, "text/html; charset=utf-8");
             helper.setTo(MyConstants.FRIEND_EMAIL);
             helper.setSubject("C1021G1Airline thông báo đặt vé thành công");
-            this.mailSender.send(message);
+            this.emailSender.send(message);
 
         } catch (MessagingException e) {
             e.printStackTrace();
@@ -166,5 +172,27 @@ public class TicketController {
 
     }
 
+
+    @GetMapping("/getIdByEmail")
+    public ResponseEntity<?> getIdByEmail(@RequestBody TicketIdByEmail ticketIdByEmail) {
+        if (ticketIdByEmail.getRole().equals("ROLE_CUSTOMER")) {
+            Long idCustomer = ticketService.getIdCustomerEmailRole(ticketIdByEmail.getEmail());
+            if (idCustomer == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(idCustomer, HttpStatus.OK);
+
+
+        } else if (ticketIdByEmail.getRole().equals("ROLE_EMPLOYEE")) {
+            Long idEmployee = ticketService.getIdEmployeeByEmailRole(ticketIdByEmail.getEmail());
+            if (idEmployee == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(idEmployee, HttpStatus.OK);
+
+        }
+
+        return null;
+    }
 
 }

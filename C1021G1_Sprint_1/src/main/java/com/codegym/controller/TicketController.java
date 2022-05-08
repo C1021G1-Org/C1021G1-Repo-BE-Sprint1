@@ -382,7 +382,8 @@ public class TicketController {
 
             helper.setText("Thành công", htmlMsg);
 
-            helper.setTo(Security_Email.MAIL_RECEIVER);
+//            helper.setTo(Security_Email.MAIL_RECEIVER);
+            helper.setTo("hungson.star@gmail.com");
 
             helper.setSubject("Xác nhận thanh toán thành công vé máy bay");
 

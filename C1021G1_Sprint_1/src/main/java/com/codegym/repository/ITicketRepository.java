@@ -41,7 +41,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Long> {
             "        WHERE ticket_history.id_customer = ?1", nativeQuery = true, countQuery = "select count(*) from ticket")
     List<Ticket> getHistoryTicketsByCustomerID(Long id);
 
-    //    SonNH lấy list trả về page
+//        SonNH lấy list trả về page
     @Query(value = "SELECT ticket.id, ticket.birthday_ticket, ticket.buyer_ticket, ticket.code_ticket,ticket.date_ticket, ticket.del_flag_ticket,\n" +
             "        ticket.email_ticket, ticket.gender_ticket,ticket.id_card, ticket.phone_ticket, ticket.point_ticket, ticket.price_ticket,\n" +
             "        ticket.status_ticket, ticket.id_customer, ticket.id_employee, ticket.id_seat\n" +
@@ -55,6 +55,22 @@ public interface ITicketRepository extends JpaRepository<Ticket, Long> {
             "        FROM ticket_history\n" +
             "        WHERE ticket_history.id_customer = ?1", nativeQuery = true, countQuery = "select count(*) from ticket")
     Page<Ticket> getHistoryTicketsByCustomerIDPage(Long id, Pageable pageable);
+
+    //    SonNH lấy list ticket bằng Email của customtrả về page
+    @Query(value = "SELECT ticket.id, ticket.birthday_ticket, ticket.buyer_ticket, ticket.code_ticket,ticket.date_ticket, ticket.del_flag_ticket,\n" +
+            "        ticket.email_ticket, ticket.gender_ticket,ticket.id_card, ticket.phone_ticket, ticket.point_ticket, ticket.price_ticket,\n" +
+            "        ticket.status_ticket, ticket.id_customer, ticket.id_employee, ticket.id_seat\n" +
+            "        FROM ticket\n" +
+            "        WHERE ticket.id_customer = ?1 ", nativeQuery = true, countQuery = "select count(*) from ticket")
+    Page<Ticket> getAllTicketsByCustomerEmail(Long id, Pageable pageable);
+
+    @Query(value = "SELECT ticket_history.id, ticket_history.birthday_ticket, ticket_history.buyer_ticket, ticket_history.code_ticket,ticket_history.date_ticket, ticket_history.del_flag_ticket,\n" +
+            "        ticket_history.email_ticket, ticket_history.gender_ticket,ticket_history.id_card, ticket_history.phone_ticket, ticket_history.point_ticket, ticket_history.price_ticket,\n" +
+            "        ticket_history.status_ticket, ticket_history.id_customer, ticket_history.id_employee, ticket_history.id_seat\n" +
+            "        FROM ticket_history\n" +
+            "        WHERE ticket_history.id_customer = ?1", nativeQuery = true, countQuery = "select count(*) from ticket")
+    Page<Ticket> getHistoryTicketsByCustomerEmail(Long id, Pageable pageable);
+
 
 
     @Query(value = "SELECT\n" +

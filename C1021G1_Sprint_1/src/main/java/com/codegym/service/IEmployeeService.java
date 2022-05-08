@@ -8,6 +8,14 @@ import java.util.Optional;
 
 public interface IEmployeeService {
 
+
+
+//    Page<Employee> findAllEmployee(Pageable pageable);
+
+//    Optional<Employee> findEmployeeById(Long id);
+
+//    void deleteEmployee(Long id);
+
     Page<Employee> findAllEmployee(Pageable pageable);
 
     Optional<Employee> findEmployeeById(Long id);

@@ -52,6 +52,7 @@ public class Ticket {
     @JoinColumn(name = "id_customer", referencedColumnName = "id")
     private Customer customer;
 
+
     @OneToOne
     @JoinColumn(name = "id_seat", referencedColumnName = "id")
     private Seat seat;
@@ -59,21 +60,6 @@ public class Ticket {
     public Ticket() {
     }
 
-    public String getIdCard() {
-        return idCard;
-    }
-
-    public void setIdCard(String idCard) {
-        this.idCard = idCard;
-    }
-
-    public String getDateTicket() {
-        return dateTicket;
-    }
-
-    public void setDateTicket(String dateTicket) {
-        this.dateTicket = dateTicket;
-    }
 
     public Long getId() {
         return id;
@@ -155,6 +141,14 @@ public class Ticket {
         this.buyerTicket = buyerTicket;
     }
 
+    public String getBirthdayTicket() {
+        return birthdayTicket;
+    }
+
+    public void setBirthdayTicket(String birthdayTicket) {
+        this.birthdayTicket = birthdayTicket;
+    }
+
     public Employee getEmployee() {
         return employee;
     }
@@ -171,19 +165,27 @@ public class Ticket {
         this.customer = customer;
     }
 
-    public String getBirthdayTicket() {
-        return birthdayTicket;
-    }
-
-    public void setBirthdayTicket(String birthdayTicket) {
-        this.birthdayTicket = birthdayTicket;
-    }
-
     public Seat getSeat() {
         return seat;
     }
 
     public void setSeat(Seat seat) {
         this.seat = seat;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    public String getDateTicket() {
+        return dateTicket;
+    }
+
+    public void setDateTicket(String dateTicket) {
+        this.dateTicket = dateTicket;
     }
 }

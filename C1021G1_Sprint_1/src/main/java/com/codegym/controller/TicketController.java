@@ -1,6 +1,33 @@
 package com.codegym.controller;
 
 
+import com.codegym.common.ticket.MyConstants;
+import com.codegym.dto.TicketFirstDto;
+import com.codegym.dto.TicketIdByEmail;
+import com.codegym.dto.TicketMailDto;
+import com.codegym.model.Flight;
+import com.codegym.model.SeatType;
+import com.codegym.model.Ticket;
+import com.codegym.service.ITicketService;
+import com.codegym.service.impl.TicketServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.validation.Valid;
+import java.text.NumberFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
 import com.codegym.comon.Security_Email;
 import com.codegym.model.Ticket;
 import com.codegym.service.ITicketService;
@@ -25,20 +52,195 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.*;
 
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/ticket")
 public class TicketController {
+
     @Autowired
     private JavaMailSender emailSender;
 
-
     @Autowired
-    ITicketService ticketService;
+    private ITicketService ticketService;
+
+
+    @GetMapping("/listTicketType")
+    public ResponseEntity<List<Ticket>> getListTicketByIdFlight(@RequestParam(defaultValue = "") Long id, @RequestParam(defaultValue = "") String typeSeat) {
+
+        List<Ticket> ticketList = ticketService.getListNumberTicket(id, typeSeat);
+
+        if (ticketList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(ticketList, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/findTicket")
+    public ResponseEntity<Ticket> getFirstTicketById(@RequestParam(defaultValue = "") Long idFlight,
+                                                     @RequestParam(defaultValue = "") String typeSeat,
+                                                     @RequestParam(defaultValue = "") Long idTicket) {
+
+        Ticket ticket = ticketService.getTicketByFlightIdAndTypeSeatAndTicketId(idFlight, typeSeat, idTicket);
+
+        if (ticket == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(ticket, HttpStatus.OK);
+        }
+    }
+
+    @PatchMapping("/firstUpdate")
+    public ResponseEntity<?> updateFirstTicket(@Valid @RequestBody TicketFirstDto ticketFirstDto, BindingResult bindingResult,
+                                               @RequestParam(defaultValue = "") Long idFlight,
+                                               @RequestParam(defaultValue = "") String typeSeat) {
+        if (bindingResult.hasFieldErrors()) {
+            Map<String, String> errorMap = new HashMap<>();
+            Map<String, Object> response = new HashMap<>();
+            bindingResult.getFieldErrors().forEach(error -> {
+                errorMap.put(error.getField(), error.getDefaultMessage());
+            });
+            response.put("error", errorMap);
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+        } else {
+
+            if (ticketService.getTicketByFlightIdAndTypeSeatAndTicketId(idFlight, typeSeat, ticketFirstDto.getId()) == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+
+                ticketService.updateFirstTicket(ticketFirstDto.getBuyerTicket(),
+                        ticketFirstDto.getBirthdayTicket(), ticketFirstDto.getEmailTicket(), ticketFirstDto.getGenderTicket(),
+                        ticketFirstDto.getPhoneTicket(), ticketFirstDto.getDateTicket(), ticketFirstDto.getPriceTicket(), ticketFirstDto.getIdCard(),
+                        ticketFirstDto.getEmployee(), ticketFirstDto.getCustomer(), ticketFirstDto.getId());
+
+
+                Ticket ticketHistory = ticketService.getTicketAddHistory(ticketFirstDto.getId());
+
+                ticketService.addTicketHistory(ticketFirstDto.getBirthdayTicket(), ticketFirstDto.getBuyerTicket(),
+                        ticketHistory.getCodeTicket(), ticketHistory.getDelFlagTicket(), ticketFirstDto.getEmailTicket(),
+                        ticketFirstDto.getGenderTicket(), ticketFirstDto.getPhoneTicket(), ticketHistory.getPointTicket(),
+                        ticketFirstDto.getPriceTicket(), ticketFirstDto.getStatusTicket(), ticketFirstDto.getCustomer(),
+                        ticketFirstDto.getEmployee(), ticketHistory.getSeat().getId(), ticketFirstDto.getDateTicket(), ticketFirstDto.getIdCard());
+
+            }
+
+
+            return new ResponseEntity<>(ticketFirstDto, HttpStatus.OK);
+        }
+
+    }
+
+
+    @GetMapping("/flightTicket/{id}")
+    public ResponseEntity<Flight> getFlightById(@PathVariable Long id) {
+        Flight flight = ticketService.findFlightById(id);
+        if (flight == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(flight, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/seatTypeTicket")
+    public ResponseEntity<List<SeatType>> getSeatTypeList() {
+        List<SeatType> seatTypeList = ticketService.getAllSeatTypes();
+        if (seatTypeList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(seatTypeList, HttpStatus.OK);
+        }
+    }
+
+
+    @ResponseBody
+    @PostMapping("/sendEmailTicket")
+    public ResponseEntity<TicketMailDto> sendEmailTicket(@RequestBody TicketMailDto ticketMailDto) {
+
+        Double money = ticketMailDto.getSumPrice();
+        NumberFormat formatter = NumberFormat.getNumberInstance();
+        String moneyString = formatter.format(money);
+        MimeMessage message = emailSender.createMimeMessage();
+
+        boolean multipart = true;
+
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, multipart, "utf-8");
+
+            String htmlEmail = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\n" +
+                    "        \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
+                    "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
+                    "<head>\n" +
+                    "    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n" +
+                    "    <title>Demystifying Email Design</title>\n" +
+                    "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n" +
+                    "\n" +
+                    "</head>\n" +
+                    "\n" +
+                    "<body style=\"margin: 0; padding: 0;\">\n" +
+                    "<table align=\"center\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\">\n" +
+                    "\n" +
+                    "    <tr>\n" +
+                    "        <td align=\"center\" bgcolor=\"#e7ebef\" style=\"padding: 40px 0 30px 0;\">\n" +
+                    "            <img src=\"https://www.maulogo.com/data/001/mau-logo-may-bay-dep-01.jpg\" alt=\"Creating Email Magic\" width=\"300\" height=\"230\" style=\"display: block;\"/>\n" +
+                    "        </td>\n" +
+                    "    </tr>\n" +
+                    "\n" +
+                    "    <tr>\n" +
+                    "        <td bgcolor=\"#ffffff\" style=\"padding: 40px 30px 40px 30px;\">\n" +
+                    "            <table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n" +
+                    "                <tr>\n" +
+                    "                    <td>\n" +
+                    "                        Xin chào quý khách "+ticketMailDto.getEmailBuyer()+" \n" +
+                    "                    </td>\n" +
+                    "                </tr>\n" +
+                    "                <tr>\n" +
+                    "                    <td style=\"padding: 20px 0 30px 0;\">\n" +
+                    "                        <p style=\"color: brown\">Hãng hàng không C1021G1Airline chúng tôi thông báo với quý khách,vế việc\n" +
+                    "                            khách hàng đã\n" +
+                    "                            đăng ký sử dụng dịch vụ của hãng hàng không chúng tôi</p>\n" +
+                    "                    </td>\n" +
+                    "                </tr>\n" +
+                    "                <tr>\n" +
+                    "                    <td>\n" +
+                    "                        <p>quý khách đă đăng ký thành công "+ticketMailDto.getNumTicket()+"  vé và tổng số tiền là "+moneyString+" VND </p>\n" +
+                    "                        <p>rất cảm ơn khách hàng đã tin tưởng và sư dụng dịch vụ của chúng tôi,rất mong trong tương lai\n" +
+                    "                            rất mong quý khách\n" +
+                    "                            vẩn tin tưởng sử dụng dịch vụ của chúng tôi</p>\n" +
+                    "                    </td>\n" +
+                    "                </tr>\n" +
+                    "            </table>\n" +
+                    "        </td>\n" +
+                    "    </tr>\n" +
+                    "    <tr>\n" +
+                    "        <td width=\"75%\">\n" +
+                    "            &reg; Someone, somewhere 2022<br/>\n" +
+                    "            Unsubscribe to this newsletter instantly\n" +
+                    "        </td>\n" +
+                    "\n" +
+                    "\n" +
+                    "    </tr>\n" +
+                    "</table>\n" +
+                    "</body>\n" +
+                    "</html>";
+//            helper.setText("Thành công", htmlEmail);
+            message.setContent(htmlEmail, "text/html; charset=utf-8");
+            helper.setTo(MyConstants.FRIEND_EMAIL);
+            helper.setSubject("C1021G1Airline thông báo đặt vé thành công");
+
+            this.emailSender.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
 
     //    SonNh lấy danh sách ticket by customer Id
     @GetMapping("/list/{id}")
-    public ResponseEntity<Page<Ticket>> listAllTicketListByCustomerId(@PathVariable Long id, @RequestParam(value = "page", defaultValue = "0") int page) {
+    public ResponseEntity<Page<Ticket>> listAllTicketListByCustomerId(@PathVariable Long id,
+                                                                      @RequestParam(value = "page", defaultValue = "0") int page) {
         Page<Ticket> ticketList = ticketService.findAllTicketsByCustomerIdPage(id, PageRequest.of(page, 5));
         if (ticketList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);//You many decide to return HttpStatus.NOT_FOUND
@@ -48,15 +250,14 @@ public class TicketController {
 
     //    SonNh lấy danh sách ticket by customer Id
     @GetMapping("/listHistory/{id}")
-    public ResponseEntity<Page<Ticket>> listHistoryTicketListByCustomerId(@PathVariable("id") Long id, @RequestParam(value = "page", defaultValue = "0") int page) {
+    public ResponseEntity<Page<Ticket>> listHistoryTicketListByCustomerId(@PathVariable("id") Long id,
+                                                                          @RequestParam(value = "page", defaultValue = "0") int page) {
         Page<Ticket> ticketList = ticketService.findHistoryTicketsByCustomerIdPage(id, PageRequest.of(page, 5));
         if (ticketList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);//You many decide to return HttpStatus.NOT_FOUND
         }
         return new ResponseEntity<>(ticketList, HttpStatus.OK);
     }
-
-
 
 
     //    SonNh lấy ticket by CodeTicket
@@ -71,7 +272,7 @@ public class TicketController {
         return new ResponseEntity<>(ticket, HttpStatus.OK);
     }
 
-//        SonNh pay ticket by ticket code
+    //        SonNh pay ticket by ticket code
     @PatchMapping(value = "/pay/{code}")
     public ResponseEntity<Ticket> payTicketByCode(@PathVariable("code") String codeTicket) {
         System.out.println("Fetching Ticket with id " + codeTicket);
@@ -84,7 +285,7 @@ public class TicketController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//        SonNh pay tickets ticket by ticket codes
+    //        SonNh pay tickets ticket by ticket codes
     @PatchMapping(value = "/pays/{codes}")
     public ResponseEntity<Ticket> payTicketByCodes(@PathVariable("codes") List<String> codeTicketList) {
         System.out.println("Fetching Ticket with id " + codeTicketList);
@@ -135,8 +336,6 @@ public class TicketController {
         ticketService.abortTicketByCodeTicket(codeTicket);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 
 
     @PutMapping(value = "/sendmail")
@@ -386,17 +585,45 @@ public class TicketController {
 
             helper.setSubject("Xác nhận thanh toán thành công vé máy bay");
 
+
             this.emailSender.send(message);
 
         } catch (MessagingException e) {
             e.printStackTrace();
         }
         return new ResponseEntity<>(HttpStatus.OK);
+
+
     }
 
+
+    @GetMapping("/getIdByEmail")
+    public ResponseEntity<?> getIdByEmail(@RequestBody TicketIdByEmail ticketIdByEmail) {
+        if (ticketIdByEmail.getRole().equals("ROLE_CUSTOMER")) {
+            Long idCustomer = ticketService.getIdCustomerEmailRole(ticketIdByEmail.getEmail());
+            if (idCustomer == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(idCustomer, HttpStatus.OK);
+
+
+        } else if (ticketIdByEmail.getRole().equals("ROLE_EMPLOYEE")) {
+            Long idEmployee = ticketService.getIdEmployeeByEmailRole(ticketIdByEmail.getEmail());
+            if (idEmployee == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(idEmployee, HttpStatus.OK);
+
+        }
+
+        return null;
+    }
+
+
     @GetMapping("/not-pagination")
-    public ResponseEntity<Page<TicketDto>> getAllTicketNotPagination(@RequestParam(defaultValue = "0") int page) {
-        Pageable pageable = PageRequest.of(page,10);
+    public ResponseEntity<Page<TicketDto>> getAllTicketNotPagination(
+            @RequestParam(defaultValue = "0") int page) {
+        Pageable pageable = PageRequest.of(page, 10);
         Page<TicketDto> ticketDtos = ticketService.getAllTicketDTONotPagination(pageable);
         if (ticketDtos.isEmpty()) {
 
@@ -407,7 +634,7 @@ public class TicketController {
 
     @GetMapping("/page")
     public ResponseEntity<Iterable<TicketDto>> getAllListTicket(@RequestParam(defaultValue = "0") int page) {
-        Pageable pageable = PageRequest.of(page,10);
+        Pageable pageable = PageRequest.of(page, 10);
 
         Page<TicketDto> ticketPage = this.ticketService.findAllTicket(pageable);
         if (ticketPage.isEmpty()) {
@@ -437,22 +664,23 @@ public class TicketController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<TicketDto>> findAllTicketSearch(@RequestParam(defaultValue = "", required = false) String keyword,
-                                                               @RequestParam(defaultValue = "", required = false) String option,
-                                                               @RequestParam(defaultValue = "0") int page) {
+    public ResponseEntity<Page<TicketDto>> findAllTicketSearch
+            (@RequestParam(defaultValue = "", required = false) String keyword,
+             @RequestParam(defaultValue = "", required = false) String option,
+             @RequestParam(defaultValue = "0") int page) {
         Page<TicketDto> ticketPage = null;
         switch (option) {
             case "buyer":
-                ticketPage = ticketService.ticketByBuyer(keyword,PageRequest.of(page,10));
+                ticketPage = ticketService.ticketByBuyer(keyword, PageRequest.of(page, 10));
                 break;
             case "toFlight":
-                ticketPage = ticketService.ticketToFlight(keyword,PageRequest.of(page,10));
+                ticketPage = ticketService.ticketToFlight(keyword, PageRequest.of(page, 10));
                 break;
             case "fromFlight":
-                ticketPage = ticketService.ticketFromFlight(keyword,PageRequest.of(page,10));
+                ticketPage = ticketService.ticketFromFlight(keyword, PageRequest.of(page, 10));
                 break;
             case "code":
-                ticketPage = ticketService.ticketCodeTicket(keyword,PageRequest.of(page,10));
+                ticketPage = ticketService.ticketCodeTicket(keyword, PageRequest.of(page, 10));
 
                 break;
         }
@@ -464,3 +692,4 @@ public class TicketController {
 
 
 }
+

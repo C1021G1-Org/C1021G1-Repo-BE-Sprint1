@@ -23,8 +23,8 @@ public class TicketHistory {
 
     private Boolean delFlagTicket;
 
-    private Integer pointTicket;
     private String idCard;
+    private Integer pointTicket;
 
     //ngay dat ve
     @Column(columnDefinition = "DATE")
@@ -49,22 +49,6 @@ public class TicketHistory {
     private Seat seat;
 
     public TicketHistory() {
-    }
-
-    public String getIdCard() {
-        return idCard;
-    }
-
-    public void setIdCard(String idCard) {
-        this.idCard = idCard;
-    }
-
-    public String getDateTicket() {
-        return dateTicket;
-    }
-
-    public void setDateTicket(String dateTicket) {
-        this.dateTicket = dateTicket;
     }
 
     public Long getId() {
@@ -177,5 +161,21 @@ public class TicketHistory {
 
     public void setSeat(Seat seat) {
         this.seat = seat;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    public String getDateTicket() {
+        return dateTicket;
+    }
+
+    public void setDateTicket(String dateTicket) {
+        this.dateTicket = dateTicket;
     }
 }

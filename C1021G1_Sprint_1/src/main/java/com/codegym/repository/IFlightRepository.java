@@ -1,4 +1,7 @@
 package com.codegym.repository;
 
-public interface IFlightRepository {
+import com.codegym.model.Flight;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface IFlightRepository extends JpaRepository<Flight,Long> {
 }

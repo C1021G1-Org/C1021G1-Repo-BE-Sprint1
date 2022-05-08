@@ -1,8 +1,10 @@
 package com.codegym.controller;
 
 import com.codegym.config.sercurity.JwtTokenUtil;
+import com.codegym.dto.CustomerDto;
 import com.codegym.model.*;
 import com.codegym.security.userprinciple.AccountPrinciple;
+import com.codegym.service.ICustomerService;
 import com.codegym.service.sercurity.impl.AccountServiceImpl;
 import com.codegym.service.sercurity.impl.RoleServiceImpl;
 import org.springframework.beans.BeanUtils;
@@ -44,10 +46,42 @@ public class SignInController {
     JwtTokenUtil jwtTokenUtil;
     @Autowired
     private JavaMailSender javaMailSender;
+
+    @Autowired
+    private ICustomerService customerService;
+//    @PostMapping(value = "api/signUp")
+//    public ResponseEntity<?> register(@Valid @RequestBody SignForm signForm) {
+////        new SignForm().validate(signForm, bindingResult);
+////        System.out.println(bindingResult.getAllErrors());
+//        System.out.println("sign up");
+//        if (accountService.existAccountByPhone(signForm.getPhone())) {
+//            return new ResponseEntity<>("duplicate phone", HttpStatus.BAD_REQUEST);
+//        }
+//        if (accountService.existAccountByIdCard(signForm.getIdCard())) {
+//            return new ResponseEntity<>("duplicate idCard", HttpStatus.BAD_REQUEST);
+//        }
+//        if (accountService.existAccountByEmail(signForm.getEmail())) {
+//            return new ResponseEntity<>("duplicate email", HttpStatus.BAD_REQUEST);
+//        }
+//        Account acc = new Account();
+//        BeanUtils.copyProperties(signForm, acc);
+//        acc.setPassword(passwordEncoder.encode(signForm.getPassword()));
+//        Set<Role> roleSet = new HashSet<>();
+//        roleSet.add(new Role(3L, RoleName.ROLE_CUSTOMER));
+//        if(acc.getEmail().equals("admin@gmail.com")){
+//            roleSet.add(new Role(2L, RoleName.ROLE_EMPLOYEE));
+//            roleSet.add(new Role(1L, RoleName.ROLE_ADMIN));
+//        }
+//        if(acc.getEmail().equals("employee@gmail.com")){
+//            roleSet.add(new Role(2L, RoleName.ROLE_EMPLOYEE));
+//        }
+//        acc.setRoles(roleSet);
+//        accountService.save(acc);
+//        return new ResponseEntity<>(acc, HttpStatus.CREATED);
+//    }
     @PostMapping(value = "api/signUp")
     public ResponseEntity<?> register(@Valid @RequestBody SignForm signForm) {
-//        new SignForm().validate(signForm, bindingResult);
-//        System.out.println(bindingResult.getAllErrors());
+        CustomerDto customerDto = new CustomerDto();
         System.out.println("sign up");
         if (accountService.existAccountByPhone(signForm.getPhone())) {
             return new ResponseEntity<>("duplicate phone", HttpStatus.BAD_REQUEST);
@@ -71,6 +105,16 @@ public class SignInController {
             roleSet.add(new Role(2L, RoleName.ROLE_EMPLOYEE));
         }
         acc.setRoles(roleSet);
+        customerDto.setNameCustomer(acc.getFullName());
+        customerDto.setPhoneCustomer(acc.getPhone());
+        customerDto.setBirthdayCustomer(acc.getBirthday());
+        customerDto.setGenderCustomer(acc.getGender());
+        customerDto.setEmailCustomer(acc.getEmail());
+        customerDto.setIdCardCustomer(acc.getIdCard());
+        customerDto.setAddressCustomer(acc.getAddress());
+        customerDto.setCustomerType(4L);
+        customerDto.setCountries(acc.getCountry().getId());
+        customerService.save(customerDto);
         accountService.save(acc);
         return new ResponseEntity<>(acc, HttpStatus.CREATED);
     }

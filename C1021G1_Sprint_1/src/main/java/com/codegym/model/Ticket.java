@@ -42,11 +42,7 @@ public class Ticket {
     @Column(columnDefinition = "DATE")
     // Ngày sinh của người mua vé
     private String birthdayTicket;
-              // Người mua vé
-    private String buyer;
 
-          // Ngày sinh của người mua vé
-    private String dayOfBirth;
 
     @ManyToOne
     @JoinColumn(name = "id_employee", referencedColumnName = "id")
@@ -57,16 +53,36 @@ public class Ticket {
     private Customer customer;
 
 
-    @ManyToOne
-    @JoinColumn(name = "id_flight", referencedColumnName = "id")
-    private Flight flightTicket;
-
     @OneToOne
     @JoinColumn(name = "id_seat", referencedColumnName = "id")
     private Seat seat;
 
 
     public Ticket() {
+    }
+
+    public String getBuyerTicket() {
+        return buyerTicket;
+    }
+
+    public void setBuyerTicket(String buyerTicket) {
+        this.buyerTicket = buyerTicket;
+    }
+
+    public String getBirthdayTicket() {
+        return birthdayTicket;
+    }
+
+    public void setBirthdayTicket(String birthdayTicket) {
+        this.birthdayTicket = birthdayTicket;
+    }
+
+    public Seat getSeat() {
+        return seat;
+    }
+
+    public void setSeat(Seat seat) {
+        this.seat = seat;
     }
 
     public String getIdCard() {
@@ -157,13 +173,6 @@ public class Ticket {
         this.pointTicket = pointTicket;
     }
 
-    public String getBuyer() {
-        return buyer;
-    }
-
-    public void setBuyer(String buyer) {
-        this.buyer = buyer;
-    }
 
     public Employee getEmployee() {
         return employee;
@@ -181,19 +190,5 @@ public class Ticket {
         this.customer = customer;
     }
 
-    public Flight getFlightTicket() {
-        return flightTicket;
-    }
 
-    public void setFlightTicket(Flight flightTicket) {
-        this.flightTicket = flightTicket;
-    }
-
-    public String getDayOfBirth() {
-        return dayOfBirth;
-    }
-
-    public void setDayOfBirth(String dayOfBirth) {
-        this.dayOfBirth = dayOfBirth;
-    }
 }

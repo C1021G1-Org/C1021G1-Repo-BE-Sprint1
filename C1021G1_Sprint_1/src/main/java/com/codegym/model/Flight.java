@@ -27,10 +27,6 @@ public class Flight {
     @OneToMany(mappedBy = "flightSeat")
     private Set<Seat> seats;
 
-    @JsonBackReference(value = "flight_ticket")
-    @OneToMany(mappedBy = "flightTicket")
-    private Set<Ticket> tickets;
-
     @ManyToOne
     @JoinColumn(name = "id_airline_type", referencedColumnName = "id")
     private AirlineType airlineType;
@@ -102,13 +98,7 @@ public class Flight {
         this.seats = seats;
     }
 
-    public Set<Ticket> getTickets() {
-        return tickets;
-    }
 
-    public void setTickets(Set<Ticket> tickets) {
-        this.tickets = tickets;
-    }
 
     public AirlineType getAirlineType() {
         return airlineType;

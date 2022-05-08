@@ -3,33 +3,21 @@ package com.codegym.controller;
 
 import com.codegym.comon.Security_Email;
 import com.codegym.model.Ticket;
-import com.codegym.service.ITicketService;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
-import com.codegym.dto.TicketDto;
-import com.codegym.model.Ticket;
-import com.codegym.service.ITicketService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.codegym.dto.TicketDto;
+import org.springframework.data.domain.*;
 
 @CrossOrigin(origins = "*")
 @RestController

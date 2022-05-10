@@ -57,7 +57,7 @@ public class CustomerServiceImpl implements ICustomerService {
                 customerDto.getAddressCustomer(),
                 customerDto.getCustomerType(),
                 customerDto.getCountries(),
-                false);
+                true);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class CustomerServiceImpl implements ICustomerService {
                 customerDto.getAddressCustomer(),
                 customerDto.getCustomerType(),
                 customerDto.getCountries(),
-                false,
+                true,
                 customerDto.getId());
     }
 

@@ -1,18 +1,13 @@
 package com.codegym.controller;
 
 import com.codegym.dto.CustomerDto;
-
 import com.codegym.dto.CustomerDtoCheck;
-
 import com.codegym.dto.CustomerPersonalInfoDto;
-
 import com.codegym.model.Customer;
 import com.codegym.service.ICustomerService;
 import com.codegym.model.CustomerType;
 import com.codegym.service.ICustomerTypeService;
-
 import org.springframework.beans.BeanUtils;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,16 +19,15 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-
 @RestController
 @CrossOrigin("http://localhost:4200")
-@RequestMapping(value = "api/customer")
+@RequestMapping(value = "/api/customer")
 public class CustomerController {
 
     @Autowired
@@ -49,6 +43,19 @@ public class CustomerController {
 //        if (bindingResult.hasErrors()) {
 //            return new ResponseEntity<>(bindingResult.getAllErrors().get(0).getDefaultMessage(), HttpStatus.NOT_ACCEPTABLE);
 //        }
+        char[] charArray = customerDto.getNameCustomer().toCharArray();
+        boolean foundSpace = true;
+        for (int i = 0; i < charArray.length; i++) {
+            if (Character.isLetter(charArray[i])) {
+                if (foundSpace) {
+                    charArray[i] = Character.toUpperCase(charArray[i]);
+                    foundSpace = false;
+                }
+            } else {
+                foundSpace = true;
+            }
+        }
+        customerDto.setNameCustomer(String.valueOf(charArray));
         iCustomerService.save(customerDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -121,8 +128,6 @@ public class CustomerController {
     }
 
 
-
-
     /*LongLT hiển thị list phân loại khách hàng */
     @GetMapping("/customerType")
 
@@ -137,10 +142,6 @@ public class CustomerController {
 
 
     //*LongLT* Triển khai phương thức xóa
-
-
-
-
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable Long id) {
         Customer customers = iCustomerService.findById(id);
@@ -153,12 +154,10 @@ public class CustomerController {
 
 
     //*LongLT* Triển khai phương thức tìm kiếm
-
     @GetMapping("/search")
     public ResponseEntity<Page<Customer>> searchCustomer(@RequestParam(defaultValue = "", required = false) String keyword,
                                                          @RequestParam(defaultValue = "", required = false) String option,
                                                          @RequestParam(defaultValue = "0") int page) {
-
         Page<Customer> customerList = null;
         switch (option) {
             case "name":
@@ -199,11 +198,8 @@ public class CustomerController {
             return new ResponseEntity<>(customer, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
         }
-
     }
-
 
     /* ThangDBX cập nhật thông tin bản thân khách hàng  */
     @PatchMapping("edit/{id}")
@@ -211,7 +207,6 @@ public class CustomerController {
                                                         @Validated
                                                         @RequestBody CustomerPersonalInfoDto customerDto,
                                                         BindingResult bindingResult) {
-
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.NOT_FOUND);
         } else {
@@ -220,7 +215,6 @@ public class CustomerController {
             iCustomerService.updatePersonalInfo(customer);
             return new ResponseEntity<>(HttpStatus.OK);
         }
-
     }
 
 

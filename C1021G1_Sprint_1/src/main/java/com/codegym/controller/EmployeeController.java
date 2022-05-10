@@ -1,7 +1,6 @@
 package com.codegym.controller;
 import com.codegym.model.Employee;
 import com.codegym.model.EmployeeType;
-import com.codegym.repository.IEmployeeTypeRepository;
 import com.codegym.service.IEmployeeService;
 import com.codegym.service.IEmployeeTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/employee")
+@RequestMapping("/api/employee")
 public class EmployeeController {
 
     @Autowired
@@ -39,7 +38,7 @@ public class EmployeeController {
     public ResponseEntity<Page<Employee>> getAllEmployeeNotPagination(){
         Page<Employee> employees = iEmployeeService.findAllEmployee(Pageable.unpaged());
         if (employees.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
